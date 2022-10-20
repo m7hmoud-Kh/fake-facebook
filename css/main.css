@@ -11,6 +11,121 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Poppins", sans-serif;
-  background-color: var(--dark-blue);
+  font-family: "Poppins", sans-serif !important;
+  background-color: var(--dark-blue) !important;
+  color: var(--grey-color) !important;
+  padding-top: 80px !important;
 }
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px !important;
+  height: 80px !important;
+  background: var(--medium-blue);
+}
+header > div {
+  width: calc(100% / 3);
+}
+header .logo {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: var(--light-blue);
+}
+header .search-bar input {
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px !important;
+  font-size: 1.2rem;
+  background: var(--dark-blue);
+  border: none;
+  outline: none;
+  color: var(--grey-color);
+  transition: all 0.3s ease;
+}
+header .search-bar input:focus {
+  transform: scale(1.05);
+  box-shadow: 1px 1px 1px 1px var(--dark-blue);
+}
+header .navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 40px;
+  gap: 50px;
+}
+header .navigation > div {
+  background: var(--dark-blue);
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+header .navigation > div:hover {
+  background: #0c141c92;
+  transform: scale(1.3);
+}
+header .navigation .unseen {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: crimson;
+  right: 0;
+}
+
+/*
+    - Start Profile
+ */
+
+/* Start cover & profile img */
+.user-info {
+  position: relative;
+}
+.user-info .cover {
+  width: 100%;
+}
+.user-info .cover img {
+  width: 100%;
+  max-height: 400px;
+}
+.user-info .user-data {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  position: absolute;
+  bottom: -180px;
+  width: 100%;
+}
+.user-info .user-data .btn {
+  margin-left: auto;
+  width: 270px;
+  padding: 10px;
+  
+}
+
+.user-data .profile-img {
+  width: 250px;
+  border-radius: 50%;
+  padding: 5px;
+  background-color: #333;
+}
+.user-data .profile-img img {
+  border-radius: 50%;
+}
+.user-data .user-details .friends {
+  font-size: 1.2rem;
+}
+
+/*
+    - End Profile
+ */

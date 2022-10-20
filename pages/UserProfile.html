@@ -4,8 +4,54 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/all.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <title>Profile</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div class="logo">Facebook</div>
+      <div class="search-bar">
+        <input type="text" placeholder="search" />
+      </div>
+      <div class="navigation">
+        <div class="settings">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+        <div class="messenger">
+          <i class="fa-brands fa-facebook-messenger"></i>
+          <div class="unseen"></div>
+        </div>
+        <div class="notification">
+          <i class="fa-solid fa-bell"></i>
+          <div class="unseen"></div>
+        </div>
+        <div class="profile">
+          <i class="fa-solid fa-user"></i>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="profile">
+        <div class="user-info">
+          <div class="cover">
+            <img src="../images/cover.jpg" alt="" class="img-fluid" />
+          </div>
+          <div class="user-data">
+            <div class="profile-img">
+              <img src="../images/profile.jpg" class="img-fluid" alt="" />
+            </div>
+            <div class="user-details">
+              <h2>Mohamed Sayed Osman</h2>
+              <p class="friends text-light">3,180 friend</p>
+            </div>
+            <div class="btn btn-primary">Update Profile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/all.min.js"></script>
+  </body>
 </html>
