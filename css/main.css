@@ -2,8 +2,8 @@
 :root {
   --grey-color: #d8d8d8;
   --light-blue: #0c88ef;
-  --medium-blue: #0d1d3e;
-  --dark-blue: #0c141c;
+  --medium-blue: #0d1d2d;
+  --dark-blue: #0c151d;
 }
 * {
   margin: 0;
@@ -16,6 +16,26 @@ body {
   color: var(--grey-color) !important;
   padding-top: 80px !important;
 }
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.764);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--light-blue);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--medium-blue);
+}
+@media (max-width: 992px) {
+  body {
+    padding-bottom: 40px;
+  }
+}
 header {
   position: fixed;
   top: 0;
@@ -26,6 +46,7 @@ header {
   padding: 20px !important;
   height: 80px !important;
   background: var(--medium-blue);
+  z-index: 100;
 }
 header > div {
   width: calc(100% / 3);
@@ -55,13 +76,13 @@ header .navigation {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 40px;
-  gap: 50px;
+  padding-right: 20px;
+  gap: 20px;
 }
 header .navigation > div {
   background: var(--dark-blue);
-  width: 45px;
-  height: 45px;
+  min-width: 45px;
+  min-height: 45px;
   font-size: 1.2rem;
   display: grid;
   place-content: center;
@@ -83,49 +104,25 @@ header .navigation .unseen {
   right: 0;
 }
 
-/*
-    - Start Profile
- */
+/*Start Footer nav*/
 
-/* Start cover & profile img */
-.user-info {
-  position: relative;
-}
-.user-info .cover {
+nav.footer-nav {
+  position: fixed;
+  bottom: 0;
   width: 100%;
-}
-.user-info .cover img {
-  width: 100%;
-  max-height: 400px;
-}
-.user-info .user-data {
   display: flex;
-  gap: 20px;
+  justify-content: space-around;
   align-items: center;
-  position: absolute;
-  bottom: -180px;
-  width: 100%;
+  background-color: var(--dark-blue);
+  padding: 10px 20px;
+  box-shadow: -1px -1px 1px 1px #333;
 }
-.user-info .user-data .btn {
-  margin-left: auto;
-  width: 270px;
-  padding: 10px;
-  
+nav.footer-nav > div {
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
 }
-
-.user-data .profile-img {
-  width: 250px;
-  border-radius: 50%;
-  padding: 5px;
-  background-color: #333;
+nav.footer-nav > div:hover {
+  transform: scale(1.5);
 }
-.user-data .profile-img img {
-  border-radius: 50%;
-}
-.user-data .user-details .friends {
-  font-size: 1.2rem;
-}
-
-/*
-    - End Profile
- */
+/*End Footer nav*/
