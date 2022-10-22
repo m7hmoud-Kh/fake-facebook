@@ -27,10 +27,18 @@ body{
     margin: 0 20px;
 }
 
-.container .forms{
+.container .login-form{
     display: flex;
     align-items: center;
     height: 440px;
+    width: 200%;
+    transition: height 0.2s ease;
+}
+
+.container .signup-form{
+    display: flex;
+    align-items: center;
+    height: 700px;
     width: 200%;
     transition: height 0.2s ease;
 }
@@ -40,21 +48,6 @@ body{
     padding: 30px;
     background-color: #0d1d2e ;
     transition: margin-left 0.18s ease;
-}
-
-.container.active .login{
-    margin-left: -50%;
-    opacity: 0;
-    transition: margin-left 0.18s ease, opacity 0.15s ease;
-}
-
-.container.active .signup{
-    opacity: 1;
-    transition: opacity 0.2s ease;
-}
-
-.container.active .forms{
-    height: 700px;
 }
 
 .container .form .title{
@@ -84,10 +77,6 @@ body{
     transition: all 0.2s ease;
 }
 
-.input-field input:is(:focus, :valid){
-    border-bottom-color: #d8d8d8;
-}
-
 .input-field i{
     position: absolute;
     top: 50%;
@@ -95,10 +84,6 @@ body{
     color: #d8d8d8;
     font-size: 23px;
     transition: all 0.2s ease;
-}
-
-.input-field input:is(:focus, :valid) ~ i{
-    color: #d8d8d8;
 }
 
 .input-field i.icon{
