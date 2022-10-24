@@ -126,3 +126,17 @@ nav.footer-nav > div:hover {
   transform: scale(1.5);
 }
 /*End Footer nav*/
+.has-scrollbar {
+  padding-bottom: 5px;
+}
+
+.has-scrollbar::-webkit-scrollbar {
+  width: 12px; /* for vertical scroll */
+  height: 12px; /* for horizontal scroll */
+}
+
+.has-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 20px;
+}
