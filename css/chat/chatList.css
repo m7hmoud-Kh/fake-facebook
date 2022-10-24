@@ -2,8 +2,30 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #777;
   letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
 }
-
+@media (max-width: 767px) {
+  .chat-list .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.chat-list .header input[type="text"] {
+  background: var(--medium-blue);
+  padding: 10px 15px;
+  width: 420px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+.chat-list .header input[type="text"]:focus {
+  outline: none;
+  transform: scale(1.05);
+}
 .list-content .chat-box {
   display: flex;
   gap: 20px;
@@ -32,4 +54,12 @@
 }
 .chat-box .message-preview {
   color: #999;
+}
+.list-content .no-results {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  color: #777;
+  text-align: center;
+  margin-top: 20vh;
 }
