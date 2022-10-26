@@ -127,7 +127,7 @@ body{
 }
 
 .form .button{
-    margin-top: 20px;
+    margin-top: 35px;
 }
 
 .form .button input{
@@ -147,10 +147,11 @@ body{
 }
 
 .form .login-signup{
-    margin-top: 15px;
+    margin-top: 30px;
     text-align: center;
 }
 
-.birthday ,.birthday-content , .gender, .gender-content{
+.birthday{
     padding-top: 10px;
+    padding-bottom: 10px;
 }
