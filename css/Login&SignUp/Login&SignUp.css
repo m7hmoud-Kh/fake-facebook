@@ -151,19 +151,6 @@ body{
     text-align: center;
 }
 
-.birthday{
+.birthday ,.birthday-content , .gender, .gender-content{
     padding-top: 10px;
-}
-
-.birthday-content{
-    padding-top: 10px;
-}
-
-.gender{
-    padding-top: 10px;
-}
-
-.gender-content{
-    padding-top: 10px;
-
 }
