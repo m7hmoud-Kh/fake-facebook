@@ -14,10 +14,15 @@ body a {
   gap: 20px;
   /* width: 97%; */
 }
+
 .main .left {
   flex: 1;
   min-height: calc(100vh - 100px);
+  background-color: var(--dark-blue);
+}
+.main .left .bg-color{
   background-color: var(--medium-blue);
+  padding-bottom: 15px;
 }
 .main .left .userInfo {
   display: block;
@@ -39,23 +44,24 @@ body a {
 .main .left .menu {
   width: 90%;
 }
-.main .left .menu .box {
+.main .left .menu .box a{
   width: 70%;
   display: flex;
   align-items: center;
   padding-left: 20px;
   margin: 25px 0;
   cursor: pointer;
+  color: var(--grey-color);
   transition: var(--transition);
 }
-.main .left .menu .box:hover {
+.main .left .menu .box a:hover {
   margin-left: 10px;
 }
-.main .left .menu .box svg {
+.main .left .menu .box a svg {
   font-size: 22px;
   margin-right: 20px;
 }
-.main .left .menu .box h3 {
+.main .left .menu .box a h3 {
   font-size: 16px;
 }
 @media (max-width: 1500px) {
@@ -64,6 +70,11 @@ body a {
   }
   .main .left .userInfo h2 {
     font-size: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .main .left {
+    display: none;
   }
 }
 
@@ -425,6 +436,9 @@ body a {
 
 .main .right {
   flex: 1;
+  background-color: var(--dark-blue);
+}
+.main .right .request{
   background-color: var(--medium-blue);
   padding: 10px;
 }
@@ -433,6 +447,7 @@ body a {
   padding: 20px 0;
   align-items: center;
   justify-content: space-between;
+
 }
 .main .right .requests-num span {
   font-size: 20px;
@@ -482,7 +497,6 @@ body a {
   margin-right: 10px;
   border-radius: 4px;
   color: var(--grey-color);
-  background-color: var(--Dark-color);
   transition: var(--transition);
 }
 .main .right .new-requests .actions a:first-of-type,
@@ -491,6 +505,8 @@ body a {
 }
 .main .right .birthdays {
   margin-top: 20px;
+  background-color: var(--medium-blue);
+  padding: 10px;
 }
 .main .right .birthdays h4,
 .main .right .friend-active h4 {
@@ -503,6 +519,12 @@ body a {
   font-size: 25px;
   margin-right: 15px;
   color: crimson;
+}
+.main .right .friend-active
+{
+  margin-top: 20px;
+  background-color: var(--medium-blue);
+  padding: 10px;
 }
 .main .right .friend-active .friend {
   display: flex;
@@ -534,16 +556,11 @@ body a {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: var(--dark-blue);
   width: 80%;
   border-radius: 20px;
   text-align: center;
   font-size: 16px;
-  color: var(--grey-color);
   transition: var(--transition);
-}
-.main .right a:hover {
-  background-color: var(--light-blue);
 }
 @media (max-width: 991px) {
   .main .right {
@@ -553,39 +570,7 @@ body a {
     height: 400px;
   }
 }
-@media (max-width: 767px) {
-  .main {
-    position: relative;
-  }
-  .main .left {
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    bottom: -90px;
-  }
-  .main .left .userInfo {
-    display: none;
-  }
-  .main .left .menu {
-    display: flex;
-  }
-  .main .left .menu .box {
-    display: none;
-    position: fixed;
-  }
-  .main .left .menu .box:first-of-type,
-  .main .left .menu .box:nth-child(2),
-  .main .left .menu .box:nth-child(5) {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
-  .main .left .menu .box:hover {
-    color: var(--light-blue);
-    margin-left: 0;
-  }
-}
+
 @media (max-width: 520px) {
   .main .mid .posts .image img {
     height: 200px;
