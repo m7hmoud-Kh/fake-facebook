@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="../css/all.min.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/Home/home.css" />
-    <link rel="stylesheet" href="../css/chat/chat.css" />
-    <title>Messenger</title>
+    <link rel="stylesheet" href="../css/settings/settings.css" />
+    <title>Settings | facebook</title>
   </head>
   <body>
+    <!--Main App Header -->
     <header>
       <div class="logo">Facebook</div>
       <div class="search-bar">
@@ -173,209 +173,69 @@
         </div>
       </div>
     </header>
-    <div class="main d-flex">
-      <div class="left">
-        <div class="bg-color">
-          <a class="userInfo">
-            <img src="images/Home/user.jpg" alt="" />
-            <h2>Byiringiro Saad</h2>
-          </a>
-          <div class="menu">
-            <div class="box">
-              <a href="">
-                <i class="fa-sharp fa-solid fa-house"></i>
-                <h3>Home</h3>
-              </a>
-            </div>
-            <div class="box">
-              <a href="">
-                <i class="fa-solid fa-user-group"></i>
-                <h3>Friends</h3>
-              </a>
-            </div>
-            <div class="box">
-              <a href="">
-                <i class="fa-solid fa-users"></i>
-                <h3>groups</h3>
-              </a>
-            </div>
-            <div class="box">
-              <a href="">
-                <i class="fa-solid fa-tv"></i>
-                <h3>Watch</h3>
-              </a>
-            </div>
-            <div class="box">
-              <a href="">
-                <i class="fa-solid fa-flag"></i>
-                <h3>Pages</h3>
-              </a>
-            </div>
-            <div class="box">
-              <a href="">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <h3>Market</h3>
-              </a>
-            </div>
-            <div class="box">
-              <a href="">
-                <i class="fa fa-puzzle-piece"></i>
-                <h3>Gaming</h3>
-              </a>
-            </div>
-          </div>
+    <!--Settings page main content-->
+    <div class="container">
+      <div class="setting-header d-flex align-items-center gap-3">
+        <div class="back-button">
+          <i class="fa-solid fa-angle-left"></i>
         </div>
+        <h1 class="text-light mb-5 mt-5">Settings</h1>
       </div>
-      <div class="mid">
-        <div class="chat">
-          <div class="chat-header">
-            <div class="d-flex align-items-center gap-5">
-              <div class="back-button">
-                <i class="fa-solid fa-angle-left"></i>
-              </div>
-              <div class="texter d-flex align-items-center gap-4">
-                <div class="img" style="width: 80px">
-                  <img src="../images/profile.jpg" class="img-fluid" alt="" />
-                </div>
-                <div class="name"><h3>Mohamed Sayed</h3></div>
-              </div>
-            </div>
 
+      <section id="settings-section">
+        <form>
+          <h4>Change your profile picture</h4>
+          <div class="change-picture mb-5">
+            <div class="img">
+              <img src="../../images/profile.jpg" class="img-fluid" alt="" />
+            </div>
             <div class="actions">
-              <div class="delete" title="delete chat">
-                <i class="fa-solid fa-trash"></i>
-              </div>
+              <button class="btn btn-danger">Delete</button>
+              <label class="btn btn-primary" for="input-profile-Image"
+                >Upload</label
+              >
+              <input type="file" hidden id="input-profile-Image" />
             </div>
           </div>
-          <div class="chat-content has-scrollbar">
-            <div class="message-box him">
-              <p>Hello Mohamed, I Love your templates</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:00 pm</span>
+          <h4>Change your Cover</h4>
+          <div class="change-cover mb-5">
+            <div class="img cover-img">
+              <img src="../../images/cover.jpg" class="img-fluid" alt="" />
             </div>
-            <div class="message-box him">
-              <p>How much does it cost</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:02 pm</span>
-            </div>
-            <div class="message-box me">
-              <p>شوفلك بحة وسبحها</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:22 pm</span>
-            </div>
-            <div class="message-box him">
-              <p>Hello Mohamed, I Love your templates</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:00 pm</span>
-            </div>
-            <div class="message-box him">
-              <p>How much does it cost</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:02 pm</span>
-            </div>
-            <div class="message-box me">
-              <p>شوفلك بحة وسبحها</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:22 pm</span>
-            </div>
-            <div class="message-box him">
-              <p>Hello Mohamed, I Love your templates</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:00 pm</span>
-            </div>
-            <div class="message-box him">
-              <p>How much does it cost</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:02 pm</span>
-            </div>
-            <div class="message-box me">
-              <p>شوفلك بحة وسبحها</p>
-              <br />
-              <span class="message-time text-muted" dir="ltr">4:22 pm</span>
-            </div>
-          </div>
-          <div class="chat-message-input">
-            <input
-              type="text"
-              class="send-messge"
-              placeholder="type your message ..."
-            />
-            <button class="send">
-              <i class="fa-brands fa-atlassian"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="request">
-          <div class="requests-num">
-            <span>Friend requests</span>
-            <span>30</span>
-          </div>
-          <div class="new-requests">
-            <div class="rquest-info">
-              <img src="images/Home/user.jpg" alt="" />
-              <h3>
-                Paula Mora
-                <span>12 mutual friends</span>
-              </h3>
-            </div>
-            <div class="time">4h</div>
             <div class="actions">
-              <a href="">Confirm </a>
-              <a href="">Delete</a>
+              <button class="btn btn-danger">Delete</button>
+              <label class="btn btn-primary" for="input-cover-Image"
+                >Upload</label
+              >
+              <input type="file" hidden id="input-cover-Image" />
             </div>
           </div>
-        </div>
-        <div class="birthdays">
-          <h4>Birthdays</h4>
-          <div class="friend-birthday">
-            <i class="fa-solid fa-gift"></i>
-            <p>Mr Jones and 7 others have <br />birthdays today.</p>
+          <h4>Change Your account name</h4>
+          <div class="change-name mb-5">
+            <input type="text" value="Mohamed El-Sayed" />
           </div>
-        </div>
-        <div class="friend-active">
-          <h4>Active</h4>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Corina McCoy</h5>
+          <h4>Change your email address</h4>
+          <div class="change-email mb-5">
+            <input type="email" value="mohamed@gmail.com" />
           </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>James Hall</h5>
+          <h4>Change your password</h4>
+          <div class="change-password mb-5">
+            <label class="mb-2">Enter Your Current Password :</label>
+            <input type="password" class="mb-3" />
+            <label class="mb-2">Enter Your New Password :</label>
+            <input type="password" class="mb-3" />
+            <label class="mb-2">Confirm Your New Password :</label>
+            <input type="password" class="mb-3" />
           </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Rhonda Rhodws</h5>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Kenneth Allen</h5>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Stephanie Nicol</h5>
-          </div>
-          <a href="" class="btn btn-primary">See more</a>
-        </div>
-      </div>
+          <footer class="text-center mb-5">
+            <button class="btn btn-success me-2">Save Changes</button>
+            <button class="btn btn-warning">Delete Account</button>
+          </footer>
+        </form>
+      </section>
     </div>
-   <nav class="footer-nav d-lg-none d-flex">
+    <!--Mobile Navigation Bar-->
+    <nav class="footer-nav d-lg-none d-flex">
       <div class="home">
         <a href="../index.html"><i class="fa-solid fa-home"></i></a>
       </div>
@@ -391,7 +251,6 @@
     </nav>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/all.min.js"></script>
-    <script src="../js/chat/chatList.js"></script>
     <script src="../js/main.js"></script>
   </body>
 </html>
