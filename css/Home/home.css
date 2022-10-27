@@ -82,6 +82,7 @@ body a {
   flex: 3;
   background-color: var(--dark-blue);
   position: relative;
+  margin-top: 10px;
 }
 .main .mid .status {
   position: relative;
@@ -437,6 +438,7 @@ body a {
 .main .right {
   flex: 1;
   background-color: var(--dark-blue);
+  margin-top: 10px ;
 }
 .main .right .request{
   background-color: var(--medium-blue);
