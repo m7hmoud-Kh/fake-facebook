@@ -528,14 +528,42 @@ body a {
   background-color: var(--medium-blue);
   padding: 10px;
 }
-.main .right .friend-active .friend {
+.main .right .friend-active .friends
+{
+  overflow-y: scroll;
+  max-height: 600px;
+  margin-top:20px;
+
+}
+.main .right .friend-active .friend
+{
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  margin: 10px 0;
+  margin: 20px 0;
+  position: relative;
+}
+.main .right .friend-active .friend .action
+{
+  width: 97%;
+  position: absolute;
+  background-color: var(--dark-blue);
+  padding: 20px 5px;
+  left: 0;
+  bottom: -80px;
+  border-radius: 5px;
+  z-index: 10;
+  display: none !important;
+  transition: display var(--transition);
+}
+.main .right .friend-active .friend:hover .action
+{
+  display: flex !important;
 }
 .main .right .friend-active .friend .image {
   position: relative;
 }
+
 .main .right .friend-active img {
   width: 40px;
   height: 40px;

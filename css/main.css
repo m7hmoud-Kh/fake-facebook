@@ -57,7 +57,7 @@ header .logo {
   letter-spacing: 3px;
   color: var(--light-blue);
 }
-header .search-bar input {
+.search-bar input {
   width: 100%;
   border-radius: 20px;
   padding: 10px !important;
@@ -68,7 +68,7 @@ header .search-bar input {
   color: var(--grey-color);
   transition: all 0.3s ease;
 }
-header .search-bar input:focus {
+.search-bar input:focus {
   transform: scale(1.05);
   box-shadow: 1px 1px 1px 1px var(--dark-blue);
 }
