@@ -38,7 +38,7 @@ body{
 .container .signup-form{
     display: flex;
     align-items: center;
-    height: 700px;
+    height: 100vh;
     width: 200%;
     transition: height 0.2s ease;
 }
