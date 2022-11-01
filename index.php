@@ -3,6 +3,33 @@ session_start();
 if (empty($_SESSION)) {
   header('location: login.php');
 } else {
+  include_once './controllers/PostController.php';
+  include_once './models/Post.php';
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $data = $_POST;
+      $Files = $_FILES['image']['name'] ?? '';
+      $postController  = new PostController();
+      $arrError  = $postController->validatePost($data, $Files);
+      if (!empty($arrError)) {
+
+        if (!empty($Files)) {
+          $ftemp = $_FILES["image"]["tmp_name"];
+          $fname = $_FILES['image']['name'];
+          $new_image = $postController->uploadImage($fname, $ftemp);
+        }
+
+        // create Post
+        $post = new Post();
+        $data['image'] = $new_image;
+        $post->create($data);
+
+      } else {
+        var_dump($arrError);
+      }
+
+      die();
+  }
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,246 +58,45 @@ if (empty($_SESSION)) {
 </head>
 
 <body>
-  <header>
-    <div class="logo">Facebook</div>
-    <div class="search-bar">
-      <input type="text" placeholder="search" />
-    </div>
-    <div class="navigation d-lg-flex d-none position-relative">
-      <div class="settings">
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="messenger">
-        <i class="fa-brands fa-facebook-messenger"></i>
-        <div class="unseen"></div>
-      </div>
-      <div class="notification">
-        <i class="fa-solid fa-bell"></i>
-        <div class="unseen"></div>
-      </div>
-      <div class="profile">
-        <i class="fa-solid fa-user"></i>
-      </div>
-      <div class="notifications has-scrollbar">
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="../assets/images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="load-more text-center">
-          <p>Load More ....</p>
-        </div>
-      </div>
-      <div class="setting-popup">
-        <ul class="list-unstyled">
-          <a href="#">
-            <li>Settings</li>
-          </a>
-          <a href="logout.php">
-            <li>Log out</li>
-          </a>
-        </ul>
-      </div>
-      <div class="messenger-popup has-scrollbar">
-        <a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a>
-        <a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a><a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a><a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a>
-        <div class="load-more text-center">
-          <p>Load More ....</p>
-        </div>
-      </div>
-      <div class="profile-popup">
-        <ul class="list-unstyled">
-          <a href="#">
-            <li>Profile</li>
-          </a>
-          <a href="#">
-            <li>Friend Requests</li>
-          </a>
-        </ul>
-      </div>
-    </div>
-  </header>
+
+
+  <!-- header include -->
+  <?php
+      include_once './include/header.php';
+    ?>
+
   <div class="main d-flex">
-    <div class="left">
-      <div class="bg-color">
-        <a class="userInfo">
-          <img src="images/Home/user.jpg" alt="" />
-          <h2>Byiringiro Saad</h2>
-        </a>
-        <div class="menu">
-          <div class="box">
-            <a href="">
-              <i class="fa-sharp fa-solid fa-house"></i>
-              <h3>Home</h3>
-            </a>
-          </div>
-          <div class="box">
-            <a href="">
-              <i class="fa-solid fa-user-group"></i>
-              <h3>Friends</h3>
-            </a>
-          </div>
-          <div class="box">
-            <a href="">
-              <i class="fa-solid fa-users"></i>
-              <h3>groups</h3>
-            </a>
-          </div>
-          <div class="box">
-            <a href="">
-              <i class="fa-solid fa-tv"></i>
-              <h3>Watch</h3>
-            </a>
-          </div>
-          <div class="box">
-            <a href="">
-              <i class="fa-solid fa-flag"></i>
-              <h3>Pages</h3>
-            </a>
-          </div>
-          <div class="box">
-            <a href="">
-              <i class="fa-solid fa-cart-shopping"></i>
-              <h3>Market</h3>
-            </a>
-          </div>
-          <div class="box">
-            <a href="">
-              <i class="fa fa-puzzle-piece"></i>
-              <h3>Gaming</h3>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <!-- leftBar include -->
+    <?php   include_once './include/leftBar.php'; ?>
+
     <div class="mid">
       <div class="add-post">
-        <form>
+        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
           <div class="text-input">
             <div class="img">
-              <img src="../images/profile.jpg" class="img-fluid" alt="" />
+              <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
             </div>
-            <textarea placeholder="what's in your mind ..?"></textarea>
+            <textarea name="content" placeholder="what's in your mind ..?"></textarea>
           </div>
           <div class="options d-flex justify-content-between mt-4">
             <label class="add-photo" for="file">
               <i class="fa-regular fa-image"></i>
               Photo
             </label>
-            <input type="file" hidden id="file" />
+            <input type="file" name="image" hidden id="file" />
             <button class="btn btn-primary">Post</button>
           </div>
         </form>
       </div>
-      <div class="">
+      <div>
         <div class="posts">
           <div class="posts-list">
             <div class="post">
               <div class="header d-flex justify-content-between mb-2">
                 <div class="publisher d-flex gap-3">
                   <div class="img">
-                    <img src="images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
                   </div>
                   <div class="info">
                     <h5>Mohamed Sayed</h5>
@@ -417,167 +243,16 @@ if (empty($_SESSION)) {
         </div>
       </div>
     </div>
-    <div class="right">
-      <div class="request">
-        <div class="requests-num">
-          <span>Friend requests</span>
-          <span>30</span>
-        </div>
-        <div class="new-requests">
-          <div class="rquest-info">
-            <img src="images/Home/user.jpg" alt="" />
-            <h3>
-              Paula Mora
-              <span>12 mutual friends</span>
-            </h3>
-          </div>
-          <div class="time">4h</div>
-          <div class="actions">
-            <a href="">Confirm </a>
-            <a href="">Delete</a>
-          </div>
-        </div>
-      </div>
-      <div class="birthdays">
-        <h4>Birthdays</h4>
-        <div class="friend-birthday">
-          <i class="fa-solid fa-gift"></i>
-          <p>Mr Jones and 7 others have <br />birthdays today.</p>
-        </div>
-      </div>
-      <div class="friend-active ">
-        <h4>Active</h4>
-        <div class="search-bar">
-          <input type="text" placeholder="search" />
-        </div>
-        <div class="friends has-scrollbar">
-          <div class="friend ">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Corina McCoy</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>James Hall</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Rhonda Rhodws</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Kenneth Allen</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Stephanie Nicol</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend ">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Corina McCoy</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>James Hall</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Rhonda Rhodws</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Kenneth Allen</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-          <div class="friend">
-            <div class="image">
-              <img src="images/Home/user.jpg" alt="" />
-              <span></span>
-            </div>
-            <h5>Stephanie Nicol</h5>
-            <div class="action d-flex justify-content-around">
-              <button class=" btn btn-primary">Message </button>
-              <button class=" btn btn-primary">View Profile </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <!-- rightBar include -->
+    <?php   include_once './include/rightBar.php'; ?>
   </div>
 
-  <nav class="footer-nav d-lg-none d-flex">
-    <div class="home">
-      <a href="index.html"><i class="fa-solid fa-home"></i></a>
-    </div>
-    <div class="notification"><i class="fa-solid fa-bell"></i></div>
-    <div class="messenger">
-      <a href="./pages/ChatList.html"><i class="fa-brands fa-facebook-messenger"></i></a>
-    </div>
-    <div class="porifle">
-      <a href="./pages/UserProfile.html"><i class="fa-solid fa-user"></i></a>
-    </div>
-  </nav>
+  <!-- footer include -->
+  <?php   include_once './include/footer.php'; ?>
+
+
+
   <!--=============== SWIPER JS ===============-->
   <script src="./assets/js/swiper-bundle.min.js"></script>
   <!--=============== Main JS ===============-->
@@ -585,6 +260,10 @@ if (empty($_SESSION)) {
   <script src="./assets/js/post/post.js"></script>
   <script src="./assets/js/Home/home.js"></script>
   <script src="./assets/js/main.js"></script>
+
+  <script>
+
+  </script>
 </body>
 
 </html>
