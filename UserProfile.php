@@ -265,7 +265,7 @@ if (empty($_SESSION)) {
                         <img src="../images/profile.jpg" class="img-fluid" alt="" />
                       </div>
                       <div class="content">
-                        <h6><?=$postController->fullName($_SESSION['fname'], $_SESSION['lname'])?></h6>
+                        <h6><?=$postController->fullName($comment['fname'], $comment['lname'])?></h6>
                         <p>
                           <?=$comment['comment_body']?>
                         </p>
