@@ -4,3 +4,6 @@ then import file with extension .sql
 
 if you edit please make branch and pull request then wait to accept merge to avoid confilct
 
+
+make comment by Ajax
+create post and Deleted 
