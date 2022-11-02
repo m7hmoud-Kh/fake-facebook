@@ -4,17 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/all.min.css" />
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/Home/home.css" />
-    <link rel="stylesheet" href="../css/chat/chat.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/Home/home.css" />
+    <link rel="stylesheet" href="../assets/css/chat/chat.css" />
     <title>Messenger</title>
   </head>
   <body>
     <header>
-      <div class="logo">Facebook</div>
+      <div class="logo d-flex gap-4 align-items-center">
+        <div class="d-lg-none d-block nav-toggler">
+          <i class="toggle-icon fa-solid fa-bars"></i>
+        </div>
+        Facebook
+      </div>
       <div class="search-bar">
         <input type="text" placeholder="search" />
       </div>
@@ -172,12 +177,29 @@
           </ul>
         </div>
       </div>
+      <div class="aside-header d-lg-none">
+        <ul class="list-unstyled">
+          <li>
+            <a href="#"><i class="fa-solid fa-user"></i>Profile</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-user-group"></i>Friends</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-gear"></i>Settings</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+          </li>
+        </ul>
+      </div>
+      <div class="overlay d-lg-none"></div>
     </header>
     <div class="main d-flex">
       <div class="left">
         <div class="bg-color">
           <a class="userInfo">
-            <img src="images/Home/user.jpg" alt="" />
+            <img src="assets/images/Home/user.jpg" alt="" />
             <h2>Byiringiro Saad</h2>
           </a>
           <div class="menu">
@@ -235,7 +257,11 @@
               </div>
               <div class="texter d-flex align-items-center gap-4">
                 <div class="img" style="width: 80px">
-                  <img src="../images/profile.jpg" class="img-fluid" alt="" />
+                  <img
+                    src="../assets/images/profile.jpg"
+                    class="img-fluid"
+                    alt=""
+                  />
                 </div>
                 <div class="name"><h3>Mohamed Sayed</h3></div>
               </div>
@@ -308,153 +334,153 @@
       </div>
       <div class="right">
         <div class="request">
-            <div class="requests-num">
-                <span>Friend requests</span>
-                <span>30</span>
+          <div class="requests-num">
+            <span>Friend requests</span>
+            <span>30</span>
+          </div>
+          <div class="new-requests">
+            <div class="rquest-info">
+              <img src="../assets/images/Home/user.jpg" alt="" />
+              <h3>
+                Paula Mora
+                <span>12 mutual friends</span>
+              </h3>
             </div>
-            <div class="new-requests">
-                <div class="rquest-info">
-                    <img src="images/Home/user.jpg" alt="" />
-                    <h3>
-                        Paula Mora
-                        <span>12 mutual friends</span>
-                    </h3>
-                </div>
-                <div class="time">4h</div>
-                <div class="actions">
-                    <a href="">Confirm </a>
-                    <a href="">Delete</a>
-                </div>
+            <div class="time">4h</div>
+            <div class="actions">
+              <a href="">Confirm </a>
+              <a href="">Delete</a>
             </div>
+          </div>
         </div>
         <div class="birthdays">
-            <h4>Birthdays</h4>
-            <div class="friend-birthday">
-                <i class="fa-solid fa-gift"></i>
-                <p>Mr Jones and 7 others have <br />birthdays today.</p>
-            </div>
+          <h4>Birthdays</h4>
+          <div class="friend-birthday">
+            <i class="fa-solid fa-gift"></i>
+            <p>Mr Jones and 7 others have <br />birthdays today.</p>
+          </div>
         </div>
-        <div class="friend-active ">
-            <h4>Active</h4>
-            <div class="search-bar">
-                <input type="text" placeholder="search" />
+        <div class="friend-active">
+          <h4>Active</h4>
+          <div class="search-bar">
+            <input type="text" placeholder="search" />
+          </div>
+          <div class="friends has-scrollbar">
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Corina McCoy</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
             </div>
-            <div class="friends has-scrollbar">
-                <div class="friend ">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Corina McCoy</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>James Hall</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Rhonda Rhodws</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Kenneth Allen</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Stephanie Nicol</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend ">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Corina McCoy</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>James Hall</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Rhonda Rhodws</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Kenneth Allen</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
-                <div class="friend">
-                    <div class="image">
-                        <img src="images/Home/user.jpg" alt="" />
-                        <span></span>
-                    </div>
-                    <h5>Stephanie Nicol</h5>
-                    <div class="action d-flex justify-content-around">
-                        <button class=" btn btn-primary">Message  </button>
-                        <button class=" btn btn-primary">View Profile  </button>
-                    </div>
-                </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>James Hall</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
             </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Rhonda Rhodws</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Kenneth Allen</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Stephanie Nicol</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Corina McCoy</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>James Hall</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Rhonda Rhodws</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Kenneth Allen</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+            <div class="friend">
+              <div class="image">
+                <img src="../assets/images/Home/user.jpg" alt="" />
+                <span></span>
+              </div>
+              <h5>Stephanie Nicol</h5>
+              <div class="action d-flex justify-content-around">
+                <button class="btn btn-primary">Message</button>
+                <button class="btn btn-primary">View Profile</button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-   <nav class="footer-nav d-lg-none d-flex">
+    <nav class="footer-nav d-lg-none d-flex">
       <div class="home">
         <a href="../index.html"><i class="fa-solid fa-home"></i></a>
       </div>
@@ -468,9 +494,9 @@
         <a href="UserProfile.html"><i class="fa-solid fa-user"></i></a>
       </div>
     </nav>
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/all.min.js"></script>
-    <script src="../js/chat/chatList.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/all.min.js"></script>
+    <script src="../assets/js/chat/chatList.js"></script>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>
