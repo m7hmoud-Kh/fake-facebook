@@ -11,7 +11,7 @@ if (empty($_SESSION)) {
       $Files = $_FILES['image']['name'] ?? '';
       $postController  = new PostController();
       $arrError  = $postController->validatePost($data, $Files);
-      if (!empty($arrError)) {
+      if (empty($arrError)) {
 
         if (!empty($Files)) {
           $ftemp = $_FILES["image"]["tmp_name"];
@@ -24,11 +24,8 @@ if (empty($_SESSION)) {
         $data['image'] = $new_image;
         $post->create($data);
 
-      } else {
-        var_dump($arrError);
       }
 
-      die();
   }
   ?>
 <!DOCTYPE html>
@@ -72,6 +69,18 @@ if (empty($_SESSION)) {
 
     <div class="mid">
       <div class="add-post">
+        <?php
+        if (!empty($arrError)) {
+          foreach ($arrError as $error) {
+              ?>
+        <p class="alert alert-danger"><?=$error?></p>
+        <?php
+            }
+        }
+        ?>
+
+
+
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
           <div class="text-input">
             <div class="img">
@@ -89,6 +98,7 @@ if (empty($_SESSION)) {
           </div>
         </form>
       </div>
+
       <div>
         <div class="posts">
           <div class="posts-list">
@@ -141,9 +151,33 @@ if (empty($_SESSION)) {
                 </div>
               </div>
               <div class="comments">
+                <div class="comment mb-4">
+                  <div class="img">
+                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
+                  </div>
+                  <div class="content">
+                    <h6>Mohamed Sayed</h6>
+                    <p>
+                      This is a nice words, thanks for sharing this content.
+                    </p>
+                    <span class="comment-time text-muted">5:00 pm</span>
+                  </div>
+                </div>
+                <div class="comment mb-4">
+                  <div class="img">
+                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
+                  </div>
+                  <div class="content">
+                    <h6>Mohamed Sayed</h6>
+                    <p>
+                      This is a nice words, thanks for sharing this content.
+                    </p>
+                    <span class="comment-time text-muted">5:00 pm</span>
+                  </div>
+                </div>
                 <form class="add-comment">
                   <div class="img">
-                    <img src="images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
+                    <img src="../images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
                   </div>
                   <input type="text" id="commentInput" placeholder="type your comment ...." />
                   <button class="btn btn-primary">Post</button>
@@ -155,7 +189,7 @@ if (empty($_SESSION)) {
                 </ul>
               </div>
             </div>
-            <div class="post">
+            <!-- <div class="post">
               <div class="header d-flex justify-content-between mb-2">
                 <div class="publisher d-flex gap-3">
                   <div class="img">
@@ -238,7 +272,7 @@ if (empty($_SESSION)) {
                   <li><i class="fa-solid fa-trash mx-1"></i> Delete</li>
                 </ul>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -249,7 +283,7 @@ if (empty($_SESSION)) {
   </div>
 
   <!-- footer include -->
-  <?php   include_once './include/footer.php'; ?>
+  <?php   include_once './include/nav.php'; ?>
 
 
 
