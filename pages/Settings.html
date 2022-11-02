@@ -4,17 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/all.min.css" />
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/settings/settings.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/settings/settings.css" />
     <title>Settings | facebook</title>
   </head>
   <body>
     <!--Main App Header -->
     <header>
-      <div class="logo">Facebook</div>
+      <div class="logo d-flex gap-4 align-items-center">
+        <div class="d-lg-none d-block nav-toggler">
+          <i class="toggle-icon fa-solid fa-bars"></i>
+        </div>
+        Facebook
+      </div>
       <div class="search-bar">
         <input type="text" placeholder="search" />
       </div>
@@ -172,6 +177,23 @@
           </ul>
         </div>
       </div>
+      <div class="aside-header d-lg-none">
+        <ul class="list-unstyled">
+          <li>
+            <a href="#"><i class="fa-solid fa-user"></i>Profile</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-user-group"></i>Friends</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-gear"></i>Settings</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+          </li>
+        </ul>
+      </div>
+      <div class="overlay d-lg-none"></div>
     </header>
     <!--Settings page main content-->
     <div class="container">
@@ -187,7 +209,11 @@
           <h4>Change your profile picture</h4>
           <div class="change-picture mb-5">
             <div class="img">
-              <img src="../../images/profile.jpg" class="img-fluid" alt="" />
+              <img
+                src="../../assets/images/profile.jpg"
+                class="img-fluid"
+                alt=""
+              />
             </div>
             <div class="actions">
               <button class="btn btn-danger">Delete</button>
@@ -200,7 +226,11 @@
           <h4>Change your Cover</h4>
           <div class="change-cover mb-5">
             <div class="img cover-img">
-              <img src="../../images/cover.jpg" class="img-fluid" alt="" />
+              <img
+                src="../../assets/images/cover.jpg"
+                class="img-fluid"
+                alt=""
+              />
             </div>
             <div class="actions">
               <button class="btn btn-danger">Delete</button>
@@ -213,6 +243,13 @@
           <h4>Change Your account name</h4>
           <div class="change-name mb-5">
             <input type="text" value="Mohamed El-Sayed" />
+          </div>
+          <h4>Change Your BIO</h4>
+          <div class="change-name mb-5">
+            <input
+              type="text"
+              value="hello friend my name is khaled, i'm a software developer"
+            />
           </div>
           <h4>Change your email address</h4>
           <div class="change-email mb-5">
@@ -249,8 +286,8 @@
         <a href="UserProfile.html"><i class="fa-solid fa-user"></i></a>
       </div>
     </nav>
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/all.min.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/all.min.js"></script>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>

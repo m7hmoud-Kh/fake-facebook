@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../assets/css/all.min.css" />
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../assets/css//profile/myProfile.css" />
-    <link rel="stylesheet" href="../assets/css/profile/othersProfile.css" />
     <title>Profile</title>
   </head>
   <body>
@@ -238,7 +237,11 @@
       <div class="profile">
         <div class="user-info">
           <div class="cover">
-            <img src="../assets/images/cover.jpg" alt="" class="img-fluid" />
+            <img
+              src="../assets/images/cover.jpg"
+              alt=""
+              class="img-fluid"
+            />
           </div>
           <div class="user-data">
             <div class="profile-img">
@@ -252,12 +255,7 @@
               <h2>Mohamed Sayed Osman</h2>
               <p class="friends text-light">3,180 friend</p>
             </div>
-            <div class="btn btn-primary">
-              <i class="fa-solid fa-user-plus me-2"></i>Add
-            </div>
-            <div class="btn btn-dark">
-              <i class="fa-solid fa-message me-2"></i>Message
-            </div>
+            <div class="btn btn-primary">Update Profile</div>
           </div>
         </div>
         <div class="main-page">
@@ -402,6 +400,30 @@
             </div>
             <div class="col-lg-8 col-12 mt-lg-0 mt-5">
               <div class="posts">
+                <div class="add-post">
+                  <form>
+                    <div class="text-input">
+                      <div class="img">
+                        <img
+                          src="../assets/images/profile.jpg"
+                          class="img-fluid"
+                          alt=""
+                        />
+                      </div>
+                      <textarea
+                        placeholder="what's in your mind ..?"
+                      ></textarea>
+                    </div>
+                    <div class="options d-flex justify-content-between mt-4">
+                      <label class="add-photo" for="file">
+                        <i class="fa-regular fa-image"></i>
+                        Photo
+                      </label>
+                      <input type="file" hidden id="file" />
+                      <button class="btn btn-primary">Post</button>
+                    </div>
+                  </form>
+                </div>
                 <div class="posts-list">
                   <div class="post">
                     <div class="header d-flex justify-content-between mb-2">
@@ -637,7 +659,6 @@
     </nav>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/all.min.js"></script>
-
     <script src="../assets/js/post/post.js"></script>
     <script src="../assets/js/main.js"></script>
   </body>

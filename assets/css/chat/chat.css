@@ -2,11 +2,12 @@
   background: var(--medium-blue);
   min-height: calc(100vh - 100px);
   padding-bottom: 80px;
+  position: relative;
 }
 .chat .chat-header {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   justify-content: space-between;
   border-bottom: 1px solid rgba(192, 192, 192, 0.602);
   position: relative;
@@ -103,4 +104,7 @@
   border-top-right-radius: 15px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 5px;
+}
+.chat .message-box:hover {
+  opacity: 1;
 }
