@@ -5,11 +5,16 @@ if (empty($_SESSION)) {
 } else {
   include_once './controllers/PostController.php';
   include_once './models/Post.php';
+  include_once './models/Comment.php';
+  include_once './models/Like.php';
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $post = new Post();
+  $postController  = new PostController();
+
+
+  if (isset($_POST['add_post'])) {
       $data = $_POST;
       $Files = $_FILES['image']['name'] ?? '';
-      $postController  = new PostController();
       $arrError  = $postController->validatePost($data, $Files);
       if (empty($arrError)) {
 
@@ -17,16 +22,28 @@ if (empty($_SESSION)) {
           $ftemp = $_FILES["image"]["tmp_name"];
           $fname = $_FILES['image']['name'];
           $new_image = $postController->uploadImage($fname, $ftemp);
+          $data['image'] = $new_image;
         }
 
-        // create Post
-        $post = new Post();
-        $data['image'] = $new_image;
+       // create Post
         $post->create($data);
 
       }
 
   }
+
+  if (isset($_POST['delete_post'])) {
+    $deleted_post = $post->getPostById($_POST['post_id']);
+    //remove image from local
+    if (isset($deleted_post['image'])) {
+      $postController->removeImage($deleted_post['image']);
+    }
+    $post->deletePost($_POST['post_id']);
+  }
+
+
+  $allPosts = $post->allPosts();
+
   ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +111,7 @@ if (empty($_SESSION)) {
               Photo
             </label>
             <input type="file" name="image" hidden id="file" />
-            <button class="btn btn-primary">Post</button>
+            <button class="btn btn-primary" type="submit" name="add_post">Post</button>
           </div>
         </form>
       </div>
@@ -102,181 +119,83 @@ if (empty($_SESSION)) {
       <div>
         <div class="posts">
           <div class="posts-list">
+            <?php
+                $commentModel = new Comment();
+                foreach ($allPosts as $post) {
+                  $comments = $commentModel->getCommentByPostId($post['id']);
+                  ?>
             <div class="post">
               <div class="header d-flex justify-content-between mb-2">
                 <div class="publisher d-flex gap-3">
                   <div class="img">
-                    <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
                   </div>
                   <div class="info">
-                    <h5>Mohamed Sayed</h5>
-                    <p class="text-muted">4:55 pm</p>
+                    <h5><?=$postController->fullName($post['fname'], $post['lname'])?></h5>
+                    <p class="text-muted">
+                      <?=$postController->timeElapsedString($post['created_at'])?>
+                    </p>
                   </div>
                 </div>
+                <?php
+                if ($post['user_id'] == $_SESSION['id']) {
+                ?>
                 <div class="settings" onclick="openPostSettings(this)">
                   <i class="fa-solid fa-ellipsis-vertical"></i>
                 </div>
+                <?php } ?>
               </div>
               <div class="text-content">
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Ullam dolores earum officia suscipit autem soluta, mollitia
-                  labore culpa iste nulla voluptatibus ad? Saepe magnam libero
-                  molestias laudantium sapiente repellendus optio?
+                  <?=$post['content']?>
                 </p>
               </div>
+              <?php if (isset($post['image'])) {
+                    ?>
               <div class="img-content text-center">
-                <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                <img src="./assets/images/posts/<?=$post['image']?>" class="img-fluid" />
               </div>
-              <div class="stats mt-4">
-                <div class="likes">
-                  <i class="fa-solid fa-thumbs-up" style="color: #e7c292; margin-right: 10px"></i>105
-                </div>
-                <div class="comments">
-                  <i class="fa-solid fa-comment" style="color: #fff; margin-right: 10px"></i>105
-                </div>
-              </div>
-              <div class="actions mt-5 d-flex justify-content-between">
-                <div class="like">
-                  <div><i class="fa-solid fa-thumbs-up"></i> Like</div>
-                </div>
-                <div class="dislike">
-                  <div>
-                    <i class="fa-solid fa-thumbs-down"></i>
-                    Dislike
-                  </div>
-                </div>
-                <div class="comment">
-                  <div><i class="fa-solid fa-comment"></i> Comment</div>
-                </div>
-              </div>
+              <?php
+                  }
+                  ?>
+
+              <?php include './include/state_action.php';?>
+
               <div class="comments">
-                <div class="comment mb-4">
+
+                <?php
+                    include './include/comment.php'
+                ?>
+                <form class="add-comment" action="#">
                   <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="./assets/images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
                   </div>
-                  <div class="content">
-                    <h6>Mohamed Sayed</h6>
-                    <p>
-                      This is a nice words, thanks for sharing this content.
-                    </p>
-                    <span class="comment-time text-muted">5:00 pm</span>
-                  </div>
-                </div>
-                <div class="comment mb-4">
-                  <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
-                  </div>
-                  <div class="content">
-                    <h6>Mohamed Sayed</h6>
-                    <p>
-                      This is a nice words, thanks for sharing this content.
-                    </p>
-                    <span class="comment-time text-muted">5:00 pm</span>
-                  </div>
-                </div>
-                <form class="add-comment">
-                  <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
-                  </div>
-                  <input type="text" id="commentInput" placeholder="type your comment ...." />
-                  <button class="btn btn-primary">Post</button>
+                  <input type="hidden" id="postId" value="<?=$post['id']?>">
+                  <input type="text" id="commentInput" name="comment" placeholder="type your comment ...." />
+                  <button type="submit" name="add_comment" class="btn btn-primary">Post</button>
                 </form>
               </div>
+
               <div class="setting">
-                <ul class="list-unstyled">
-                  <li><i class="fa-solid fa-trash mx-1"></i> Delete</li>
-                </ul>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-post_id="<?=$post['id']?>"
+                  data-bs-target="#delete_post">
+                  Delete
+                </button>
               </div>
             </div>
-            <!-- <div class="post">
-              <div class="header d-flex justify-content-between mb-2">
-                <div class="publisher d-flex gap-3">
-                  <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
-                  </div>
-                  <div class="info">
-                    <h5>Mohamed Sayed</h5>
-                    <p class="text-muted">4:55 pm</p>
-                  </div>
-                </div>
-                <div class="settings" onclick="openPostSettings(this)">
-                  <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-              </div>
-              <div class="text-content">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Ullam dolores earum officia suscipit autem soluta, mollitia
-                  labore culpa iste nulla voluptatibus ad? Saepe magnam libero
-                  molestias laudantium sapiente repellendus optio?
-                </p>
-              </div>
-              <div class="stats mt-4">
-                <div class="likes">
-                  <i class="fa-solid fa-thumbs-up" style="color: #e7c292; margin-right: 10px"></i>105
-                </div>
-                <div class="comments">
-                  <i class="fa-solid fa-comment" style="color: #fff; margin-right: 10px"></i>105
-                </div>
-              </div>
-              <div class="actions mt-5 d-flex justify-content-between">
-                <div class="like">
-                  <div><i class="fa-solid fa-thumbs-up"></i> Like</div>
-                </div>
-                <div class="dislike">
-                  <div>
-                    <i class="fa-solid fa-thumbs-down"></i>
-                    Dislike
-                  </div>
-                </div>
-                <div class="comment">
-                  <div><i class="fa-solid fa-comment"></i> Comment</div>
-                </div>
-              </div>
-              <div class="comments">
-                <div class="comment mb-4">
-                  <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
-                  </div>
-                  <div class="content">
-                    <h6>Mohamed Sayed</h6>
-                    <p>
-                      This is a nice words, thanks for sharing this content.
-                    </p>
-                    <span class="comment-time text-muted">5:00 pm</span>
-                  </div>
-                </div>
-                <div class="comment mb-4">
-                  <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
-                  </div>
-                  <div class="content">
-                    <h6>Mohamed Sayed</h6>
-                    <p>
-                      This is a nice words, thanks for sharing this content.
-                    </p>
-                    <span class="comment-time text-muted">5:00 pm</span>
-                  </div>
-                </div>
-                <form class="add-comment">
-                  <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
-                  </div>
-                  <input type="text" id="commentInput" placeholder="type your comment ...." />
-                  <button class="btn btn-primary">Post</button>
-                </form>
-              </div>
-              <div class="setting">
-                <ul class="list-unstyled">
-                  <li><i class="fa-solid fa-trash mx-1"></i> Delete</li>
-                </ul>
-              </div>
-            </div> -->
+            <?php
+                }
+
+                ?>
+
           </div>
         </div>
       </div>
     </div>
+
+
+
+
 
     <!-- rightBar include -->
     <?php   include_once './include/rightBar.php'; ?>
@@ -287,16 +206,124 @@ if (empty($_SESSION)) {
 
 
 
+  <div class="modal fade" id="delete_post" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="color:black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
+          <div class="modal-body">
+            Do Your Want delete This Post
+            <input type="hidden" name="post_id" id="post_id" value="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" name="delete_post" class="btn btn-danger">Delete</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+
   <!--=============== SWIPER JS ===============-->
-  <script src="./assets/js/swiper-bundle.min.js"></script>
-  <!--=============== Main JS ===============-->
+  <!-- <script src="./assets/js/swiper-bundle.min.js"></script> -->
   <script src="./assets/js/all.min.js"></script>
+  <script src="./assets/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/jquery-3.5.0.min.js"></script>
+  <!--=============== Main JS ===============-->
   <script src="./assets/js/post/post.js"></script>
   <script src="./assets/js/Home/home.js"></script>
   <script src="./assets/js/main.js"></script>
 
   <script>
+    $('#delete_post').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var post_id = button.data('post_id');
 
+      var modal = $(this);
+      modal.find('.modal-body #post_id').val(post_id)
+    });
+
+    $('button[name="add_comment"]').on('click', function (event) {
+      event.preventDefault();
+      let parent = $(this).parent()[0];
+
+      let postId = parent.children[1].attributes['value'].value;
+      let comment = parent.children[2].value;
+      if (comment) {
+        var d = new Date();
+        let h = d.getHours();
+        let m = d.getMinutes();
+        let s = d.getSeconds();
+        var fname = `<?= $_SESSION['fname'] ?>`;
+        var lname = `<?= $_SESSION['lname']?>`;
+        var fullName = fname + ' ' + lname
+
+        $.ajax({
+          type: "GET",
+          url: "./controllers/AddComment.php?comment=" + comment + "&postId=" + postId,
+          data: 'JSON',
+          success: function (response) {
+            $('<div class="comment mb-4">' +
+              '<div class="img">' +
+              '<img src="../images/profile.jpg" class="img-fluid" alt="" />' +
+              '</div>' +
+              '<div class="content">' +
+              '<h6>' + fullName + '</h6>' +
+              '<p>' +
+              comment +
+              '</p>' +
+              '<span class="comment-time text-muted">' + h + ':' + m + '</span>' +
+              '</div>' +
+              '</div>').insertBefore(parent)
+          }
+        });
+
+        parent.children[2].value = '';
+
+        // increment comment after insert new Comment
+        let commentCount = parseInt(document.getElementById(postId).lastElementChild.textContent)
+        commentCount += 1;
+        document.getElementById(postId).lastElementChild.textContent = commentCount;
+
+      }
+
+    });
+
+    $('span#likeIcon').on('click', function(){
+      let likeIcon = $(this);
+      let postId = $(this).attr('data-postId');
+      let likeElement = document.querySelector('#countLike'+postId)
+      let likeCounter = parseInt(likeElement.textContent);
+
+      $.ajax({
+          type: "GET",
+          url: "./controllers/AddLike.php?postId=" + postId,
+          data: 'JSON',
+          success: function (response) {
+            let svg = likeIcon.prev()[0];
+            console.log(response)
+            if(response == 1){
+              likeCounter += 1;
+              likeElement.innerText = likeCounter
+              svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-up'
+            }else{
+              likeCounter -= 1;
+              likeElement.innerText = likeCounter
+              svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-up'
+            }
+          }
+        });
+
+
+
+
+
+    });
   </script>
 </body>
 

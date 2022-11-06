@@ -22,8 +22,17 @@ class Comment
 
     public function getCommentByPostId($postId)
     {
-        $stmt = $this->con->prepare('SELECT comments.*, users.fname , users.lname FROM comments JOIN users ON users.id = comments.user_id WHERE post_id = ?; ');
+        $stmt = $this->con->prepare('SELECT comments.*, users.fname , users.lname FROM
+        comments JOIN users ON users.id = comments.user_id WHERE post_id = ?; ');
         $stmt->execute(array($postId));
         return $stmt->fetchAll();
+    }
+
+
+    public function getCountCommentbyPostId($postId)
+    {
+        $stmt = $this->con->prepare('SELECT COUNT(*) as comment_count FROM comments WHERE post_id = ?');
+        $stmt->execute(array($postId));
+        return $stmt->fetch();
     }
 }

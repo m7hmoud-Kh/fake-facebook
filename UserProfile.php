@@ -6,6 +6,8 @@ if (empty($_SESSION)) {
   include_once './controllers/PostController.php';
   include_once './models/Post.php';
   include_once './models/Comment.php';
+  include_once './models/Like.php';
+
 
   $post = new Post();
   $postController  = new PostController();
@@ -232,49 +234,12 @@ if (empty($_SESSION)) {
                   }
                   ?>
 
-                  <div class="stats mt-4">
-                    <div class="likes">
-                      <i class="fa-solid fa-thumbs-up" style="color: #e7c292; margin-right: 10px"></i>105
-                    </div>
-                    <div class="comments">
-                      <i class="fa-solid fa-comment" style="color: #fff; margin-right: 10px"></i>105
-                    </div>
-                  </div>
-                  <div class="actions mt-5 d-flex justify-content-between">
-                    <div class="like">
-                      <div><i class="fa-solid fa-thumbs-up"></i> Like</div>
-                    </div>
-                    <div class="dislike">
-                      <div>
-                        <i class="fa-solid fa-thumbs-down"></i>
-                        Dislike
-                      </div>
-                    </div>
-                    <div class="comment">
-                      <div><i class="fa-solid fa-comment"></i> Comment</div>
-                    </div>
+                  <?php include './include/state_action.php'; ?>
 
-                  </div>
                   <div class="comments">
 
-                  <?php
-                    foreach ($comments as $comment) {
-                      ?>
-                    <div class="comment mb-4">
-                      <div class="img">
-                        <img src="../images/profile.jpg" class="img-fluid" alt="" />
-                      </div>
-                      <div class="content">
-                        <h6><?=$postController->fullName($comment['fname'], $comment['lname'])?></h6>
-                        <p>
-                          <?=$comment['comment_body']?>
-                        </p>
-                        <span class="comment-time text-muted">                          <?=$postController->timeElapsedString($post['created_at'])?></span>
-                      </div>
-                    </div>
                     <?php
-                    }
-
+                    include './include/comment.php'
                     ?>
                     <form class="add-comment" action="#">
                       <div class="img">
@@ -363,7 +328,10 @@ if (empty($_SESSION)) {
         let m = d.getMinutes();
         let s = d.getSeconds();
 
-        var name = '<?php echo $_SESSION['fname'] . ' ' . $_SESSION['lname'] ?>';
+        var fname = `<?= $_SESSION['fname'] ?>`;
+        var lname = `<?= $_SESSION['lname']?>`;
+        var fullName = fname + ' ' + lname
+
 
         $.ajax({
           type: "GET",
@@ -375,7 +343,7 @@ if (empty($_SESSION)) {
               '<img src="../images/profile.jpg" class="img-fluid" alt="" />' +
               '</div>' +
               '<div class="content">' +
-              '<h6>' + name + '</h6>' +
+              '<h6>' + fullName + '</h6>' +
               '<p>' +
               comment +
               '</p>' +
@@ -387,7 +355,41 @@ if (empty($_SESSION)) {
 
         parent.children[2].value = '';
 
+        let commentCount = parseInt(document.getElementById(postId).lastElementChild.textContent)
+        commentCount += 1;
+        document.getElementById(postId).lastElementChild.textContent = commentCount;
+
       }
+
+    });
+    $('span#likeIcon').on('click', function () {
+      let likeIcon = $(this);
+      let postId = $(this).attr('data-postId');
+      let likeElement = document.querySelector('#countLike' + postId)
+      let likeCounter = parseInt(likeElement.textContent);
+
+      $.ajax({
+        type: "GET",
+        url: "./controllers/AddLike.php?postId=" + postId,
+        data: 'JSON',
+        success: function (response) {
+          let svg = likeIcon.prev()[0];
+          console.log(response)
+          if (response == 1) {
+            likeCounter += 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-up'
+          } else {
+            likeCounter -= 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-up'
+          }
+        }
+      });
+
+
+
+
 
     });
   </script>
