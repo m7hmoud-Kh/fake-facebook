@@ -362,6 +362,8 @@ if (empty($_SESSION)) {
       }
 
     });
+
+    
     $('span#likeIcon').on('click', function () {
       let likeIcon = $(this);
       let postId = $(this).attr('data-postId');
@@ -374,12 +376,12 @@ if (empty($_SESSION)) {
         data: 'JSON',
         success: function (response) {
           let svg = likeIcon.prev()[0];
-          console.log(response)
-          if (response == 1) {
+          if (response == 'add') {
             likeCounter += 1;
             likeElement.innerText = likeCounter
             svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-up'
-          } else {
+          }
+          if (response == 'remove') {
             likeCounter -= 1;
             likeElement.innerText = likeCounter
             svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-up'
@@ -389,6 +391,36 @@ if (empty($_SESSION)) {
 
 
 
+
+
+    });
+
+
+    $('span#disLikeIcon').on('click', function () {
+      let disLikeIcon = $(this);
+      let postId = $(this).attr('data-postId');
+
+      let likeElement = document.querySelector('#countLike' + postId)
+      let likeCounter = parseInt(likeElement.textContent);
+
+      $.ajax({
+        type: "GET",
+        url: "./controllers/AddDisLike.php?postId=" + postId,
+        data: 'JSON',
+        success: function (response) {
+          let svg = disLikeIcon.prev()[0];
+          if (response == 'add') {
+            likeCounter += 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-down';
+          }
+          if (response == 'remove') {
+            likeCounter -= 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-down'
+          }
+        }
+      });
 
 
     });
