@@ -14,12 +14,12 @@
     position: relative;
     border-radius: 25px;
     background-color: #0d1d2e;
-    width: 200px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
 }
 
 .swiper {
-    width: 700px;
+    width: 850px;
     height: 270px;
 }
 
@@ -48,9 +48,11 @@
     position: relative;
     border-radius: 25px;
     background-color: #0d1d2e;
-    width: 200px;
-    height: 300px;
-    margin: 10px;
+    width: 22%;
+    height: 100%;
+    margin: auto;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
 }
 
 .page-link{
