@@ -9,9 +9,9 @@ $post_id = $_GET['postId'];
 if (isset($post_id)) {
     $like = new Like();
     $data['post_id'] = $post_id;
-    $data['status'] = $like::LIKE;
+    $data['status'] = $like::DISLIKE;
     $data['user_id'] = $_SESSION['id'];
-    //if found reaction by user on this post
+
     if ($like->checkIfFoundReaction($data)) {
         if ($like->checkIfFoundLike($data)) {
             $like->removeLike($data);
@@ -21,5 +21,13 @@ if (isset($post_id)) {
         $like->addLike($data);
         echo 'add';
     }
-
+    // // check if found dislike or not
+    // if (!$like->checkIfFoundLike($data)) {
+    //     $like->addLike($data);
+    //     echo true;
+    // }else {
+    //     //remove Like
+    //     $like->removeLike($data);
+    //     echo 0;
+    // }
 }
