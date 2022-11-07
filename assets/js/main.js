@@ -63,3 +63,6 @@ function closePopups(arr) {
     popup.classList.remove("open");
   });
 }
+
+
+

@@ -1,5 +1,10 @@
 <header>
-    <div class="logo"><a href="index.php">Facebook</a></div>
+    <div class="logo d-flex gap-4 align-items-center">
+        <div class="d-lg-none d-block nav-toggler">
+            <i class="toggle-icon fa-solid fa-bars"></i>
+        </div>
+        <a href="index.php">Facebook</a>
+    </div>
     <div class="search-bar">
         <input type="text" placeholder="search" />
     </div>
@@ -21,7 +26,7 @@
         <div class="notifications has-scrollbar">
             <div class="notification-box d-flex align-items-center gap-2">
                 <div class="img" style="width: 70px">
-                    <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
                 </div>
                 <div class="details">
                     <p>Mohamed Sayed Reacted to your post</p>
@@ -30,7 +35,7 @@
             </div>
             <div class="notification-box d-flex align-items-center gap-2">
                 <div class="img" style="width: 70px">
-                    <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
                 </div>
                 <div class="details">
                     <p>Mohamed Sayed Reacted to your post</p>
@@ -39,7 +44,7 @@
             </div>
             <div class="notification-box d-flex align-items-center gap-2">
                 <div class="img" style="width: 70px">
-                    <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
                 </div>
                 <div class="details">
                     <p>Mohamed Sayed Reacted to your post</p>
@@ -48,7 +53,7 @@
             </div>
             <div class="notification-box d-flex align-items-center gap-2">
                 <div class="img" style="width: 70px">
-                    <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
                 </div>
                 <div class="details">
                     <p>Mohamed Sayed Reacted to your post</p>
@@ -57,7 +62,7 @@
             </div>
             <div class="notification-box d-flex align-items-center gap-2">
                 <div class="img" style="width: 70px">
-                    <img src="../assets/images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
                 </div>
                 <div class="details">
                     <p>Mohamed Sayed Reacted to your post</p>
@@ -105,7 +110,7 @@
             <a href="#">
                 <div class="message-box d-flex align-items-center gap-2">
                     <div class="img" style="width: 120px">
-                        <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                        <img src="../../images/profile.jpg" class="img-fluid" alt="" />
                     </div>
                     <div class="details">
                         <p class="sender-name">Mohamed Sayed</p>
@@ -157,4 +162,21 @@
             </ul>
         </div>
     </div>
+    <div class="aside-header d-lg-none">
+        <ul class="list-unstyled">
+            <li>
+                <a href="#"><i class="fa-solid fa-user"></i>Profile</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-user-group"></i>Friends</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-gear"></i>Settings</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+            </li>
+        </ul>
+    </div>
+    <div class="overlay d-lg-none"></div>
 </header>
