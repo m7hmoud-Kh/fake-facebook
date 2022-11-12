@@ -11,7 +11,7 @@ if (empty($_SESSION)) {
  //var_dump();
 //  die();
 
- // $_POST['name'] || $_POST['bio'] || $_POST['email'] || $_POST['password']
+ // $_POST['name'] || $_POST['bio'] || $_POST['email'] || $_POST['password'] cur_password
 
   // if (isset($_POST['image']  )) {
   //   var_dump($_POST);
@@ -44,6 +44,20 @@ if (empty($_SESSION)) {
     $cur_user->bio=$data['bio'];
     $cur_user->Updatedata();
   }
+
+  if(isset($_POST['cur_password'] ) && isset($_POST['password'] )  && isset($_POST['repassword'] )){
+    $data=$_POST;
+    if(password_hash($data['cur_password'], PASSWORD_DEFAULT)== $cur_user->password){
+      if($data['password']===$data['repassword']){
+        $cur_user->password=$data['password'];
+        $cur_user->Updatepassword();
+      }
+      
+    }
+   
+   
+  }
+
 
 
  
@@ -292,6 +306,16 @@ if (empty($_SESSION)) {
               value=""
               name="bio"
             />
+          </div>
+
+          <h4>Change your password</h4>
+          <div class="change-password mb-5">
+            <label class="mb-2">Enter Your Current Password :</label>
+            <input type="password" class="mb-3" name="cur_password" />
+            <label class="mb-2">Enter Your New Password :</label>
+            <input type="password" class="mb-3"  name="password" />
+            <label class="mb-2">Confirm Your New Password :</label>
+            <input type="password" class="mb-3" name="repassword" />
           </div>
 
           <button class="btn btn-success me-2" type="submit">Save Changes</button>

@@ -1,8 +1,8 @@
 <?php
-//session_start();
+
 
 include_once(__DIR__.'./condb.php');
-//include_once './controllers/Cookies.php';
+
 
 class User
 {
@@ -17,7 +17,7 @@ class User
     public $email;
     public $bio;
 
-    public $pass;
+    public $password;
 
 
 
@@ -98,12 +98,15 @@ class User
 
         $stmt=$this->con->prepare("UPDATE users 
         SET 
-            profile_image=?
+            profile_image=?,
+            profile_background=?
         WHERE
              id =?");					  
             
-        $stmt->execute(array($this->prof_image,$this->id));
+        $stmt->execute(array($this->prof_image,$this->cuv_image,$this->id));
     }
+
+
     public function Updatedata(){
         
 
@@ -119,6 +122,17 @@ class User
         $stmt->execute(array($this->fname,$this->lname,$this->email,$this->bio,$this->id));
     }
 
+    public function Updatepassword(){
+        
+
+        $stmt=$this->con->prepare("UPDATE users 
+        SET 
+        pass=?
+        WHERE
+             id =?");					  
+            
+        $stmt->execute(array(password_hash ($this->password, PASSWORD_DEFAULT) ,$this->id));
+    }
 
 
 }
