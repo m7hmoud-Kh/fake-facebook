@@ -81,7 +81,8 @@ CREATE TABLE `users` (
   `gender` enum('0','1','','') NOT NULL,
   `social_status` enum('0','1','2','3') NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `bio`  varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

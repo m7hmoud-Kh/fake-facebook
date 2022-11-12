@@ -77,8 +77,8 @@ if (empty($_SESSION)) {
             <h2>Mohamed Sayed Osman</h2>
             <p class="friends text-light">3,180 friend</p>
           </div>
-          <div class="btn btn-primary">Update Profile</div>
-        </div>
+          <a class="btn btn-primary" href="./Settings.php">Update Profile</div>
+</a>
       </div>
       <div class="main-page">
         <div class="row">

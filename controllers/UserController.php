@@ -65,4 +65,38 @@ class UserController
         return $arrErorr;
     }
 
+    static function validateImage($fname)
+    {
+
+        $allowextion = array("png","jpg","jepg","gif");
+        $extion      = explode(".", $fname);
+        $extion      = end($extion);
+        $extion      = strtolower($extion);
+
+        if (!empty($fname) && !in_array($extion, $allowextion)) {
+            $arrError['image'] = "Must be upload photo";
+                    return $arrError;
+
+        }
+
+    }
+
+    static function uploadImage($fname, $ftemp)
+    {
+        $imageavatr = rand(0, 10000)."_".$fname;
+        $path  =".\\assets\\images\\users\\";
+        move_uploaded_file($ftemp, $path.$imageavatr);
+        return $imageavatr;
+    }
+
+
+    static function removeImage($image)
+    {
+        unlink("./assets/images/users/$image");
+    }
+
+    
+
+
+
 }
