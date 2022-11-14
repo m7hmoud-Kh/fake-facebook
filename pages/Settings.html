@@ -205,6 +205,7 @@
       </div>
 
       <section id="settings-section">
+        <!--Change profile picture form-->
         <form>
           <h4>Change your profile picture</h4>
           <div class="change-picture mb-5">
@@ -223,6 +224,9 @@
               <input type="file" hidden id="input-profile-Image" />
             </div>
           </div>
+        </form>
+        <!--Change Cover Form-->
+        <form>
           <h4>Change your Cover</h4>
           <div class="change-cover mb-5">
             <div class="img cover-img">
@@ -240,35 +244,67 @@
               <input type="file" hidden id="input-cover-Image" />
             </div>
           </div>
+        </form>
+        <!--Change Account name form-->
+        <form>
           <h4>Change Your account name</h4>
-          <div class="change-name mb-5">
+          <div
+            class="change-name mb-5 d-flex align-items-center gap-5 py-4 justify-content-between"
+          >
             <input type="text" value="Mohamed El-Sayed" />
+            <button class="btn btn-dark" type="submit">
+              <i class="fa-regular fa-pen-to-square"></i>
+              Edit
+            </button>
           </div>
+        </form>
+        <!--Change bio form-->
+        <form>
           <h4>Change Your BIO</h4>
-          <div class="change-name mb-5">
-            <input
-              type="text"
-              value="hello friend my name is khaled, i'm a software developer"
-            />
+          <div
+            class="mb-5 d-flex align-items-center gap-5 py-4 justify-content-between"
+          >
+            <textarea>Hello, people.</textarea>
+            <button class="btn btn-dark" type="submit">
+              <i class="fa-solid fa-pencil"></i>
+              Edit
+            </button>
           </div>
+        </form>
+        <!--Change Email form-->
+        <form>
           <h4>Change your email address</h4>
-          <div class="change-email mb-5">
+          <div
+            class="change-email mb-5 d-flex align-items-center gap-5 py-4 justify-content-between"
+          >
             <input type="email" value="mohamed@gmail.com" />
+            <button class="btn btn-dark" type="submit">
+              <i class="fa-regular fa-pen-to-square"></i>
+              Edit
+            </button>
           </div>
+        </form>
+        <!--Change Password Form-->
+        <form>
           <h4>Change your password</h4>
-          <div class="change-password mb-5">
+          <div class="change-password mb-5 py-4 mt-3">
             <label class="mb-2">Enter Your Current Password :</label>
             <input type="password" class="mb-3" />
             <label class="mb-2">Enter Your New Password :</label>
             <input type="password" class="mb-3" />
             <label class="mb-2">Confirm Your New Password :</label>
             <input type="password" class="mb-3" />
+            <div class="mt-4 text-center">
+              <button class="btn btn-dark" type="submit">
+                <i class="fa-regular fa-pen-to-square me-2"></i>
+                Change Password
+              </button>
+            </div>
           </div>
-          <footer class="text-center mb-5">
-            <button class="btn btn-success me-2">Save Changes</button>
-            <button class="btn btn-warning">Delete Account</button>
-          </footer>
         </form>
+        <footer class="text-center mb-5">
+          <button class="btn btn-danger">Delete Account</button>
+        </footer>
       </section>
     </div>
     <!--Mobile Navigation Bar-->
