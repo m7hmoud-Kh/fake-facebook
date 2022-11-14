@@ -8,7 +8,7 @@ if (empty($_SESSION)) {
 
   
  $cur_user= new User();
-//  var_dump();
+//  var_dump($_SESSION);
 
 //  die();
 
@@ -25,11 +25,10 @@ if (empty($_SESSION)) {
         $cur_user->password=$_SESSION['pass'];
 
  // $_POST['name'] || $_POST['bio'] || $_POST['email'] || $_POST['password'] cur_password
- 
+
   // if (isset($_POST['image']  )) {
   //   var_dump($_POST);
   //   die();
-   
   //   $data = $_POST;
   //   $Files = $_FILES['image']['name'] ?? '';
 
@@ -70,8 +69,8 @@ if (empty($_SESSION)) {
       
   }
   }
-//$2y$10$Q6XNrULyOPzhK1UfhxqKMexhvmRAtfYrb6P/ebSxiu38H4Lmdd8A.
-//$2y$10$qrv33R4k97Aw3eAxkTVhw.vEGyfMi/AlWybt6gvlj3pvmvTfCncZy.
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -280,13 +279,54 @@ if (empty($_SESSION)) {
       </div>
 
       <section id="settings-section">
-        <!--Change profile picture form-->
-        <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
-          <h4>Change your profile picture</h4>
+      
+
+        <form action="<?php //echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
+        <h4>Change Your first name</h4>
+          <div class="change-name mb-5">
+            <input type="text" value="<?php echo $cur_user->fname;?>" name="fname"/>
+          </div>
+          
+
+          <h4>Change Your last name</h4>
+          <div class="change-name mb-5">
+            <input type="text" value="<?php echo $cur_user->lname;?>" name="lname" />
+          </div>
+
+          <h4>Change your email address</h4>
+          <div class="change-email mb-5">
+            <input type="email" value="<?php echo $cur_user->email;?>"  name="email"/>
+          </div>
+
+          <h4>Change Your BIO</h4>
+          <div class="change-name mb-5">
+            <input
+              type="text"
+              value="<?php echo $cur_user->bio;?>"
+              name="bio"
+            />
+          </div>
+
+          <h4>Change your password</h4>
+          <div class="change-password mb-5">
+            <label class="mb-2">Enter Your Current Password :</label>
+            <input type="password" class="mb-3" name="cur_password" />
+            <label class="mb-2">Enter Your New Password :</label>
+            <input type="password" class="mb-3" value="<?php  $cur_user->password;?>" name="password" />
+            <label class="mb-2">Confirm Your New Password :</label>
+            <input type="password" class="mb-3"  value="<?php  $cur_user->password;?>" name="repassword" />
+          </div>
+
+          <button class="btn btn-success me-2" type="submit">Save Changes</button>
+        </form>
+
+        <!-----------------------------------------fack------------------------------------------------------->
+
+          <!-- <h4>Change your profile picture</h4>
           <div class="change-picture mb-5">
             <div class="img">
               <img
-                src="./assets/images/profile.jpg"
+                src="../../assets/images/profile.jpg"
                 class="img-fluid"
                 alt=""
               />
@@ -296,20 +336,9 @@ if (empty($_SESSION)) {
               <label class="btn btn-primary" for="input-profile-Image"
                 >Upload</label
               >
-              <button
-                type="submit"
-                class="btn btn-success"
-                id="profile-submit"
-                disabled
-              >
-                Save
-              </button>
-              <input type="file" hidden id="input-profile-Image" name="image"/>
+              <input type="file" hidden id="input-profile-Image"  name= "image"/>
             </div>
           </div>
-        </form>
-        <!--Change Cover Form-->
-        <!-- <form>
           <h4>Change your Cover</h4>
           <div class="change-cover mb-5">
             <div class="img cover-img">
@@ -324,95 +353,46 @@ if (empty($_SESSION)) {
               <label class="btn btn-primary" for="input-cover-Image"
                 >Upload</label
               >
-              <input type="file" hidden id="input-cover-Image" />
-              <button
-                type="submit"
-                class="btn btn-success"
-                id="cover-submit"
-                disabled
-              >
-                Save
-              </button>
+              <input type="file" hidden id="input-cover-Image"  name="c_image"/>
             </div>
           </div>
-        </form> -->
-        <!-----------------------Change first name form------------------>
-        <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
-          <h4>Change Your First name</h4>
-          <div
-            class="change-name mb-5 d-flex align-items-center gap-5 py-4 justify-content-between"
-          >
-            <input type="text" value="<?php echo $cur_user->fname;?>" name="fname" />
-           
-              <i class="fa-regular fa-pen-to-square"></i>
-              Edit
-            </button>
+          <h4>Change Your first name</h4>
+          <div class="change-name mb-5">
+            <input type="text" value="Mohamed El-Sayed" name="fname"/>
           </div>
-           <!--Change Account last form-->
-     
-          <h4>Change Your Last name</h4>
-          <div
-            class="change-name mb-5 d-flex align-items-center gap-5 py-4 justify-content-between"
-          >
-            <input type="text" value="<?php echo $cur_user->lname;?>" name="lname"  />
-         
-              <i class="fa-regular fa-pen-to-square"></i>
-              Edit
-            </button>
+          
+
+          <h4>Change Your last name</h4>
+          <div class="change-name mb-5">
+            <input type="text" value="Mohamed El-Sayed" name="lname" />
           </div>
-      
-        <!--Change bio form-->
-       
           <h4>Change Your BIO</h4>
-          <div
-            class="mb-5 d-flex align-items-center gap-5 py-4 justify-content-between"
-          >
-          <input
+         
+          <div class="change-name mb-5">
+            <input
               type="text"
-              value="<?php echo $cur_user->bio;?>"
+              value="hello friend my name is khaled, i'm a software developer"
               name="bio"
             />
-         
-              <i class="fa-solid fa-pencil"></i>
-              Edit
-            </button>
           </div>
-      
-        <!--Change Email form-->
-      
           <h4>Change your email address</h4>
-          <div
-            class="change-email mb-5 d-flex align-items-center gap-5 py-4 justify-content-between"
-          >
-            <input type="email" value="<?php echo $cur_user->email;?>" name="email"  />
-          
-              <i class="fa-regular fa-pen-to-square"></i>
-              Edit
-            </button>
+          <div class="change-email mb-5">
+            <input type="email" value="mohamed@gmail.com"  name="email"/>
           </div>
-          <button class="btn btn-success me-2" type="submit">Save Changes</button>
-        </form>
-        <!----------------------------Change Password Form------------------------>
-        <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
           <h4>Change your password</h4>
-          <div class="change-password mb-5 py-4 mt-3">
+          <div class="change-password mb-5">
             <label class="mb-2">Enter Your Current Password :</label>
-            <input type="password" class="mb-3" name="cur_password" />
+            <input type="password" class="mb-3" />
             <label class="mb-2">Enter Your New Password :</label>
-            <input type="password" class="mb-3" value="<?php  $cur_user->password;?>" name="password" />
+            <input type="password" class="mb-3"  name="password" />
             <label class="mb-2">Confirm Your New Password :</label>
-            <input type="password" class="mb-3" value="<?php  $cur_user->password;?>" name="repassword" />
-            <div class="mt-4 text-center">
-              <button class="btn btn-dark" type="submit">
-                <i class="fa-regular fa-pen-to-square me-2"></i>
-                Change Password
-              </button>
-            </div>
+            <input type="password" class="mb-3" />
           </div>
-        </form>
-        <footer class="text-center mb-5">
-          <button class="btn btn-danger">Delete Account</button>
-        </footer>
+          <footer class="text-center mb-5">
+            <button class="btn btn-success me-2" type="submit">Save Changes</button>
+            <button class="btn btn-warning">Delete Account</button>
+          </footer>
+        </form> -->
       </section>
     </div>
     <!--Mobile Navigation Bar-->
@@ -430,10 +410,9 @@ if (empty($_SESSION)) {
         <a href="UserProfile.html"><i class="fa-solid fa-user"></i></a>
       </div>
     </nav>
-    <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/all.min.js"></script>
-    <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/settings/settings.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/all.min.js"></script>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>
 <?php

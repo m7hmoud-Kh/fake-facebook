@@ -68,10 +68,11 @@ class User
 
         $stmt=$this->con->prepare("UPDATE users 
         SET 
-            profile_image=?,
-            profile_background=?
+            profile_image=?
+           
         WHERE
-             id =?");					  
+             id =?");
+             // profile_background=?					  
             //,$this->cuv_image
         $stmt->execute(array($this->prof_image,$this->id));
     }
