@@ -13,7 +13,7 @@ class User
     public $cuv_image;
 
     public $fname;
-    public $lanme;
+    public $lname;
     public $email;
     public $bio;
 
@@ -26,17 +26,7 @@ class User
     public function __construct()
     {
         $this->con = DbConnection::connect();
-        $this->id=$_SESSION['id'];
 
-        $this->prof_image=$_SESSION['profile_image'];
-        $this->cuv_image=$_SESSION['profile_background'];
-
-        $this->fname=$_SESSION['fname'];
-        $this->lanme=$_SESSION['lname'];
-        $this->email=$_SESSION['email'];
-        $this->bio=$_SESSION['bio'];
-
-        $this->password=$_SESSION['pass'];
         
     }
 
@@ -73,26 +63,6 @@ class User
         return $stmt->fetch();
     }
 
-
-    public function UpdateUser(){
-        
-        $stmt=$this->con->prepare("UPDATE users 
-        SET 
-            profile_image=?,
-            profile_background=?,
-            fname =?, 
-            lname =?, 
-            email=?,
-            pass=?
-           
-            
-
-        WHERE
-             id =?");					  
-            
-        $stmt->execute(array($this->prof_image,$this->cuv_image,$this->fname,$this->email,$this->pass,$this->id));
-    }
-
     public function Updateimage(){
         
 
@@ -102,8 +72,8 @@ class User
             profile_background=?
         WHERE
              id =?");					  
-            
-        $stmt->execute(array($this->prof_image,$this->cuv_image,$this->id));
+            //,$this->cuv_image
+        $stmt->execute(array($this->prof_image,$this->id));
     }
 
 
@@ -133,6 +103,5 @@ class User
             
         $stmt->execute(array(password_hash ($this->password, PASSWORD_DEFAULT) ,$this->id));
     }
-
-
+   
 }

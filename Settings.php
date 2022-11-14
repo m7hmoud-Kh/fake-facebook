@@ -8,33 +8,46 @@ if (empty($_SESSION)) {
 
   
  $cur_user= new User();
- //var_dump();
+//  var_dump($_SESSION);
+
 //  die();
+
+      $cur_user->id=$_SESSION['id'];
+
+       $cur_user->prof_image=$_SESSION['profile_image'];
+       $cur_user->cuv_image=$_SESSION['profile_background'];
+
+        $cur_user->fname=$_SESSION['fname'];
+        $cur_user->lname=$_SESSION['lname'];
+        $cur_user->email=$_SESSION['email'];
+        $cur_user->bio=$_SESSION['bio'];
+
+        $cur_user->password=$_SESSION['pass'];
 
  // $_POST['name'] || $_POST['bio'] || $_POST['email'] || $_POST['password'] cur_password
 
   // if (isset($_POST['image']  )) {
   //   var_dump($_POST);
-    // die();
-    // $data = $_POST;
-    // $Files = $_FILES['image']['name'] ?? '';
+  //   die();
+  //   $data = $_POST;
+  //   $Files = $_FILES['image']['name'] ?? '';
 
 
-    // $arrError  =  UserController::validateImage($data, $Files);
-    // if (empty($arrError)) {
+  //   $arrError  =  UserController::validateImage($data, $Files);
+  //   if (empty($arrError)) {
 
-    //   if (!empty($Files)) {
-    //     $ftemp = $_FILES["image"]["tmp_name"];
-    //     $fname = $_FILES['image']['name'];
-    //     $new_image =  UserController::uploadImage($fname, $ftemp);
-    //     $data = $new_image;
-    //   }
+  //     if (!empty($Files)) {
+  //       $ftemp = $_FILES["image"]["tmp_name"];
+  //       $fname = $_FILES['image']['name'];
+  //       $new_image =  UserController::uploadImage($fname, $ftemp);
+  //       $data = $new_image;
+  //     }
 
-    //  $cur_user->Updateimage($data);
+  //    $cur_user->Updateimage($data);
       
 
   //  }
-  //}
+  // }
  
   if(isset($_POST['fname']) || isset($_POST['lname']) ||isset($_POST['email']) || isset($_POST['bio'])){
     $data=$_POST;
@@ -47,31 +60,15 @@ if (empty($_SESSION)) {
 
   if(isset($_POST['cur_password'] ) && isset($_POST['password'] )  && isset($_POST['repassword'] )){
     $data=$_POST;
-    if(password_hash($data['cur_password'], PASSWORD_DEFAULT)== $cur_user->password){
+    $cur_pass=$cur_user->password;
+    if(password_verify($_POST['cur_password'],$cur_user->password)){
       if($data['password']===$data['repassword']){
         $cur_user->password=$data['password'];
         $cur_user->Updatepassword();
       }
       
-    }
-   
-   
   }
-
-
-
- 
-
-  // if (isset($_POST['delete_post'])) {
-  //   $deleted_post = $post->getPostById($_POST['post_id']);
-  //   //remove image from local
-  //   if (isset($deleted_post['image'])) {
-  //     $postController->removeImage($deleted_post['image']);
-  //   }
-  //   $post->deletePost($_POST['post_id']);
-  // }
-
-  // $allPosts = $post->myPosts($_SESSION['id']);
+  }
 
 
 ?>
@@ -282,28 +279,30 @@ if (empty($_SESSION)) {
       </div>
 
       <section id="settings-section">
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
+      
+
+        <form action="<?php //echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
         <h4>Change Your first name</h4>
           <div class="change-name mb-5">
-            <input type="text" value="" name="fname"/>
+            <input type="text" value="<?php echo $cur_user->fname;?>" name="fname"/>
           </div>
           
 
           <h4>Change Your last name</h4>
           <div class="change-name mb-5">
-            <input type="text" value="" name="lname" />
+            <input type="text" value="<?php echo $cur_user->lname;?>" name="lname" />
           </div>
 
           <h4>Change your email address</h4>
           <div class="change-email mb-5">
-            <input type="email" value=""  name="email"/>
+            <input type="email" value="<?php echo $cur_user->email;?>"  name="email"/>
           </div>
 
           <h4>Change Your BIO</h4>
           <div class="change-name mb-5">
             <input
               type="text"
-              value=""
+              value="<?php echo $cur_user->bio;?>"
               name="bio"
             />
           </div>
@@ -313,13 +312,16 @@ if (empty($_SESSION)) {
             <label class="mb-2">Enter Your Current Password :</label>
             <input type="password" class="mb-3" name="cur_password" />
             <label class="mb-2">Enter Your New Password :</label>
-            <input type="password" class="mb-3"  name="password" />
+            <input type="password" class="mb-3" value="<?php  $cur_user->password;?>" name="password" />
             <label class="mb-2">Confirm Your New Password :</label>
-            <input type="password" class="mb-3" name="repassword" />
+            <input type="password" class="mb-3"  value="<?php  $cur_user->password;?>" name="repassword" />
           </div>
 
           <button class="btn btn-success me-2" type="submit">Save Changes</button>
         </form>
+
+        <!-----------------------------------------fack------------------------------------------------------->
+
           <!-- <h4>Change your profile picture</h4>
           <div class="change-picture mb-5">
             <div class="img">

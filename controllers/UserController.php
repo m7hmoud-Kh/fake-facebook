@@ -80,6 +80,7 @@ class UserController
         }
 
     }
+    
 
     static function uploadImage($fname, $ftemp)
     {
@@ -95,7 +96,27 @@ class UserController
         unlink("./assets/images/users/$image");
     }
 
-    
+    static function validatesetting($data){
+
+        if (empty($data['cur_password'])) {
+            $setting_errors['cur_password'] = 'current password Must be Not Empty';
+        }
+
+
+        if (!empty($data['password']) && ($data['password'] != $data['repassword'])) {
+
+            $setting_errors['pass'] = 'password doesn\'t matches';
+
+        }
+
+
+        if (empty($setting_errors)) {
+            return false;
+        }
+        return $setting_errors;
+
+    }
+
 
 
 
