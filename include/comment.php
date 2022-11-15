@@ -10,6 +10,9 @@
         <p>
             <?=$comment['comment_body']?>
         </p>
+        <button class="delete-comment" title="remove comment">
+            <i class="fa-solid fa-trash me-1"></i>
+        </button>
         <span class="comment-time text-muted">
             <?=$postController->timeElapsedString($comment['created_at'])?></span>
     </div>
