@@ -108,24 +108,16 @@ class User
              id =?");					  
             
         $stmt->execute(array(password_hash ($this->password, PASSWORD_DEFAULT) ,$this->id));
-        //$_SESSION['pass']= password_hash ($this->password, PASSWORD_DEFAULT);
     }
 
     public function Updatepassword_at_session(){
         $stmt = $this->con->prepare('SELECT pass FROM Users WHERE id = ?');
         $stmt->execute(array($this->id));
         $new_pass= $stmt->fetch();
-        
-        $_SESSION['pass']=$new_pass;
+        $_SESSION['pass']=$new_pass['pass'];
     }
     
-
-//$2y$10$jF0QJVqnTXTIRpnZoCkEZOJhyhvEHP74crEpnm8ilREvBDMUVWRBq 20205050
-//$2y$10$jF0QJVqnTXTIRpnZoCkEZOJhyhvEHP74crEpnm8ilREvBDMUVWRBq 20205050
-
-//$2y$10$SlyjZ8fQcC4q5rzKeSiX4O/J3A5lSbpr1XvHLdKh44IvnQ0yAfXHu 12345678
-//$2y$10$jF0QJVqnTXTIRpnZoCkEZOJhyhvEHP74crEpnm8ilREvBDMUVWRBq
-
-//$2y$10$VI75whJ3E8hUikmgpl9LvuNgIedGpVD1h9osrhwf0QfmaQItIR9Ri 20205050
+//$2y$10$47GiOCU6l3CdGY8u/n9qvOQHmBN35tnLLMEIoY8o1VQPWRLtka1de 20205050
+//$2y$10$8U3x6iCK4QnLRNs8JTkmt.gX0WpJzeFQBxxneafqoSmQpzZyaxFEa
 
 }
