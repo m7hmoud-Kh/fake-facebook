@@ -8,9 +8,9 @@ if (empty($_SESSION)) {
 
   
  $cur_user= new User();
-//  var_dump();
+  var_dump($_SESSION);
 
-//  die();
+  //  die();
 
       $cur_user->id=$_SESSION['id'];
 
@@ -23,6 +23,8 @@ if (empty($_SESSION)) {
         $cur_user->bio=$_SESSION['bio'];
 
         $cur_user->password=$_SESSION['pass'];
+
+        
 
  // $_POST['name'] || $_POST['bio'] || $_POST['email'] || $_POST['password'] cur_password
  
@@ -50,28 +52,33 @@ if (empty($_SESSION)) {
   //  }
   // }
  
-  if(isset($_POST['fname']) || isset($_POST['lname']) ||isset($_POST['email']) || isset($_POST['bio'])){
+  if(!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email']) && !empty($_POST['bio'])){
     $data=$_POST;
     $cur_user->fname=$data['fname'];
     $cur_user->lname=$data['lname'];
     $cur_user->email=$data['email'];
     $cur_user->bio=$data['bio'];
     $cur_user->Updatedata();
+   
   }
-
-  if(isset($_POST['cur_password'] ) && isset($_POST['password'] )  && isset($_POST['repassword'] )){
+  // if($_SERVER['REQUEST_METHOD']=='POST'){
+  //   $data=$_POST;
+  //   $setting_errors=UserController::validatesetting($data);
+  // }
+  if(!empty($_POST['cur_password'] ) && !empty($_POST['password'] )  && !empty($_POST['repassword'] )){
     $data=$_POST;
-    $cur_pass=$cur_user->password;
     if(password_verify($_POST['cur_password'],$cur_user->password)){
+      
       if($data['password']===$data['repassword']){
         $cur_user->password=$data['password'];
         $cur_user->Updatepassword();
+        //$cur_user->Updatepassword_at_session();
       }
       
+ 
+}
   }
-  }
-//$2y$10$Q6XNrULyOPzhK1UfhxqKMexhvmRAtfYrb6P/ebSxiu38H4Lmdd8A.
-//$2y$10$qrv33R4k97Aw3eAxkTVhw.vEGyfMi/AlWybt6gvlj3pvmvTfCncZy.
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -280,6 +287,7 @@ if (empty($_SESSION)) {
       </div>
 
       <section id="settings-section">
+        
         <!--Change profile picture form-->
         <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
           <h4>Change your profile picture</h4>
@@ -296,6 +304,7 @@ if (empty($_SESSION)) {
               <label class="btn btn-primary" for="input-profile-Image"
                 >Upload</label
               >
+              <input type="file" hidden id="input-profile-Image" name="image" />
               <button
                 type="submit"
                 class="btn btn-success"
@@ -304,12 +313,12 @@ if (empty($_SESSION)) {
               >
                 Save
               </button>
-              <input type="file" hidden id="input-profile-Image" name="image"/>
+             
             </div>
           </div>
         </form>
         <!--Change Cover Form-->
-        <!-- <form>
+        <form>
           <h4>Change your Cover</h4>
           <div class="change-cover mb-5">
             <div class="img cover-img">
@@ -335,7 +344,7 @@ if (empty($_SESSION)) {
               </button>
             </div>
           </div>
-        </form> -->
+        </form> 
         <!-----------------------Change first name form------------------>
         <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
           <h4>Change Your First name</h4>
@@ -392,16 +401,29 @@ if (empty($_SESSION)) {
           </div>
           <button class="btn btn-success me-2" type="submit">Save Changes</button>
         </form>
+        
         <!----------------------------Change Password Form------------------------>
         <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
           <h4>Change your password</h4>
           <div class="change-password mb-5 py-4 mt-3">
             <label class="mb-2">Enter Your Current Password :</label>
             <input type="password" class="mb-3" name="cur_password" />
+            <?php if (isset($setting_errors['cur_password'])){echo '<div class="alert alert-danger">'. ($setting_errors['cur_password']).'</div>';}?>
+            <?php if (isset($setting_errors['cur_password_value'])){echo '<div class="alert alert-danger">'.($setting_errors['cur_password_value']).'</div>';}?>
+           <br>
+
+           
             <label class="mb-2">Enter Your New Password :</label>
             <input type="password" class="mb-3" value="<?php  $cur_user->password;?>" name="password" />
+            <?php if (isset($setting_errors['password'])){echo '<div class="alert alert-danger">'.($setting_errors['password']).'</div>';}?>
+            <br>
+
             <label class="mb-2">Confirm Your New Password :</label>
             <input type="password" class="mb-3" value="<?php  $cur_user->password;?>" name="repassword" />
+            <?php if (isset($setting_errors['repassword'])){echo '<div class="alert alert-danger">'. ($setting_errors['repassword']).'</div>';}?>
+            <?php if (isset($setting_errors['pass'])){echo '<div class="alert alert-danger">'. ($setting_errors['pass']).'</div>';}?>
+            <br>
+            
             <div class="mt-4 text-center">
               <button class="btn btn-dark" type="submit">
                 <i class="fa-regular fa-pen-to-square me-2"></i>

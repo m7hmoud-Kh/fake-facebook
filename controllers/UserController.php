@@ -1,5 +1,5 @@
 <?php
-
+ include_once './models/User.php';
 class UserController
 {
 
@@ -97,13 +97,24 @@ class UserController
     }
 
     static function validatesetting($data){
-
+        
         if (empty($data['cur_password'])) {
             $setting_errors['cur_password'] = 'current password Must be Not Empty';
         }
 
+        if (!empty($data['cur_password']) && !(password_verify($data['cur_password'],$_SESSION['pass']))){
+            $setting_errors['cur_password_value'] = 'current password Must be correct';
+        }
 
-        if (!empty($data['password']) && ($data['password'] != $data['repassword'])) {
+        if (empty($data['password'])) {
+            $setting_errors['password'] = 'password Must be Not Empty';
+        }
+
+        if (empty($data['repassword'])) {
+            $setting_errors['repassword'] = 'repassword Must be Not Empty';
+        }
+
+        if (!empty($data['password']) && !empty($data['repassword'])  && ($data['password'] != $data['repassword'])) {
 
             $setting_errors['pass'] = 'password doesn\'t matches';
 
