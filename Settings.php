@@ -9,11 +9,14 @@ if (empty($_SESSION)) {
   
  $cur_user= new User();
  $data=$_POST;
-
+ var_dump($_POST);
  $cur_user->id=$_SESSION['id'];
 
  $cur_user->prof_image=$_SESSION['profile_image'];
+ var_dump($cur_user->prof_image);
+
  $cur_user->cuv_image=$_SESSION['profile_background'];
+ var_dump($_SESSION["profile_background"]);
 
  $cur_user->fname=$_SESSION['fname'];
  $cur_user->lname=$_SESSION['lname'];
@@ -21,12 +24,16 @@ if (empty($_SESSION)) {
  $cur_user->bio=$_SESSION['bio'];
 
  $cur_user->password=$_SESSION['pass'];
-  
+
+
+
+/*********************************Validation ***********************************/ 
  if($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['pass_info']) ){
   
   $setting_errors=UserController::validatesetting($data);
-}
 
+}
+/*********************************update Data ***********************************/ 
 if(!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email']) && !empty($_POST['bio'])){
   
   $cur_user->fname=$data['fname'];
@@ -37,6 +44,7 @@ if(!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email'])
  
 }
 
+/*********************************update password ***********************************/ 
 if(!empty($_POST['cur_password'] ) && !empty($_POST['password'] )  && !empty($_POST['repassword'] )){
     
   if(password_verify($_POST['cur_password'],$cur_user->password)){
@@ -52,31 +60,76 @@ if(!empty($_POST['cur_password'] ) && !empty($_POST['password'] )  && !empty($_P
 }
 }
 
- // $_POST['name'] || $_POST['bio'] || $_POST['email'] || $_POST['password'] cur_password
+/*********************************update profile image ***********************************/ 
  
-  // if (isset($_POST['image']  )) {
-  //   var_dump($_POST);
-  //   die();
-   
-  //   $data = $_POST;
-  //   $Files = $_FILES['image']['name'] ?? '';
+  if (!empty($_FILES["image"]) && isset($_POST['prof_img']) ){
+    
+    $Files = $_FILES['image']['name'] ?? '';
 
 
-  //   $arrError  =  UserController::validateImage($data, $Files);
-  //   if (empty($arrError)) {
+    $arrError  =  UserController::validateImage( $Files);
+    if (empty($arrError)) {
 
-  //     if (!empty($Files)) {
-  //       $ftemp = $_FILES["image"]["tmp_name"];
-  //       $fname = $_FILES['image']['name'];
-  //       $new_image =  UserController::uploadImage($fname, $ftemp);
-  //       $data = $new_image;
-  //     }
+      if (!empty($Files)) {
+        $ftemp = $_FILES["image"]["tmp_name"];
+        $fname = $_FILES['image']['name'];
+        $new_image =  UserController::uploadImage($fname, $ftemp);
+        $cur_user->prof_image=$new_image;
+      }
 
-  //    $cur_user->Updateimage($data);
-      
+     $cur_user->Updateimage();
+     $_SESSION['profile_image']=$cur_user->prof_image;
+       
+   }
+  }
+/*********************update cuver image *******************************/
+if (!empty($_FILES['cuver_image']) && isset($_POST['cuver'])) {
+    
+  $Files_2 = $_FILES['cuver_image']['name'] ?? '';
 
-  //  }
-  // }
+
+  $arrError_2  =  UserController::validateImage( $Files_2);
+  if (empty($arrError_2)) {
+
+    if (!empty($Files_2)) {
+      $ftemp = $_FILES["cuver_image"]["tmp_name"];
+      $fname = $_FILES['cuver_image']['name'];
+      $new_cuver_image =  UserController::uploadImage($fname, $ftemp);
+      $cur_user->cuv_image=$new_cuver_image;
+    }
+
+   $cur_user->Update_cuver_image();
+   $_SESSION['profile_background']=$cur_user->cuv_image;
+     
+ }
+}
+/************************************delete profile image********************/
+
+
+  if(isset($_POST['Delete_prof_imag'])){
+    $cur_user->prof_image=null;
+    $cur_user->Updateimage();
+    $_SESSION['profile_image']=$cur_user->prof_image;
+    UserController::removeImage($cur_user->prof_image);
+  }
+
+  /************************************delete cuver image********************/
+
+
+  if(isset($_POST['Delete_cuver_imag'])){
+    $cur_user->cuv_image=null;
+    $cur_user->Update_cuver_image();
+    $_SESSION['profile_background']=$cur_user->cuv_image;
+    UserController::removeImage($cur_user->cuv_image);
+  }
+/*****************************************delete acount******************** */
+  if(isset($_POST['delete'])){
+    $secondes=3;
+    $url="logout.php";
+    $cur_user->deleteAcount();
+    header("refresh:$secondes ;url=$url");
+    exit();
+  }
  
 ?>
 <!DOCTYPE html>
@@ -293,21 +346,22 @@ if(!empty($_POST['cur_password'] ) && !empty($_POST['password'] )  && !empty($_P
           <div class="change-picture mb-5">
             <div class="img">
               <img
-                src="./assets/images/profile.jpg"
+                src=<?php echo "./assets/images/users/".$_SESSION["profile_image"]?>
                 class="img-fluid"
                 alt=""
               />
             </div>
             <div class="actions">
-              <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-danger" name="Delete_prof_imag">Delete</button>
               <label class="btn btn-primary" for="input-profile-Image"
                 >Upload</label
               >
-              <input type="file" hidden id="input-profile-Image" name="image" />
+              <input type="file" hidden id="input-profile-Image" name="image"/>
               <button
                 type="submit"
                 class="btn btn-success"
                 id="profile-submit"
+                name="prof_img"
                 disabled
               >
                 Save
@@ -316,27 +370,28 @@ if(!empty($_POST['cur_password'] ) && !empty($_POST['password'] )  && !empty($_P
             </div>
           </div>
         </form>
-        <!--Change Cover Form-->
-        <form>
+        <!-------------------------------------------Change Cover Form----------------------->
+        <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
           <h4>Change your Cover</h4>
           <div class="change-cover mb-5">
             <div class="img cover-img">
               <img
-                src="../../assets/images/cover.jpg"
+                src=<?php echo "./assets/images/users/".$_SESSION["profile_background"]?>
                 class="img-fluid"
                 alt=""
               />
             </div>
             <div class="actions">
-              <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-danger" name="Delete_cuver_imag">Delete</button>
               <label class="btn btn-primary" for="input-cover-Image"
                 >Upload</label
               >
-              <input type="file" hidden id="input-cover-Image" />
+              <input type="file" hidden id="input-cover-Image"  name="cuver_image"/>
               <button
                 type="submit"
                 class="btn btn-success"
                 id="cover-submit"
+                name="cuver"
                 disabled
               >
                 Save
@@ -433,7 +488,9 @@ if(!empty($_POST['cur_password'] ) && !empty($_POST['password'] )  && !empty($_P
           </div>
         </form>
         <footer class="text-center mb-5">
-          <button class="btn btn-danger">Delete Account</button>
+        <form action="<?php  $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data" >
+          <button class="btn btn-danger" type="submit" name="delete">Delete Account</button>
+          </form>
         </footer>
       </section>
     </div>

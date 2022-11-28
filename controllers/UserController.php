@@ -90,7 +90,6 @@ class UserController
         return $imageavatr;
     }
 
-
     static function removeImage($image)
     {
         unlink("./assets/images/users/$image");

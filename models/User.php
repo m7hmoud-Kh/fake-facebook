@@ -75,6 +75,22 @@ class User
              // profile_background=?					  
             //,$this->cuv_image
         $stmt->execute(array($this->prof_image,$this->id));
+       // $_SESSION['profile_image']=$this->prof_image;
+    }
+
+    public function Update_cuver_image(){
+        
+
+        $stmt=$this->con->prepare("UPDATE users 
+        SET 
+        profile_background=?
+           
+        WHERE
+             id =?");
+            					  
+            
+        $stmt->execute(array($this->cuv_image,$this->id));
+       
     }
 
 
@@ -99,7 +115,6 @@ class User
     }
 
     public function Updatepassword(){
-        
 
         $stmt=$this->con->prepare("UPDATE users 
         SET 
@@ -116,8 +131,11 @@ class User
         $new_pass= $stmt->fetch();
         $_SESSION['pass']=$new_pass['pass'];
     }
-    
-//$2y$10$47GiOCU6l3CdGY8u/n9qvOQHmBN35tnLLMEIoY8o1VQPWRLtka1de 20205050
-//$2y$10$8U3x6iCK4QnLRNs8JTkmt.gX0WpJzeFQBxxneafqoSmQpzZyaxFEa
+
+    public function deleteAcount(){
+        $stmt = $this->con->prepare('DELETE  FROM Users WHERE id = ?');
+        $stmt->execute(array($this->id));
+
+    }
 
 }
