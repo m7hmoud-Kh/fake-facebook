@@ -5,7 +5,7 @@ include_once(__DIR__.'./condb.php');
 class Like
 {
     private $con;
-
+    
     const LIKE = 1;
     const DISLIKE = 0;
 

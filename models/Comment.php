@@ -5,7 +5,7 @@ include_once(__DIR__.'./condb.php');
 class Comment
 {
     private $con;
-
+    
     public function __construct()
     {
         $this->con = DbConnection::connect();
