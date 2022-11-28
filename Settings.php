@@ -9,14 +9,14 @@ if (empty($_SESSION)) {
   
  $cur_user= new User();
  $data=$_POST;
- var_dump($_POST);
+
  $cur_user->id=$_SESSION['id'];
 
  $cur_user->prof_image=$_SESSION['profile_image'];
- var_dump($cur_user->prof_image);
+
 
  $cur_user->cuv_image=$_SESSION['profile_background'];
- var_dump($_SESSION["profile_background"]);
+
 
  $cur_user->fname=$_SESSION['fname'];
  $cur_user->lname=$_SESSION['lname'];
@@ -107,28 +107,28 @@ if (!empty($_FILES['cuver_image']) && isset($_POST['cuver'])) {
 
 
   if(isset($_POST['Delete_prof_imag'])){
+    UserController::removeImage( $_SESSION['profile_image']);
     $cur_user->prof_image=null;
     $cur_user->Updateimage();
     $_SESSION['profile_image']=$cur_user->prof_image;
-    UserController::removeImage($cur_user->prof_image);
+    
   }
 
   /************************************delete cuver image********************/
 
 
   if(isset($_POST['Delete_cuver_imag'])){
+    UserController::removeImage( $_SESSION['profile_background']);
     $cur_user->cuv_image=null;
     $cur_user->Update_cuver_image();
     $_SESSION['profile_background']=$cur_user->cuv_image;
-    UserController::removeImage($cur_user->cuv_image);
+   
   }
 /*****************************************delete acount******************** */
   if(isset($_POST['delete'])){
-    $secondes=3;
-    $url="logout.php";
     $cur_user->deleteAcount();
-    header("refresh:$secondes ;url=$url");
-    exit();
+    header('location: logout.php');
+    
   }
  
 ?>
