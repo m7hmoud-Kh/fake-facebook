@@ -46,7 +46,7 @@ class Post
 
     public function allPosts()
     {
-        $stmt = $this->con->prepare('SELECT posts.*, users.id as `user_id` ,users.fname,users.lname
+        $stmt = $this->con->prepare('SELECT posts.*, users.id as `user_id` ,users.*
         FROM posts JOIN users on posts.user_id = users.id ORDER BY posts.id DESC');
         $stmt->execute();
         return $stmt->fetchAll();

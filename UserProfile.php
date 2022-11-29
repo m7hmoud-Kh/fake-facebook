@@ -88,7 +88,7 @@ if (empty($_SESSION)) {
           ?>
 
           <div class="user-details">
-            <h2>Mohamed Sayed Osman</h2>
+            <h2><?=$_SESSION['fname'] . ' ' . $_SESSION['lname']?></h2>
             <p class="friends text-light">3,180 friend</p>
           </div>
           <a class="btn btn-primary" href="Settings.php">Update Profile
