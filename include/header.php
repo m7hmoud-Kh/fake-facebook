@@ -165,16 +165,16 @@
     <div class="aside-header d-lg-none">
         <ul class="list-unstyled">
             <li>
-                <a href="#"><i class="fa-solid fa-user"></i>Profile</a>
+                <a href="UserProfile.php"><i class="fa-solid fa-user"></i>Profile</a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-user-group"></i>Friends</a>
+                <a href=""><i class="fa-solid fa-user-group"></i>Friends</a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-gear"></i>Settings</a>
+                <a href="Settings.php"><i class="fa-solid fa-gear"></i>Settings</a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+                <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
             </li>
         </ul>
     </div>

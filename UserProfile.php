@@ -58,6 +58,7 @@ if (empty($_SESSION)) {
   <link rel="stylesheet" href="./assets/css/all.min.css" />
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./assets/css/profile/myProfile.css" />
+  <link rel="stylesheet" href="./assets/css/post/postSyles.css" />
   <title>Profile</title>
 </head>
 
@@ -66,29 +67,48 @@ if (empty($_SESSION)) {
   <div class="container">
     <div class="profile">
       <div class="user-info">
+        <?php
+            if (!empty($_SESSION['profile_background'])) {
+              ?>
         <div class="cover">
-          <img src="../images/cover.jpg" alt="" class="img-fluid" />
+          <img src="./assets/images/users/<?=$_SESSION['profile_background']?>" alt="" class="img-fluid" />
         </div>
+        <?php
+            }
+          ?>
         <div class="user-data">
+          <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
           <div class="profile-img">
-            <img src="../images/profile.jpg" class="img-fluid" alt="" />
+            <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
           </div>
+          <?php
+                }
+          ?>
+
           <div class="user-details">
             <h2>Mohamed Sayed Osman</h2>
             <p class="friends text-light">3,180 friend</p>
           </div>
-          <a class="btn btn-primary" href="./Settings.php">Update Profile</div>
-</a>
+          <a class="btn btn-primary" href="Settings.php">Update Profile
+        </div>
+        </a>
       </div>
       <div class="main-page">
         <div class="row">
           <div class="col-lg-4 col-12">
             <div class="bio">
               <h4 class="mt-2 mb-4">About US</h4>
+              <?php
+              if (!empty($_SESSION['bio'])) {
+                ?>
+                <p class="text-center lead"><?=$_SESSION['bio']?></p>
+                <?php
+              }
+              ?>
               <div class="about">
-                <p>My name is Mohamed Sayed, i'm a front-end developer</p>
-                <p>FC Barcelona</p>
-                <p>Ahly</p>
+
               </div>
 
               <div class="friends px-4 mt-5">
@@ -363,7 +383,7 @@ if (empty($_SESSION)) {
 
     });
 
-    
+
     $('span#likeIcon').on('click', function () {
       let likeIcon = $(this);
       let postId = $(this).attr('data-postId');

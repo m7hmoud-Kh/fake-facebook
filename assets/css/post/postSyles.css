@@ -101,8 +101,8 @@
 .comment .content .delete-comment {
   display: block;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  bottom: 40%;
+  right: -16%;
   color: red;
   background: transparent;
   border: none;

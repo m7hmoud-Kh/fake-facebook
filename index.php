@@ -64,8 +64,12 @@ if (empty($_SESSION)) {
   <!-- CSS -->
   <link rel="stylesheet" href="./assets/css/main.css" />
   <link rel="stylesheet" href="./assets/css/Home/home.css" />
+  <link rel="stylesheet" href="./assets/css/post/postSyles.css" />
+
+
   <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link
     href="https://fonts.googleapis.com/css2?family=Carter+One&family=Modak&family=Open+Sans:ital,wght@0,300;0,700;1,300;1,800&family=Poppins:wght@400;600;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,400&family=Sedgwick+Ave&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;1,100;1,500&display=swap"
     rel="stylesheet" />
