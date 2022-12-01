@@ -25,7 +25,7 @@ class PostController
     private function validateImage($fname)
     {
 
-        $allowextion = array("png","jpg","jepg","gif");
+        $allowextion = array("png","jpg","jpeg","gif");
         $extion      = explode(".", $fname);
         $extion      = end($extion);
         $extion      = strtolower($extion);

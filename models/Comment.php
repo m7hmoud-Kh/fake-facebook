@@ -5,7 +5,7 @@ include_once(__DIR__.'./condb.php');
 class Comment
 {
     private $con;
-    
+
     public function __construct()
     {
         $this->con = DbConnection::connect();
@@ -22,7 +22,7 @@ class Comment
 
     public function getCommentByPostId($postId)
     {
-        $stmt = $this->con->prepare('SELECT comments.*, users.fname , users.lname FROM
+        $stmt = $this->con->prepare('SELECT comments.*, users.fname , users.lname , users.profile_image FROM
         comments JOIN users ON users.id = comments.user_id WHERE post_id = ?; ');
         $stmt->execute(array($postId));
         return $stmt->fetchAll();

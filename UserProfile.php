@@ -221,7 +221,7 @@ if (empty($_SESSION)) {
                 <?php
                 $commentModel = new Comment();
                 foreach ($allPosts as $post) {
-                  $comments = $commentModel->getCommentByPostId($post['id']);
+                  $comments = $commentModel->getCommentByPostId($post['post_id']);
                   ?>
                 <div class="post">
                   <div class="header d-flex justify-content-between mb-2">
@@ -265,13 +265,13 @@ if (empty($_SESSION)) {
                       <div class="img">
                         <img src="./assets/images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
                       </div>
-                      <input type="hidden" id="postId" value="<?=$post['id']?>">
+                      <input type="hidden" id="postId" value="<?=$post['post_id']?>">
                       <input type="text" id="commentInput" name="comment" placeholder="type your comment ...." />
                       <button type="submit" name="add_comment" class="btn btn-primary">Post</button>
                     </form>
                   </div>
                   <div class="setting">
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-post_id="<?=$post['id']?>"
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-post_id="<?=$post['post_id']?>"
                       data-bs-target="#delete_post">
                       Delete
                     </button>
@@ -350,7 +350,9 @@ if (empty($_SESSION)) {
 
         var fname = `<?= $_SESSION['fname'] ?>`;
         var lname = `<?= $_SESSION['lname']?>`;
-        var fullName = fname + ' ' + lname
+        var fullName = fname + ' ' + lname;
+        var profileImage = `<?=$_SESSION['profile_image']?>`;
+
 
 
         $.ajax({
@@ -360,13 +362,16 @@ if (empty($_SESSION)) {
           success: function (response) {
             $('<div class="comment mb-4">' +
               '<div class="img">' +
-              '<img src="../images/profile.jpg" class="img-fluid" alt="" />' +
+              `<img src="./assets/images/users/${profileImage}" class="img-fluid" alt="" />` +
               '</div>' +
               '<div class="content">' +
               '<h6>' + fullName + '</h6>' +
               '<p>' +
               comment +
               '</p>' +
+              `<a class="delete-comment" title="remove comment">
+              <i class="fa-solid fa-trash me-1"></i>
+              </a>` +
               '<span class="comment-time text-muted">' + h + ':' + m + '</span>' +
               '</div>' +
               '</div>').insertBefore(parent)
