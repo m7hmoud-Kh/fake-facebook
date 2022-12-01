@@ -43,6 +43,7 @@ setInterval(function () {
         data: "JSON",
         success: function (response) {
             chatBox.innerHTML = response;
+            scrollToBottom();
         }
     });
 
