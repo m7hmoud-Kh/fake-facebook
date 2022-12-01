@@ -51,4 +51,11 @@ class Post
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public function getAllInfoPostById($postId)
+    {
+        $stmt = $this->con->prepare('SELECT posts.id as `post_id`, posts.*, users.id as `user_id` ,users.* FROM posts JOIN users on posts.user_id = users.id WHERE posts.id = ?');
+        $stmt->execute(array($postId));
+        return $stmt->fetch();
+    }
 }

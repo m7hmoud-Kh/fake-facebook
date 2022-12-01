@@ -305,9 +305,10 @@ if (empty($_SESSION)) {
               '<p>' +
               comment +
               '</p>' +
-              `  <button class="delete-comment" title="remove comment">
+              `<a data-comment_id="${response}" name='delete-comment' class="delete-comment"
+              title="remove comment">
               <i class="fa-solid fa-trash me-1"></i>
-              </button>` +
+              </a>` +
               '<span class="comment-time text-muted">' + h + ':' + m + '</span>' +
               '</div>' +
               '</div>').insertBefore(parent)
@@ -335,6 +336,7 @@ if (empty($_SESSION)) {
         url: "./controllers/AddLike.php?postId=" + postId,
         data: 'JSON',
         success: function (response) {
+          console.log(response);
           let svg = likeIcon.prev()[0];
           if (response == 'add') {
             likeCounter += 1;
@@ -376,6 +378,26 @@ if (empty($_SESSION)) {
           }
         }
       });
+
+
+    });
+
+    $('a[title="remove comment"]').on('click', function (event) {
+      // console.log();
+      console.log(parent);
+      let comment = $(this).parents()[1];
+      let commentId = $(this).data('comment_id');
+      if (commentId) {
+        $.ajax({
+          type: "GET",
+          url: "./controllers/DeleteComment.php?commentId=" + commentId,
+          data: 'JSON',
+          success: function (response) {
+            comment.classList.add('hide')
+          }
+        });
+      }
+
 
 
     });

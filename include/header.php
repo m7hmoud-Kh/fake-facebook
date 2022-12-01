@@ -1,3 +1,11 @@
+<?php
+
+include './models/Notification.php';
+
+$notification = new Notification();
+$unSeenNotification = $notification->getUnreadNotificationByUserId();
+
+?>
 <header>
     <div class="logo d-flex gap-4 align-items-center">
         <div class="d-lg-none d-block nav-toggler">
@@ -18,68 +26,53 @@
         </div>
         <div class="notification">
             <i class="fa-solid fa-bell"></i>
+            <?php
+            if ($unSeenNotification[0] > 0) {
+            ?>
+            <div class="seen"></div>
+            <?php
+            } else {
+            ?>
             <div class="unseen"></div>
+            <?php
+            }
+            ?>
         </div>
         <div class="profile">
             <i class="fa-solid fa-user"></i>
         </div>
         <div class="notifications has-scrollbar">
-            <div class="notification-box d-flex align-items-center gap-2">
-                <div class="img" style="width: 70px">
-                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
+            <?php
+            if(!empty($unSeenNotification[1])){
+                foreach ($unSeenNotification[1] as $notifiy) {
+                    ?>
+            <a href="<?=$notifiy['url']?>">
+                <div class="notification-box d-flex align-items-center gap-2">
+                    <div class="img" style="width: 70px">
+                        <img src="./assets/images/users/<?=$notifiy['profile_image']?>" class="img-fluid" alt="" />
+                    </div>
+                    <div class="details">
+                        <p><?=$notifiy['fname'] . ' ' . $notifiy['lname']?>
+                            <strong><?=$notifiy['message']?></strong>
+                        </p>
+                        <span class="text-muted"><?=$notifiy['created_at']?></span>
+                    </div>
                 </div>
-                <div class="details">
-                    <p>Mohamed Sayed Reacted to your post</p>
-                    <span class="text-muted">2m ago</span>
+            </a>
+            <?php
+                }
+            }else{
+                ?>
+                <div class="notification-box d-flex align-items-center gap-2">
+                    <div class="details">
+                       <p>No New Notification Until</p>
+                    </div>
                 </div>
-            </div>
-            <div class="notification-box d-flex align-items-center gap-2">
-                <div class="img" style="width: 70px">
-                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-                </div>
-                <div class="details">
-                    <p>Mohamed Sayed Reacted to your post</p>
-                    <span class="text-muted">2m ago</span>
-                </div>
-            </div>
-            <div class="notification-box d-flex align-items-center gap-2">
-                <div class="img" style="width: 70px">
-                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-                </div>
-                <div class="details">
-                    <p>Mohamed Sayed Reacted to your post</p>
-                    <span class="text-muted">2m ago</span>
-                </div>
-            </div>
-            <div class="notification-box d-flex align-items-center gap-2">
-                <div class="img" style="width: 70px">
-                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-                </div>
-                <div class="details">
-                    <p>Mohamed Sayed Reacted to your post</p>
-                    <span class="text-muted">2m ago</span>
-                </div>
-            </div>
-            <div class="notification-box d-flex align-items-center gap-2">
-                <div class="img" style="width: 70px">
-                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-                </div>
-                <div class="details">
-                    <p>Mohamed Sayed Reacted to your post</p>
-                    <span class="text-muted">2m ago</span>
-                </div>
-            </div>
-            <div class="notification-box d-flex align-items-center gap-2">
-                <div class="img" style="width: 70px">
-                    <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-                </div>
-                <div class="details">
-                    <p>Mohamed Sayed Reacted to your post</p>
-                    <span class="text-muted">2m ago</span>
-                </div>
-            </div>
+                <?php
+            }
+            ?>
             <div class="load-more text-center">
-                <p>Load More ....</p>
+                <a href="./notification.php">Load more...</a>
             </div>
         </div>
         <div class="setting-popup">

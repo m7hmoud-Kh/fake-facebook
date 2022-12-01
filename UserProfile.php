@@ -103,8 +103,8 @@ if (empty($_SESSION)) {
               <?php
               if (!empty($_SESSION['bio'])) {
                 ?>
-                <p class="text-center lead"><?=$_SESSION['bio']?></p>
-                <?php
+              <p class="text-center lead"><?=$_SESSION['bio']?></p>
+              <?php
               }
               ?>
               <div class="about">
@@ -201,9 +201,15 @@ if (empty($_SESSION)) {
                 ?>
                 <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
                   <div class="text-input">
+                    <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
                     <div class="img">
-                      <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                      <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
                     </div>
+                    <?php
+                }
+          ?>
                     <textarea name="content" placeholder="what's in your mind ..?"></textarea>
                   </div>
                   <div class="options d-flex justify-content-between mt-4">
@@ -226,9 +232,15 @@ if (empty($_SESSION)) {
                 <div class="post">
                   <div class="header d-flex justify-content-between mb-2">
                     <div class="publisher d-flex gap-3">
+                      <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
                       <div class="img">
-                        <img src="../images/profile.jpg" class="img-fluid" alt="" />
+                        <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
                       </div>
+                      <?php
+                }
+          ?>
                       <div class="info">
                         <h5><?=$postController->fullName($_SESSION['fname'], $_SESSION['lname'])?></h5>
                         <p class="text-muted">
@@ -262,9 +274,17 @@ if (empty($_SESSION)) {
                     include './include/comment.php'
                     ?>
                     <form class="add-comment" action="#">
+
+                      <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
                       <div class="img">
-                        <img src="./assets/images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
+                        <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid"
+                          style="width: 45px" alt="" />
                       </div>
+                      <?php
+                }
+          ?>
                       <input type="hidden" id="postId" value="<?=$post['post_id']?>">
                       <input type="text" id="commentInput" name="comment" placeholder="type your comment ...." />
                       <button type="submit" name="add_comment" class="btn btn-primary">Post</button>
@@ -369,7 +389,8 @@ if (empty($_SESSION)) {
               '<p>' +
               comment +
               '</p>' +
-              `<a class="delete-comment" title="remove comment">
+              `<a data-comment_id="${response}" name='delete-comment' class="delete-comment"
+              title="remove comment">
               <i class="fa-solid fa-trash me-1"></i>
               </a>` +
               '<span class="comment-time text-muted">' + h + ':' + m + '</span>' +
@@ -387,7 +408,6 @@ if (empty($_SESSION)) {
       }
 
     });
-
 
     $('span#likeIcon').on('click', function () {
       let likeIcon = $(this);
@@ -448,6 +468,24 @@ if (empty($_SESSION)) {
       });
 
 
+    });
+
+
+    $('a[title="remove comment"]').on('click', function (event) {
+      // console.log();
+      console.log(parent);
+      let comment = $(this).parents()[1];
+      let commentId = $(this).data('comment_id');
+      if (commentId) {
+        $.ajax({
+          type: "GET",
+          url: "./controllers/DeleteComment.php?commentId=" + commentId,
+          data: 'JSON',
+          success: function (response) {
+            comment.classList.add('hide')
+          }
+        });
+      }
     });
   </script>
 </body>

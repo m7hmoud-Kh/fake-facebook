@@ -35,4 +35,11 @@ class Comment
         $stmt->execute(array($postId));
         return $stmt->fetch();
     }
+
+
+    public function deleteCommentById($commentId)
+    {
+        $stmt = $this->con->prepare('DELETE FROM comments WHERE id = ?');
+        $stmt->execute(array($commentId));
+    }
 }

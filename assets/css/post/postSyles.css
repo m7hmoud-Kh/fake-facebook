@@ -137,3 +137,7 @@
   outline: none;
   transform: scale(1.04);
 }
+
+.hide {
+  display: none !important;
+}

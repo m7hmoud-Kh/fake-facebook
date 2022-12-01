@@ -13,7 +13,9 @@ foreach ($comments as $comment) {
             <?php
             if ($comment['user_id'] == $_SESSION['id'] || $post['user_id'] == $_SESSION['id']) {
             ?>
-                <a href="" class="delete-comment" title="remove comment">
+                <a
+                data-comment_id="<?=$comment['id']?>"
+                class="delete-comment" title="remove comment">
                     <i class="fa-solid fa-trash me-1"></i>
                 </a>
             <?php
