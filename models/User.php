@@ -1,7 +1,7 @@
 <?php
 
 
-include_once(__DIR__.'./condb.php');
+include_once(__DIR__ . './condb.php');
 
 
 class User
@@ -26,11 +26,9 @@ class User
     public function __construct()
     {
         $this->con = DbConnection::connect();
-
-        
     }
 
-  
+
 
     public function checkFoundEmail($email)
     {
@@ -57,85 +55,96 @@ class User
     }
 
 
-    public function CheckEmailForLogin($email) {
+    public function CheckEmailForLogin($email)
+    {
         $stmt = $this->con->prepare('SELECT * FROM Users WHERE email = ?');
         $stmt->execute(array($email));
         return $stmt->fetch();
     }
 
-    public function Updateimage(){
-        
+    public function Updateimage()
+    {
 
-        $stmt=$this->con->prepare("UPDATE users 
-        SET 
+
+        $stmt = $this->con->prepare("UPDATE users
+        SET
             profile_image=?
-           
+
         WHERE
              id =?");
-             // profile_background=?					  
-            //,$this->cuv_image
-        $stmt->execute(array($this->prof_image,$this->id));
-       // $_SESSION['profile_image']=$this->prof_image;
+        // profile_background=?
+        //,$this->cuv_image
+        $stmt->execute(array($this->prof_image, $this->id));
+        // $_SESSION['profile_image']=$this->prof_image;
     }
 
-    public function Update_cuver_image(){
-        
+    public function Update_cuver_image()
+    {
 
-        $stmt=$this->con->prepare("UPDATE users 
-        SET 
+
+        $stmt = $this->con->prepare("UPDATE users
+        SET
         profile_background=?
-           
+
         WHERE
              id =?");
-            					  
-            
-        $stmt->execute(array($this->cuv_image,$this->id));
-       
+
+
+        $stmt->execute(array($this->cuv_image, $this->id));
     }
 
 
-    public function Updatedata(){
-        
+    public function Updatedata()
+    {
 
-        $stmt=$this->con->prepare("UPDATE users 
-        SET 
+
+        $stmt = $this->con->prepare("UPDATE users
+        SET
            fname=?,
            lname=?,
            email=?,
            bio=?
         WHERE
-             id =?");					  
-            
-        $stmt->execute(array($this->fname,$this->lname,$this->email,$this->bio,$this->id));
+             id =?");
 
-       $_SESSION['fname']= $this->fname;
-       $_SESSION['lname']=$this->lname;
-       $_SESSION['email'] =$this->email;
-       $_SESSION['bio']= $this->bio;
+        $stmt->execute(array($this->fname, $this->lname, $this->email, $this->bio, $this->id));
+
+        $_SESSION['fname'] = $this->fname;
+        $_SESSION['lname'] = $this->lname;
+        $_SESSION['email'] = $this->email;
+        $_SESSION['bio'] = $this->bio;
     }
 
-    public function Updatepassword(){
+    public function Updatepassword()
+    {
 
-        $stmt=$this->con->prepare("UPDATE users 
-        SET 
+        $stmt = $this->con->prepare("UPDATE users
+        SET
         pass=?
         WHERE
-             id =?");					  
-            
-        $stmt->execute(array(password_hash ($this->password, PASSWORD_DEFAULT) ,$this->id));
+             id =?");
+
+        $stmt->execute(array(password_hash($this->password, PASSWORD_DEFAULT), $this->id));
     }
 
-    public function Updatepassword_at_session(){
+    public function Updatepassword_at_session()
+    {
         $stmt = $this->con->prepare('SELECT pass FROM Users WHERE id = ?');
         $stmt->execute(array($this->id));
-        $new_pass= $stmt->fetch();
-        $_SESSION['pass']=$new_pass['pass'];
+        $new_pass = $stmt->fetch();
+        $_SESSION['pass'] = $new_pass['pass'];
     }
 
-    public function deleteAcount(){
+    public function deleteAcount()
+    {
         $stmt = $this->con->prepare('DELETE  FROM Users WHERE id = ?');
         $stmt->execute(array($this->id));
-
     }
 
+    public function getUserById($userId)
+    {
+        $stmt = $this->con->prepare('SELECT * FROM Users WHERE id = ?');
+        $stmt->execute(array($userId));
+        return $stmt->fetch();
+    }
 }

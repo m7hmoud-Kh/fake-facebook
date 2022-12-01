@@ -7,10 +7,13 @@ if (empty($_SESSION)) {
   include_once './models/Post.php';
   include_once './models/Comment.php';
   include_once './models/Like.php';
+  include_once './models/Friends.php';
 
 
   $post = new Post();
   $postController  = new PostController();
+  $friends = new Friends();
+  $countFriend = $friends->getFriendsCount();
 
 
   if (isset($_POST['add_post'])) {
@@ -89,7 +92,9 @@ if (empty($_SESSION)) {
 
           <div class="user-details">
             <h2><?=$_SESSION['fname'] . ' ' . $_SESSION['lname']?></h2>
-            <p class="friends text-light">3,180 friend</p>
+            <p class="friends text-light"><?=$countFriend['all_friends']?>
+                <?php echo $countFriend['all_friends'] == 1 ? 'Friend' : 'Friends'?>
+            </p>
           </div>
           <a class="btn btn-primary" href="Settings.php">Update Profile
         </div>
@@ -114,7 +119,7 @@ if (empty($_SESSION)) {
               <div class="friends px-4 mt-5">
                 <div class="head d-flex justify-content-between">
                   <p class="">Friends</p>
-                  <p class="">3,800</p>
+                  <p class=""><?=$countFriend['all_friends']?></p>
                 </div>
                 <hr class="mb-4 mt-0" />
 

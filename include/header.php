@@ -1,9 +1,11 @@
 <?php
 
 include './models/Notification.php';
-
+include_once './models/Message.php';
 $notification = new Notification();
+$messageModel = new Message();
 $unSeenNotification = $notification->getUnreadNotificationByUserId();
+$latestMessage = $messageModel->messageNotification();
 
 ?>
 <header>
@@ -43,32 +45,32 @@ $unSeenNotification = $notification->getUnreadNotificationByUserId();
         </div>
         <div class="notifications has-scrollbar">
             <?php
-            if(!empty($unSeenNotification[1])){
+            if (!empty($unSeenNotification[1])) {
                 foreach ($unSeenNotification[1] as $notifiy) {
-                    ?>
-            <a href="<?=$notifiy['url']?>">
+            ?>
+            <a href="<?= $notifiy['url'] ?>">
                 <div class="notification-box d-flex align-items-center gap-2">
                     <div class="img" style="width: 70px">
-                        <img src="./assets/images/users/<?=$notifiy['profile_image']?>" class="img-fluid" alt="" />
+                        <img src="./assets/images/users/<?= $notifiy['profile_image'] ?>" class="img-fluid" alt="" />
                     </div>
                     <div class="details">
-                        <p><?=$notifiy['fname'] . ' ' . $notifiy['lname']?>
-                            <strong><?=$notifiy['message']?></strong>
+                        <p><?= $notifiy['fname'] . ' ' . $notifiy['lname'] ?>
+                            <strong><?= $notifiy['message'] ?></strong>
                         </p>
-                        <span class="text-muted"><?=$notifiy['created_at']?></span>
+                        <span class="text-muted"><?= $notifiy['created_at'] ?></span>
                     </div>
                 </div>
             </a>
             <?php
                 }
-            }else{
+            } else {
                 ?>
-                <div class="notification-box d-flex align-items-center gap-2">
-                    <div class="details">
-                       <p>No New Notification Until</p>
-                    </div>
+            <div class="notification-box d-flex align-items-center gap-2">
+                <div class="details text-center">
+                    <p>No New Notification Until</p>
                 </div>
-                <?php
+            </div>
+            <?php
             }
             ?>
             <div class="load-more text-center">
@@ -86,63 +88,55 @@ $unSeenNotification = $notification->getUnreadNotificationByUserId();
             </ul>
         </div>
         <div class="messenger-popup has-scrollbar">
-            <a href="#">
+            <?php
+            if ($latestMessage) {
+                $message = $latestMessage[0];
+                ?>
+            <a href="./chat.php?chat_with=<?= $message['from_user_id'] ?>">
                 <div class="message-box d-flex align-items-center gap-2">
                     <div class="img" style="width: 120px">
-                        <img src="../../images/profile.jpg" class="img-fluid" alt="" />
+                        <img src="./assets/images/users/<?= $message['profile_image'] ?>" class="img-fluid" alt="" />
                     </div>
                     <div class="details">
-                        <p class="sender-name">Mohamed Sayed</p>
-                        <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                            homework</span>
+                        <p class="sender-name">
+                            <?= $message['fname'] . ' ' . $message['lname'] ?>
+                        </p>
+                        <span class="message-preview text-muted"><?= $message['message'] ?></span>
                         <br />
-                        <span class="text-muted">2m ago</span>
+                        <span class="text-muted"><?= $message['created'] ?></span>
                     </div>
                 </div>
             </a>
-            <a href="#">
+            <?php
+                $from_user_id = $latestMessage[0]['from_user_id'];
+                foreach ($latestMessage as $message) {
+                    if ($from_user_id != $message['from_user_id']) {
+            ?>
+            <a href="./chat.php?chat_with=<?= $message['from_user_id'] ?>">
                 <div class="message-box d-flex align-items-center gap-2">
                     <div class="img" style="width: 120px">
-                        <img src="../../images/profile.jpg" class="img-fluid" alt="" />
+                        <img src="./assets/images/users/<?= $message['profile_image'] ?>" class="img-fluid" alt="" />
                     </div>
                     <div class="details">
-                        <p class="sender-name">Mohamed Sayed</p>
-                        <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                            homework</span>
+                        <p class="sender-name">
+                            <?= $message['fname'] . ' ' . $message['lname'] ?>
+                        </p>
+                        <span class="message-preview text-muted"><?= $message['message'] ?></span>
                         <br />
-                        <span class="text-muted">2m ago</span>
-                    </div>
-                </div>
-            </a><a href="#">
-                <div class="message-box d-flex align-items-center gap-2">
-                    <div class="img" style="width: 120px">
-                        <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-                    </div>
-                    <div class="details">
-                        <p class="sender-name">Mohamed Sayed</p>
-                        <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                            homework</span>
-                        <br />
-                        <span class="text-muted">2m ago</span>
-                    </div>
-                </div>
-            </a><a href="#">
-                <div class="message-box d-flex align-items-center gap-2">
-                    <div class="img" style="width: 120px">
-                        <img src="../../images/profile.jpg" class="img-fluid" alt="" />
-                    </div>
-                    <div class="details">
-                        <p class="sender-name">Mohamed Sayed</p>
-                        <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                            homework</span>
-                        <br />
-                        <span class="text-muted">2m ago</span>
+                        <span class="text-muted"><?= $message['created'] ?></span>
                     </div>
                 </div>
             </a>
-            <div class="load-more text-center">
-                <p>Load More ....</p>
-            </div>
+            <?php
+                        $from_user_id = $message['from_user_id'];
+                    }
+                    ?>
+
+            <?php
+                }
+            }
+            ?>
+
         </div>
         <div class="profile-popup">
             <ul class="list-unstyled">
