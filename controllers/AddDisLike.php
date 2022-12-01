@@ -3,6 +3,8 @@
 session_start();
 
 include_once  '../models/Like.php';
+include_once '../models/Post.php';
+include_once '../models/Notification.php';
 
 $post_id = $_GET['postId'];
 
@@ -17,17 +19,21 @@ if (isset($post_id)) {
             $like->removeLike($data);
             echo 'remove';
         }
-    }else {
+    } else {
+        //get owner post by id
+        $postModel = new Post();
+        $post = $postModel->getPostById($data['post_id']);
+        if ($post['user_id'] != $data['user_id']) {
+            $notification = new Notification();
+            $data['to_user_id'] = $post['user_id'];
+            $data['from_user_id'] = $data['user_id'];
+            $data['message'] = 'Reacted to your post';
+            $data['url'] = "http://localhost/php_mah/fakeFacebook/post.php?id=$post[id]";
+            $data['post_id'] = $post['id'];
+
+            $notification->addNotification($data);
+        }
         $like->addLike($data);
         echo 'add';
     }
-    // // check if found dislike or not
-    // if (!$like->checkIfFoundLike($data)) {
-    //     $like->addLike($data);
-    //     echo true;
-    // }else {
-    //     //remove Like
-    //     $like->removeLike($data);
-    //     echo 0;
-    // }
 }

@@ -1,8 +1,8 @@
 <div class="left">
     <div class="bg-color">
         <a class="userInfo">
-            <img src="images/Home/user.jpg" alt="" />
-            <h2>Byiringiro Saad</h2>
+            <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" alt="" />
+            <h2><?= $_SESSION['fname'] . ' ' . $_SESSION['lname'] ?></h2>
         </a>
         <div class="menu">
             <div class="box">

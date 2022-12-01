@@ -64,8 +64,12 @@ if (empty($_SESSION)) {
   <!-- CSS -->
   <link rel="stylesheet" href="./assets/css/main.css" />
   <link rel="stylesheet" href="./assets/css/Home/home.css" />
+  <link rel="stylesheet" href="./assets/css/post/postSyles.css" />
+
+
   <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link
     href="https://fonts.googleapis.com/css2?family=Carter+One&family=Modak&family=Open+Sans:ital,wght@0,300;0,700;1,300;1,800&family=Poppins:wght@400;600;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,400&family=Sedgwick+Ave&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;1,100;1,500&display=swap"
     rel="stylesheet" />
@@ -100,9 +104,17 @@ if (empty($_SESSION)) {
 
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
           <div class="text-input">
+
+            <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
             <div class="img">
-              <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+              <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
             </div>
+            <?php
+                }
+          ?>
+
             <textarea name="content" placeholder="what's in your mind ..?"></textarea>
           </div>
           <div class="options d-flex justify-content-between mt-4">
@@ -122,14 +134,21 @@ if (empty($_SESSION)) {
             <?php
                 $commentModel = new Comment();
                 foreach ($allPosts as $post) {
-                  $comments = $commentModel->getCommentByPostId($post['id']);
+                  $comments = $commentModel->getCommentByPostId($post['post_id']);
                   ?>
             <div class="post">
               <div class="header d-flex justify-content-between mb-2">
                 <div class="publisher d-flex gap-3">
+                  <?php
+                if (!empty($post['profile_image'])) {
+                  ?>
                   <div class="img">
-                    <img src="../images/profile.jpg" class="img-fluid" alt="" />
+                    <img src="./assets/images/users/<?=$post['profile_image']?>" class="img-fluid" alt="" />
                   </div>
+                  <?php
+                }
+          ?>
+
                   <div class="info">
                     <h5><?=$postController->fullName($post['fname'], $post['lname'])?></h5>
                     <p class="text-muted">
@@ -167,17 +186,25 @@ if (empty($_SESSION)) {
                     include './include/comment.php'
                 ?>
                 <form class="add-comment" action="#">
+                  <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
                   <div class="img">
-                    <img src="./assets/images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
+                    <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid"
+                      style="width: 45px" alt="" />
                   </div>
-                  <input type="hidden" id="postId" value="<?=$post['id']?>">
+                  <?php
+                }
+              ?>
+
+                  <input type="hidden" id="postId" value="<?=$post['post_id']?>">
                   <input type="text" id="commentInput" name="comment" placeholder="type your comment ...." />
                   <button type="submit" name="add_comment" class="btn btn-primary">Post</button>
                 </form>
               </div>
 
               <div class="setting">
-                <button class="btn btn-danger" data-bs-toggle="modal" data-post_id="<?=$post['id']?>"
+                <button class="btn btn-danger" data-bs-toggle="modal" data-post_id="<?=$post['post_id']?>"
                   data-bs-target="#delete_post">
                   Delete
                 </button>
@@ -261,6 +288,7 @@ if (empty($_SESSION)) {
         let s = d.getSeconds();
         var fname = `<?= $_SESSION['fname'] ?>`;
         var lname = `<?= $_SESSION['lname']?>`;
+        var profileImage = `<?=$_SESSION['profile_image']?>`
         var fullName = fname + ' ' + lname
 
         $.ajax({
@@ -270,13 +298,17 @@ if (empty($_SESSION)) {
           success: function (response) {
             $('<div class="comment mb-4">' +
               '<div class="img">' +
-              '<img src="../images/profile.jpg" class="img-fluid" alt="" />' +
+              `<img src="./assets/images/users/${profileImage}" class="img-fluid" alt="" />` +
               '</div>' +
               '<div class="content">' +
               '<h6>' + fullName + '</h6>' +
               '<p>' +
               comment +
               '</p>' +
+              `<a data-comment_id="${response}" name='delete-comment' class="delete-comment"
+              title="remove comment">
+              <i class="fa-solid fa-trash me-1"></i>
+              </a>` +
               '<span class="comment-time text-muted">' + h + ':' + m + '</span>' +
               '</div>' +
               '</div>').insertBefore(parent)
@@ -294,63 +326,78 @@ if (empty($_SESSION)) {
 
     });
 
-    $('span#likeIcon').on('click', function(){
+    $('span#likeIcon').on('click', function () {
       let likeIcon = $(this);
       let postId = $(this).attr('data-postId');
-      let likeElement = document.querySelector('#countLike'+postId)
+      let likeElement = document.querySelector('#countLike' + postId)
+      let likeCounter = parseInt(likeElement.textContent);
+      $.ajax({
+        type: "GET",
+        url: "./controllers/AddLike.php?postId=" + postId,
+        data: 'JSON',
+        success: function (response) {
+          console.log(response);
+          let svg = likeIcon.prev()[0];
+          if (response == 'add') {
+            likeCounter += 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-up'
+          }
+          if (response == 'remove') {
+            likeCounter -= 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-up'
+          }
+        }
+      });
+    });
+
+
+    $('span#disLikeIcon').on('click', function () {
+      let disLikeIcon = $(this);
+      let postId = $(this).attr('data-postId');
+
+      let likeElement = document.querySelector('#countLike' + postId)
       let likeCounter = parseInt(likeElement.textContent);
 
       $.ajax({
-          type: "GET",
-          url: "./controllers/AddLike.php?postId=" + postId,
-          data: 'JSON',
-          success: function (response) {
-            let svg = likeIcon.prev()[0];
-            if(response == 'add'){
-              likeCounter += 1;
-              likeElement.innerText = likeCounter
-              svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-up'
-            }
-            if(response == 'remove'){
-              likeCounter -= 1;
-              likeElement.innerText = likeCounter
-              svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-up'
-            }
+        type: "GET",
+        url: "./controllers/AddDisLike.php?postId=" + postId,
+        data: 'JSON',
+        success: function (response) {
+          let svg = disLikeIcon.prev()[0];
+          if (response == 'add') {
+            likeCounter += 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-down';
           }
-        });
-
-
-
+          if (response == 'remove') {
+            likeCounter -= 1;
+            likeElement.innerText = likeCounter
+            svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-down'
+          }
+        }
+      });
 
 
     });
 
-
-    $('span#disLikeIcon').on('click', function(){
-      let disLikeIcon = $(this);
-      let postId = $(this).attr('data-postId');
-
-      let likeElement = document.querySelector('#countLike'+postId)
-      let likeCounter = parseInt(likeElement.textContent);
-
-      $.ajax({
+    $('a[title="remove comment"]').on('click', function (event) {
+      // console.log();
+      console.log(parent);
+      let comment = $(this).parents()[1];
+      let commentId = $(this).data('comment_id');
+      if (commentId) {
+        $.ajax({
           type: "GET",
-          url: "./controllers/AddDisLike.php?postId=" + postId,
+          url: "./controllers/DeleteComment.php?commentId=" + commentId,
           data: 'JSON',
           success: function (response) {
-            let svg = disLikeIcon.prev()[0];
-            if(response == 'add'){
-              likeCounter += 1;
-              likeElement.innerText = likeCounter
-              svg.attributes[0].value = 'svg-inline--fa fa-solid fa-thumbs-down';
-            }
-            if(response == 'remove'){
-              likeCounter -= 1;
-              likeElement.innerText = likeCounter
-              svg.attributes[0].value = 'svg-inline--fa fa-regular fa-thumbs-down'
-            }
+            comment.classList.add('hide')
           }
         });
+      }
+
 
 
     });

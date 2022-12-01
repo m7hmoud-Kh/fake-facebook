@@ -5,7 +5,7 @@ include_once(__DIR__.'./condb.php');
 class Like
 {
     private $con;
-    
+
     const LIKE = 1;
     const DISLIKE = 0;
 
@@ -19,6 +19,7 @@ class Like
     {
         $stmt = $this->con->prepare('INSERT INTO likes (`user_id`,post_id,`status`) VALUES (?,?,?) ');
         $stmt->execute(array($data['user_id'],$data['post_id'],$data['status']));
+        return $this->con->lastInsertId();
     }
 
     public function checkIfFoundLike($data)
