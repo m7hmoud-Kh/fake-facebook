@@ -84,7 +84,7 @@
         </div>
         <div class="setting-popup">
             <ul class="list-unstyled">
-                <a href="#">
+                <a href="./Settings.php">
                     <li>Settings</li>
                 </a>
                 <a href="logout.php">
