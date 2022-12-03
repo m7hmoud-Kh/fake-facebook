@@ -147,4 +147,30 @@ class User
         $stmt->execute(array($userId));
         return $stmt->fetch();
     }
+
+    public function fetch_all_reuestfrinds(){
+        $stmt = $this->con->prepare('SELECT * FROM Request_friends WHERE user_receive_request = ?');
+        $stmt->execute(array($this->id));
+        return $stmt->fetchALL();
+    }
+
+    public function fetch_image(){
+        $stmt = $this->con->prepare('SELECT profile_image FROM Users WHERE id = ?');
+        $stmt->execute(array($this->id));
+        $image= $stmt->fetch();
+        $image_name= $image['profile_image'];
+        return  $image_name;
+
+    }
+
+    public function fetch_name(){
+        $stmt = $this->con->prepare('SELECT fname,lname FROM Users WHERE id = ?');
+        $stmt->execute(array($this->id));
+        $name= $stmt->fetch();
+        $user_name= $name['fname'].$name['lname'];
+        return  $user_name;
+
+    }
+
+
 }

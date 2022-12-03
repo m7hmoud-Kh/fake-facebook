@@ -107,6 +107,21 @@ CREATE TABLE `posts` (
   `update_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Request_friends`
+--
+
+CREATE TABLE `Request_friends` (
+  `id` int(11) NOT NULL,
+  `user_send_request` int(11) NOT NULL,
+  `user_receive_request` int(11) NOT NULL,
+  `status` enum('1','2') NOT NULL COMMENT '1 => requested\r\n 2 => block',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -251,6 +266,13 @@ ALTER TABLE `comments`
 ALTER TABLE `friends`
   ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Request_friends`
+--
+ALTER TABLE `Request_friends`
+  ADD CONSTRAINT `Request_friends_ibfk_1` FOREIGN KEY (`user_send_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Request_friends_ibfk_2` FOREIGN KEY (`user_receive_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `likes`
