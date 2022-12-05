@@ -172,5 +172,24 @@ class User
 
     }
 
+    public function fetch_all_frinds(){
+        $stmt = $this->con->prepare('SELECT * FROM friends WHERE user_id = ?');
+        $stmt->execute(array($this->id));
+        return $stmt->fetchALL();
+    }
+
+    public function delete_request($user_send_request){
+        $stmt = $this->con->prepare('DELETE  FROM Request_friends WHERE user_send_request = ? AND user_receive_request = ?');
+        $stmt->execute(array($user_send_request,$this->id));
+    }
+
+    public function add_friend($request_user,$send_user){
+            $stmt = $this->con->prepare('INSERT INTO friends (user_id,friend_id)
+            Values (?,?)');
+                $stmt->execute(array($request_user,$send_user));
+        
+            
+    }
+
 
 }

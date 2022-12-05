@@ -22,17 +22,22 @@ class Request_friends
     return $stmt->fetch();
    }
    
-   public function update_ststus (){
+   public function update_ststus ($status){
     $stmt = $this->con->prepare("UPDATE Request_friends
     SET
     status=?
 
     WHERE
-         id =?");
+    user_send_request =?");
 
 
-    $stmt->execute(array($this->status, $this->id));
+    $stmt->execute(array($status, $this->send_user));
 
+   }
+
+   public function delete_request(){
+        $stmt = $this->con->prepare('DELETE  FROM Request_friends WHERE id = ?');
+        $stmt->execute(array($this->id));
    }
 
    
