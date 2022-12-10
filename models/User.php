@@ -186,8 +186,8 @@ class User
     public function add_friend($request_user,$send_user){
             $stmt = $this->con->prepare('INSERT INTO friends (user_id,friend_id)
             Values (?,?)');
-                $stmt->execute(array($request_user,$send_user));
-        
+            $stmt->execute(array($request_user,$send_user));
+            $stmt->execute(array($send_user,$request_user));
             
     }
 
