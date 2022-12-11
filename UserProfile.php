@@ -7,10 +7,13 @@ if (empty($_SESSION)) {
   include_once './models/Post.php';
   include_once './models/Comment.php';
   include_once './models/Like.php';
+  include_once './models/Friends.php';
 
 
   $post = new Post();
   $postController  = new PostController();
+  $friends = new Friends();
+  $countFriend = $friends->getFriendsCount();
 
 
   if (isset($_POST['add_post'])) {
@@ -58,6 +61,7 @@ if (empty($_SESSION)) {
   <link rel="stylesheet" href="./assets/css/all.min.css" />
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="./assets/css/profile/myProfile.css" />
+  <link rel="stylesheet" href="./assets/css/post/postSyles.css" />
   <title>Profile</title>
 </head>
 
@@ -66,35 +70,56 @@ if (empty($_SESSION)) {
   <div class="container">
     <div class="profile">
       <div class="user-info">
+        <?php
+            if (!empty($_SESSION['profile_background'])) {
+              ?>
         <div class="cover">
-          <img src="../images/cover.jpg" alt="" class="img-fluid" />
+          <img src="./assets/images/users/<?=$_SESSION['profile_background']?>" alt="" class="img-fluid" />
         </div>
+        <?php
+            }
+          ?>
         <div class="user-data">
+          <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
           <div class="profile-img">
-            <img src="../images/profile.jpg" class="img-fluid" alt="" />
+            <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
           </div>
+          <?php
+                }
+          ?>
+
           <div class="user-details">
-            <h2>Mohamed Sayed Osman</h2>
-            <p class="friends text-light">3,180 friend</p>
+            <h2><?=$_SESSION['fname'] . ' ' . $_SESSION['lname']?></h2>
+            <p class="friends text-light"><?=$countFriend['all_friends']?>
+                <?php echo $countFriend['all_friends'] == 1 ? 'Friend' : 'Friends'?>
+            </p>
           </div>
-          <a class="btn btn-primary" href="./Settings.php">Update Profile</div>
-</a>
+          <a class="btn btn-primary" href="Settings.php">Update Profile
+        </div>
+        </a>
       </div>
       <div class="main-page">
         <div class="row">
           <div class="col-lg-4 col-12">
             <div class="bio">
               <h4 class="mt-2 mb-4">About US</h4>
+              <?php
+              if (!empty($_SESSION['bio'])) {
+                ?>
+              <p class="text-center lead"><?=$_SESSION['bio']?></p>
+              <?php
+              }
+              ?>
               <div class="about">
-                <p>My name is Mohamed Sayed, i'm a front-end developer</p>
-                <p>FC Barcelona</p>
-                <p>Ahly</p>
+
               </div>
 
               <div class="friends px-4 mt-5">
                 <div class="head d-flex justify-content-between">
                   <p class="">Friends</p>
-                  <p class="">3,800</p>
+                  <p class=""><?=$countFriend['all_friends']?></p>
                 </div>
                 <hr class="mb-4 mt-0" />
 
@@ -181,9 +206,15 @@ if (empty($_SESSION)) {
                 ?>
                 <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data">
                   <div class="text-input">
+                    <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
                     <div class="img">
-                      <img src="./assets/images/profile.jpg" class="img-fluid" alt="" />
+                      <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
                     </div>
+                    <?php
+                }
+          ?>
                     <textarea name="content" placeholder="what's in your mind ..?"></textarea>
                   </div>
                   <div class="options d-flex justify-content-between mt-4">
@@ -201,14 +232,20 @@ if (empty($_SESSION)) {
                 <?php
                 $commentModel = new Comment();
                 foreach ($allPosts as $post) {
-                  $comments = $commentModel->getCommentByPostId($post['id']);
+                  $comments = $commentModel->getCommentByPostId($post['post_id']);
                   ?>
                 <div class="post">
                   <div class="header d-flex justify-content-between mb-2">
                     <div class="publisher d-flex gap-3">
+                      <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
                       <div class="img">
-                        <img src="../images/profile.jpg" class="img-fluid" alt="" />
+                        <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
                       </div>
+                      <?php
+                }
+          ?>
                       <div class="info">
                         <h5><?=$postController->fullName($_SESSION['fname'], $_SESSION['lname'])?></h5>
                         <p class="text-muted">
@@ -242,16 +279,24 @@ if (empty($_SESSION)) {
                     include './include/comment.php'
                     ?>
                     <form class="add-comment" action="#">
+
+                      <?php
+                if (!empty($_SESSION['profile_image'])) {
+                  ?>
                       <div class="img">
-                        <img src="./assets/images/profile.jpg" class="img-fluid" style="width: 45px" alt="" />
+                        <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid"
+                          style="width: 45px" alt="" />
                       </div>
-                      <input type="hidden" id="postId" value="<?=$post['id']?>">
+                      <?php
+                }
+          ?>
+                      <input type="hidden" id="postId" value="<?=$post['post_id']?>">
                       <input type="text" id="commentInput" name="comment" placeholder="type your comment ...." />
                       <button type="submit" name="add_comment" class="btn btn-primary">Post</button>
                     </form>
                   </div>
                   <div class="setting">
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-post_id="<?=$post['id']?>"
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-post_id="<?=$post['post_id']?>"
                       data-bs-target="#delete_post">
                       Delete
                     </button>
@@ -330,7 +375,9 @@ if (empty($_SESSION)) {
 
         var fname = `<?= $_SESSION['fname'] ?>`;
         var lname = `<?= $_SESSION['lname']?>`;
-        var fullName = fname + ' ' + lname
+        var fullName = fname + ' ' + lname;
+        var profileImage = `<?=$_SESSION['profile_image']?>`;
+
 
 
         $.ajax({
@@ -340,13 +387,17 @@ if (empty($_SESSION)) {
           success: function (response) {
             $('<div class="comment mb-4">' +
               '<div class="img">' +
-              '<img src="../images/profile.jpg" class="img-fluid" alt="" />' +
+              `<img src="./assets/images/users/${profileImage}" class="img-fluid" alt="" />` +
               '</div>' +
               '<div class="content">' +
               '<h6>' + fullName + '</h6>' +
               '<p>' +
               comment +
               '</p>' +
+              `<a data-comment_id="${response}" name='delete-comment' class="delete-comment"
+              title="remove comment">
+              <i class="fa-solid fa-trash me-1"></i>
+              </a>` +
               '<span class="comment-time text-muted">' + h + ':' + m + '</span>' +
               '</div>' +
               '</div>').insertBefore(parent)
@@ -363,7 +414,6 @@ if (empty($_SESSION)) {
 
     });
 
-    
     $('span#likeIcon').on('click', function () {
       let likeIcon = $(this);
       let postId = $(this).attr('data-postId');
@@ -423,6 +473,24 @@ if (empty($_SESSION)) {
       });
 
 
+    });
+
+
+    $('a[title="remove comment"]').on('click', function (event) {
+      // console.log();
+      console.log(parent);
+      let comment = $(this).parents()[1];
+      let commentId = $(this).data('comment_id');
+      if (commentId) {
+        $.ajax({
+          type: "GET",
+          url: "./controllers/DeleteComment.php?commentId=" + commentId,
+          data: 'JSON',
+          success: function (response) {
+            comment.classList.add('hide')
+          }
+        });
+      }
     });
   </script>
 </body>

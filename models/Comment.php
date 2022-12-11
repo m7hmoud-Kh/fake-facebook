@@ -5,7 +5,7 @@ include_once(__DIR__.'./condb.php');
 class Comment
 {
     private $con;
-    
+
     public function __construct()
     {
         $this->con = DbConnection::connect();
@@ -22,7 +22,7 @@ class Comment
 
     public function getCommentByPostId($postId)
     {
-        $stmt = $this->con->prepare('SELECT comments.*, users.fname , users.lname FROM
+        $stmt = $this->con->prepare('SELECT comments.*, users.fname , users.lname , users.profile_image FROM
         comments JOIN users ON users.id = comments.user_id WHERE post_id = ?; ');
         $stmt->execute(array($postId));
         return $stmt->fetchAll();
@@ -34,5 +34,12 @@ class Comment
         $stmt = $this->con->prepare('SELECT COUNT(*) as comment_count FROM comments WHERE post_id = ?');
         $stmt->execute(array($postId));
         return $stmt->fetch();
+    }
+
+
+    public function deleteCommentById($commentId)
+    {
+        $stmt = $this->con->prepare('DELETE FROM comments WHERE id = ?');
+        $stmt->execute(array($commentId));
     }
 }

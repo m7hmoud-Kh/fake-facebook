@@ -194,6 +194,7 @@
             <a class=" btn btn-primary">View Profile </a>
           </div>
         </div>
+
       </div>
     </div>
   </div>

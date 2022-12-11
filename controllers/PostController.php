@@ -25,7 +25,7 @@ class PostController
     private function validateImage($fname)
     {
 
-        $allowextion = array("png","jpg","jepg","gif");
+        $allowextion = array("png","jpg","jpeg","gif");
         $extion      = explode(".", $fname);
         $extion      = end($extion);
         $extion      = strtolower($extion);
@@ -48,8 +48,8 @@ class PostController
 
     public function timeElapsedString($datetime, $full = false)
     {
-        $now = new DateTime('now', new DateTimeZone('Africa/Cairo'));
-        $ago = new DateTime($datetime, new DateTimeZone('Africa/Cairo'));
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
 
         $diff->w = floor($diff->d / 7);
@@ -72,13 +72,12 @@ class PostController
             }
         }
 
-        if (!$full) {
-            $string =array_slice($string, 0, 1);
-        }
+        if (!$full) $string = array_slice($string, 0, 1);
         return $string ? implode(', ', $string) . ' ago' : 'just now';
+
     }
 
-    public function fullName($fname,$lname)
+    public function fullName($fname, $lname)
     {
         return ucfirst($fname) . ' ' . ucfirst($lname);
     }
