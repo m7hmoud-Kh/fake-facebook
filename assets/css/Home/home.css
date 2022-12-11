@@ -20,7 +20,7 @@ body a {
   min-height: calc(100vh - 100px);
   background-color: var(--dark-blue);
 }
-.main .left .bg-color{
+.main .left .bg-color {
   background-color: var(--medium-blue);
   padding-bottom: 15px;
 }
@@ -44,7 +44,7 @@ body a {
 .main .left .menu {
   width: 90%;
 }
-.main .left .menu .box a{
+.main .left .menu .box a {
   width: 70%;
   display: flex;
   align-items: center;
@@ -64,6 +64,13 @@ body a {
 .main .left .menu .box a h3 {
   font-size: 16px;
 }
+
+.main .left .maybe_freinds {
+  margin: 10px;
+  padding-top: 20px;
+  border-top: 2px solid var(--light-blue);
+}
+
 @media (max-width: 1500px) {
   .main .left .userInfo img {
     width: 50px;
@@ -72,9 +79,18 @@ body a {
     font-size: 20px;
   }
 }
+@media (max-width: 991px) {
+  .main .left .maybe_freinds h4 {
+    font-size: 15px !important;
+  }
+}
+
 @media (max-width: 767px) {
   .main .left {
     display: none;
+  }
+  .main .left .maybe_freinds h4 {
+    font-size: 15px !important;
   }
 }
 
@@ -438,9 +454,9 @@ body a {
 .main .right {
   flex: 1;
   background-color: var(--dark-blue);
-  margin-top: 10px ;
+  margin-top: 10px;
 }
-.main .right .request{
+.main .right .request {
   background-color: var(--medium-blue);
   padding: 10px;
 }
@@ -449,7 +465,6 @@ body a {
   padding: 20px 0;
   align-items: center;
   justify-content: space-between;
-
 }
 .main .right .requests-num span {
   font-size: 20px;
@@ -522,29 +537,28 @@ body a {
   margin-right: 15px;
   color: crimson;
 }
-.main .right .friend-active
-{
+.main .right .friend-active {
   margin-top: 20px;
   background-color: var(--medium-blue);
   padding: 10px;
 }
-.main .right .friend-active .friends
-{
+.main .right .friend-active .friends,
+.main .left .maybe_freinds .freinds {
   overflow-y: scroll;
   max-height: 600px;
-  margin-top:20px;
-
+  margin-top: 20px;
 }
-.main .right .friend-active .friend
-{
+.main .right .friend-active .friend,
+.main .left .maybe_freinds .friend {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   margin: 20px 0;
   position: relative;
+  cursor: pointer;
 }
-.main .right .friend-active .friend .action
-{
+.main .right .friend-active .friend .action,
+.main .left .maybe_freinds .friend .action {
   width: 97%;
   position: absolute;
   background-color: var(--dark-blue);
@@ -556,15 +570,27 @@ body a {
   display: none !important;
   transition: display var(--transition);
 }
-.main .right .friend-active .friend:hover .action
-{
+.main .right .friend-active .friend .action a,
+.main .left .maybe_freinds .friend .action a {
+  margin: 0px 10px 10px;
+}
+.main .right .friend-active .friend:hover .action,
+.main .left .maybe_freinds .friend:hover .action {
   display: flex !important;
 }
-.main .right .friend-active .friend .image {
+.main .left .maybe_freinds .friend .action {
+  bottom: -130px;
+}
+.main .left .maybe_freinds .friend:hover .action {
+  flex-direction: column;
+}
+.main .right .friend-active .friend .image,
+.main .left .maybe_freinds.friend .image {
   position: relative;
 }
 
-.main .right .friend-active img {
+.main .right .friend-active img,
+.main .left .maybe_freinds img {
   width: 40px;
   height: 40px;
   margin-right: 10px;
@@ -579,8 +605,18 @@ body a {
   background-color: lawngreen;
   border-radius: 50%;
 }
-.main .right .friend-active .friend h5 {
+.main .right .maybe_freinds .friend h5,
+.main .left .friend-active .friend h5 {
   font-size: 15px;
+}
+@media (max-width: 991px) {
+  .main .left .maybe_freinds .friend h5 {
+    font-size: 15px;
+  }
+  .main .right .friend-active .friend .action a,
+  .main .left .maybe_freinds .friend .action a {
+    margin: 0px 10px 10px;
+  }
 }
 .main .right a {
   display: block;
