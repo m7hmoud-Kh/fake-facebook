@@ -165,6 +165,15 @@ ALTER TABLE `friends`
   ADD KEY `friend_id` (`friend_id`);
 
 --
+
+-- Indexes for table `friends`
+--
+ALTER TABLE `Request_friends`
+  ADD PRIMARY KEY (`id`)
+  
+
+--
+
 -- Indexes for table `likes`
 --
 ALTER TABLE `likes`

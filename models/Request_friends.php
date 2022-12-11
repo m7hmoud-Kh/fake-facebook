@@ -28,10 +28,14 @@ class Request_friends
     status=?
 
     WHERE
-    user_send_request =?");
+    user_send_request =?
+    AND 
+    user_receive_request=?
+
+    ");
 
 
-    $stmt->execute(array($status, $this->send_user));
+    $stmt->execute(array($status, $this->send_user,$this->recuest_user));
 
    }
 

@@ -12,9 +12,12 @@ if (empty($_SESSION)) {
   //cuernt user is the Auth user
   $cur_user=new user();
   $cur_user->id=$_SESSION['id'];
+  
+
+  
 
   //fetch Auth user's reuestfrinds to show them
-  $requests_array=$cur_user->fetch_all_reuestfrinds();
+ $requests_array=$cur_user->fetch_all_reuestfrinds();
 
   //fetch Auth user's frinds  to show them
   $friends_array=$cur_user->fetch_all_frinds();
@@ -31,6 +34,7 @@ if (empty($_SESSION)) {
   $send_user_id=(int) $_POST["Delete"];
   $deleted_request=new  Request_friends();
   $deleted_request->send_user=$send_user_id;
+  $deleted_request->recuest_user= $cur_user->id;
   $deleted_request->update_ststus(2);
                 
  }
@@ -40,7 +44,7 @@ if (empty($_SESSION)) {
   $friend_id=(int) $_POST['Unfriend'];
   $friend_opj=new Friends;
   $friend_opj->friend_id= $friend_id;
-  $friend_opj->delete_friend();
+  $friend_opj->delete_friend($cur_user->id);
 }
 
 //massage to  a friend
@@ -50,6 +54,7 @@ if(!empty($_POST["Message"])){
 
 }
 
+ 
         
       
 
@@ -293,6 +298,10 @@ if(!empty($_POST["Message"])){
         <div class="swiper-wrapper">
 
          <?php
+            $send_user=new user();
+            $send_user_image="";
+            $send_user_name="";
+          
           foreach($requests_array as $request ){
 
             $request_id= $request['id'];
@@ -301,34 +310,36 @@ if(!empty($_POST["Message"])){
              
             if ( $request_status==1){
 
-            $send_user=new user();
+            
             $send_user->id=$send_user_id;
             $send_user_image=$send_user->fetch_image();
             $send_user_name=$send_user->fetch_name();
 
-          $here= $_SERVER["PHP_SELF"];
           
-         echo"<div class='swiper-slide'>
-         <form action='$here' method='POST' enctype='multipart/form-data'>
+          ?>
+
+         <div class='swiper-slide'>
+         <form action=' <?php $_SERVER["PHP_SELF"] ?>' method='POST' enctype='multipart/form-data'>
             <div class='card'>
               <div class='image-content'>
                 <div class='card-image'>
-                  <img src='./assets/images/users/$send_user_image' alt='' class='card-img'>
+                  <img src='./assets/images/users/<?php echo $send_user_image; ?>' alt='' class='card-img'>
                 </div>
               </div>
               <div class='card-content'>
                 <a href=''>
-                  <h2 class='name'>$send_user_name</h2>
+                  <h2 class='name'><?php echo $send_user_name ;?></h2>
                 </a>
                 <p class='mutual-friends'> 500 Mutual Friends</p>
                 <div>
-                  <button class='btn btn-primary'  type='submit'   id='confirm' value='$send_user_id'>Confirm</button>
-                  <button class='btn btn-secondary'  type='submit' id='Delete' value='$send_user_id'>Delete</button>
+                  <button class='btn btn-primary'  type='submit'   name='confirm' value='<?php echo $send_user_id; ?>'>Confirm</button>
+                  <button class='btn btn-secondary'  type='submit' name='Delete' value='<?php echo $send_user_id ; ?>'>Delete</button>
                 </div>
               </div>
             </div>
             </form>
-          </div>" ;
+          </div>
+          <?php
         }
       }
        
@@ -371,8 +382,8 @@ if(!empty($_POST["Message"])){
               <h2 class='name'> $my_friend_name</h2>
             </a>
             <p class='mutual-friends'> 500 Mutual Friends</p>
-            <button class='btn btn-primary'  type='submit' id='Message' value='$friend_id'>Message</button>
-            <button class='btn btn-secondary unf-btn'type='submit' id='Unfriend' value='$friend_id'>Unfriend</button>
+            <button class='btn btn-primary'  type='submit' name='Message' value='$friend_id'>Message</button>
+            <button class='btn btn-secondary unf-btn'type='submit' name='Unfriend' value='$friend_id'>Unfriend</button>
             </form>
             </div>
         </div>
@@ -467,150 +478,7 @@ if(!empty($_POST["Message"])){
   <script src="./assets/js/main.js"></script>
    <script src="./assets/js/jquery-3.5.0.min.js"></script>
     <script>
-     $(document).ready(function(){
-
-     
-          $("#confirm").on('click',function(){
-            var confirm=$("#confirm").val();
-            if( confirm!=""){
-
-                $.ajax({
-                  url: "Friends.php",  // URL To Send The Request, Default is Current URL
-                  method: "POST", // Method Used For The Request   
-                  data: { 
-                    confirm: confirm
-
-                   }, // Data To Send With The Request
-                  success: function(data, status, xhr) {
-                    // Function To Run When Request Is Succeeded
-                    console.log(data); // Data
-                    console.log(status); // Request Status
-                    console.log(xhr); // XHR Object
-                    console.log(`Success`);
-                  },
-                  error: function(xhr, status, error) {
-                    console.log(xhr); // XHR Object
-                    console.log(status); // Request Status
-                    console.log(error); // Error Message
-                    console.log(`Error`);
-                  },
-                  complete: function(xhr, status) {
-                    // Function To Run When Request Is Complete
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(`Complete`);
-                  }
-                });
-        }
-        });
-
-        //deleted request
-        $("#Delete").on('click',function(){
-            var Delete=$("#Delete").val();
-            if( Delete!=""){
-
-                $.ajax({
-                  url: "Friends.php",  // URL To Send The Request, Default is Current URL
-                  method: "POST", // Method Used For The Request   
-                  data: { 
-                     Delete: Delete
-
-                   }, // Data To Send With The Request
-                  success: function(data, status, xhr) {
-                    // Function To Run When Request Is Succeeded
-                    console.log(data); // Data
-                    console.log(status); // Request Status
-                    console.log(xhr); // XHR Object
-                    console.log(`Success`);
-                  },
-                  error: function(xhr, status, error) {
-                    console.log(xhr); // XHR Object
-                    console.log(status); // Request Status
-                    console.log(error); // Error Message
-                    console.log(`Error`);
-                  },
-                  complete: function(xhr, status) {
-                    // Function To Run When Request Is Complete
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(`Complete`);
-                  }
-                });
-        }
-        });
-
-        //unfriend
-        $("#Unfriend").on('click',function(){
-            var Unfriend=$("#Unfriend").val();
-            if( Unfriend!=""){
-
-                $.ajax({
-                  url: "Friends.php",  // URL To Send The Request, Default is Current URL
-                  method: "POST", // Method Used For The Request   
-                  data: { 
-                    Unfriend: Unfriend
-
-                   }, // Data To Send With The Request
-                  success: function(data, status, xhr) {
-                    // Function To Run When Request Is Succeeded
-                    console.log(data); // Data
-                    console.log(status); // Request Status
-                    console.log(xhr); // XHR Object
-                    console.log(`Success`);
-                  },
-                  error: function(xhr, status, error) {
-                    console.log(xhr); // XHR Object
-                    console.log(status); // Request Status
-                    console.log(error); // Error Message
-                    console.log(`Error`);
-                  },
-                  complete: function(xhr, status) {
-                    // Function To Run When Request Is Complete
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(`Complete`);
-                  }
-                });
-        }
-        });
-
-        //massge
-        $("#Message").on('click',function(){
-            var Message=$("#Message").val();
-            if( Message!=""){
-
-                $.ajax({
-                  url: "Friends.php",  // URL To Send The Request, Default is Current URL
-                  method: "POST", // Method Used For The Request   
-                  data: { 
-                    Message: Message
-
-                   }, // Data To Send With The Request
-                  success: function(data, status, xhr) {
-                    // Function To Run When Request Is Succeeded
-                    console.log(data); // Data
-                    console.log(status); // Request Status
-                    console.log(xhr); // XHR Object
-                    console.log(`Success`);
-                  },
-                  error: function(xhr, status, error) {
-                    console.log(xhr); // XHR Object
-                    console.log(status); // Request Status
-                    console.log(error); // Error Message
-                    console.log(`Error`);
-                  },
-                  complete: function(xhr, status) {
-                    // Function To Run When Request Is Complete
-                    console.log(xhr);
-                    console.log(status);
-                    console.log(`Complete`);
-                  }
-                });
-        }
-        });
-       
-      });
-    </script>
+    
 </body>
 
 </html>

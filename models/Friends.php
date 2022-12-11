@@ -31,9 +31,11 @@ class Friends
 
     }
 
-    function delete_friend(){
-        $stmt = $this->con->prepare('DELETE  FROM friends WHERE friend_id = ?');
-        $stmt->execute(array($this->friend_id));
+    function delete_friend($user_id){
+        $stmt = $this->con->prepare('DELETE  FROM friends WHERE  friend_id = ? AND user_id=?');
+        $stmt->execute(array($this->friend_id, $user_id));
+        $stmt->execute(array($user_id, $this->friend_id ));
+       
     }
      
    
