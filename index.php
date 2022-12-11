@@ -64,9 +64,7 @@ if (empty($_SESSION)) {
   <!-- CSS -->
   <link rel="stylesheet" href="./assets/css/main.css" />
   <link rel="stylesheet" href="./assets/css/Home/home.css" />
-  <link rel="stylesheet" href="./assets/css/post/postSyles.css" />
-
-
+  <link rel="stylesheet" href="./assets/css/post/postStyles.css" />
   <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
