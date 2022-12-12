@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+:root {
+  --grey-color: #d8d8d8;
+  --light-blue: #0c88ef;
+  --medium-blue: #0d1d2d;
+  --dark-blue: #0c151d;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Poppins", sans-serif !important;
+  background-color: var(--dark-blue) !important;
+  color: var(--grey-color) !important;
+  padding-top: 80px !important;
+}
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.764);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--light-blue);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--medium-blue);
+}
+@media (max-width: 992px) {
+  body {
+    padding-bottom: 40px;
+  }
+}
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px !important;
+  height: 80px !important;
+  background: var(--medium-blue);
+  z-index: 100;
+}
+header > div {
+  width: calc(100% / 3);
+}
+header .logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: var(--light-blue);
+}
+header .nav-toggler {
+  color: var(--grey-color);
+  border: 1px solid rgba(119, 119, 119, 0.275);
+  box-sizing: border-box;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+header .nav-toggler:hover {
+  background: var(--dark-blue);
+}
+.search-bar input {
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px !important;
+  font-size: 1rem;
+  background: var(--dark-blue);
+  border: none;
+  outline: none;
+  color: var(--grey-color);
+  transition: all 0.3s ease;
+}
+.search-bar input:focus {
+  transform: scale(1.05);
+  box-shadow: 1px 1px 1px 1px var(--dark-blue);
+}
+header .navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+  gap: 20px;
+  position: relative;
+}
+header .navigation > div {
+  background: var(--dark-blue);
+  min-width: 45px;
+  min-height: 45px;
+  font-size: 1.2rem;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+header .navigation > div:hover {
+  background: #0c141c92;
+  transform: scale(1.3);
+}
+header .navigation .unseen {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: crimson;
+  right: 0;
+}
+
+header .navigation .seen {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(8, 236, 68);
+  right: 0;
+}
+header .aside-header {
+  position: fixed;
+  z-index: 500;
+  top: 0;
+  right: 0;
+  height: 105vh;
+  width: 250px;
+  background: var(--dark-blue);
+  box-shadow: -1px 1px 10px 2px rgba(94, 95, 95, 0.498);
+  display: flex;
+  align-items: center;
+  transition: all 0.4s ease-out;
+  transform: translateX(260px);
+}
+header .aside-header.open {
+  transform: translateX(0);
+}
+header .aside-header ul {
+  width: 100%;
+  padding: 0 10px;
+}
+header .aside-header li {
+  margin: 40px 0;
+  font-size: 1.3rem;
+  padding: 10px 20px;
+  background: var(--medium-blue);
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+header .aside-header li:hover {
+  opacity: 0.7;
+}
+header .aside-header li svg {
+  margin-right: 15px;
+}
+header .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+/* Styling header pop-ups*/
+
+.navigation .notifications,
+.navigation .setting-popup,
+.navigation .profile-popup,
+.navigation .messenger-popup {
+  position: absolute;
+  width: 420px;
+  max-height: 80vh;
+  padding: 10px 12px;
+  background: var(--medium-blue);
+  border-radius: 10px;
+  cursor: auto;
+  top: 80px;
+  box-shadow: -1px 1px 2px 2px rgba(255, 255, 255, 0.1);
+  overflow-y: scroll;
+  display: none;
+}
+.navigation .notifications.open,
+.navigation .setting-popup.open,
+.navigation .profile-popup.open,
+.navigation .messenger-popup.open {
+  display: block;
+}
+.navigation .notifications::after {
+  content: "";
+  position: absolute;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent;
+  top: -40px;
+  right: 12%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--medium-blue);
+}
+.navigation .notifications:hover,
+.navigation .setting-popup:hover,
+.navigation .messenger-popup:hover,
+.navigation .profile-popup:hover {
+  transform: none;
+  background: var(--medium-blue);
+}
+
+.navigation .notifications .load-more,
+.navigation .messenger-popup .load-more {
+  font-size: 12px;
+  text-align: center;
+  background: var(--dark-blue);
+  padding: 0px 0;
+  border-radius: 25px;
+  cursor: pointer;
+  height: 30px;
+  line-height: 30px;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+.navigation .notifications .load-more:hover,
+.navigation .messenger-popup .load-more:hover {
+  transform: scale(1.05);
+}
+
+.notification-box {
+  padding: 10px;
+  cursor: pointer;
+  border-top: 1px solid rgba(119, 119, 119, 0.352);
+  border-bottom: 1px solid rgba(119, 119, 119, 0.482);
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 1px 2px 1px 1px rgba(74, 74, 74, 0.357);
+  margin: 15px 0;
+}
+.notification-box:hover {
+  background: #10519228;
+}
+
+.notification-box .details p {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 6px;
+}
+.notification-box .details span {
+  font-size: 0.9rem;
+}
+.navigation .setting-popup,
+.navigation .profile-popup {
+  overflow-y: hidden;
+  width: 250px;
+  right: 150px;
+  padding: 5px;
+}
+
+.navigation .profile-popup {
+  right: 0;
+}
+
+a {
+  text-decoration: none !important;
+  color: var(--grey-color) !important;
+}
+.setting-popup li,
+.profile-popup li {
+  background: var(--dark-blue);
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.setting-popup li:hover,
+.profile-popup li:hover {
+  opacity: 0.7;
+}
+
+.messenger-popup .message-box {
+  border-top: 1px solid steelblue;
+  border-bottom: 1px solid steelblue;
+  padding: 10px 0;
+  margin: 20px 0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.messenger-popup .message-box p {
+  margin: 0;
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+.messenger-popup .message-box .message-preview {
+  font-size: 14px;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+.messenger-popup .message-box .img img {
+  height: 100% !important;
+}
+.message-box span {
+  font-size: 12px;
+}
+.message-box:hover {
+  opacity: 0.7;
+}
+/*End of Styling header pop-ups*/
+
+/*Start Footer nav*/
+
+nav.footer-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--dark-blue);
+  padding: 10px 20px;
+  box-shadow: -1px -1px 1px 1px #333;
+}
+nav.footer-nav > div {
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+nav.footer-nav > div:hover {
+  transform: scale(1.5);
+}
+/*End Footer nav*/
+.has-scrollbar {
+  padding-bottom: 5px;
+}
+
+.has-scrollbar::-webkit-scrollbar {
+  width: 12px; /* for vertical scroll */
+  height: 12px; /* for horizontal scroll */
+}
+
+.has-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 20px;
+}

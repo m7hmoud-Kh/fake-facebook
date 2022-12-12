@@ -1,0 +1,143 @@
+.post {
+  background: var(--medium-blue);
+  padding: 20px;
+  position: relative;
+}
+.post:not(:first-of-type) {
+  margin: 40px 0;
+}
+.post .header .settings svg {
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+}
+.post .header .settings svg:hover {
+  background: var(--dark-blue);
+}
+.post .header .publisher .img,
+.post .comment .publisher .img {
+  width: 50px;
+  border-radius: 50px;
+  padding: 1px;
+}
+.post .header .publisher .img img,
+.post .comment .publisher .img img {
+  border-radius: 50px;
+}
+.post .stats > div {
+  background: var(--dark-blue);
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.post .actions > div {
+  width: 100%;
+  text-align: center;
+}
+.post .actions > div:not(:last-of-type) {
+  border-right: 1px solid #fff;
+}
+.post .actions > div > div,
+.post .actions > div > label {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.post .actions > div > div:hover,
+.post .actions > div > label:hover {
+  transform: scale(1.4);
+}
+.post .actions .like.liked {
+  color: var(--light-blue);
+}
+.post .comments {
+  margin-top: 60px;
+}
+.post .setting {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  background: var(--dark-blue);
+  display: grid;
+  place-content: center;
+  padding: 10px;
+  width: 120px;
+  display: none;
+}
+.post .setting.show {
+  display: block;
+}
+.post .setting li {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--medium-blue);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.post .setting li svg {
+  color: crimson;
+}
+.post .setting li:hover {
+  opacity: 0.8;
+}
+.post .comments .comment {
+  display: flex;
+  gap: 10px;
+}
+.post .comments .comment .img {
+  width: 45px;
+}
+.post .comments .comment .content {
+  background: #f9f9f914;
+  padding: 8px 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 20px;
+  position: relative;
+}
+.comment .content .delete-comment {
+  display: block;
+  position: absolute;
+  bottom: 40%;
+  right: -16%;
+  color: red;
+  background: transparent;
+  border: none;
+  transition: all 0.3s ease;
+}
+.comment .content .delete-comment:hover {
+  transform: scale(1.5);
+}
+.post .comments .comment .content p {
+  font-size: 14px;
+  color: #999;
+}
+
+.post .comments .add-comment {
+  margin-top: 40px;
+  border-top: 3px solid var(--dark-blue);
+  display: flex;
+  padding: 10px;
+  gap: 20px;
+}
+.post .comments .add-comment input {
+  display: block;
+  background: var(--dark-blue);
+  width: 100%;
+  color: var(--grey-color);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.post .comments .add-comment input:focus {
+  outline: none;
+  transform: scale(1.04);
+}
+
+.hide {
+  display: none !important;
+}

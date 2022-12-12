@@ -1,0 +1,110 @@
+.chat {
+  background: var(--medium-blue);
+  min-height: calc(100vh - 100px);
+  padding-bottom: 80px;
+  position: relative;
+}
+.chat .chat-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(192, 192, 192, 0.602);
+  position: relative;
+}
+.chat-header .back-button,
+.delete {
+  background: #777;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+.chat-header .back-button:hover,
+.chat-header .delete:hover {
+  opacity: 0.9;
+}
+.chat-header .delete {
+  color: crimson;
+  height: 60px;
+  width: 45px;
+  background: none;
+}
+
+.chat-header .img img {
+  border-radius: 50px;
+}
+
+.chat-header .name {
+  letter-spacing: 2px;
+}
+.chat .chat-message-input {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  gap: 20px;
+  border-top: 1px solid rgba(153, 153, 153, 0.346);
+}
+
+.chat .chat-message-input input {
+  width: 100%;
+  background: var(--dark-blue);
+  border: none;
+  height: 40px;
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--grey-color);
+}
+.chat .chat-message-input input:focus {
+  outline: none;
+}
+.chat .chat-message-input .send {
+  background: var(--light-blue);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  color: white;
+}
+.chat .chat-message-input .send svg {
+  transform: rotate(90deg);
+  transition: all 0.7s ease;
+}
+.chat .chat-message-input .send:hover svg {
+  transform: scale(1.5);
+}
+.chat .chat-content {
+  overflow-y: scroll;
+  max-height: 70vh;
+}
+.chat .message-box {
+  margin: 40px 10px;
+}
+.chat .message-box.him {
+  direction: rtl;
+}
+.chat .message-box p {
+  display: inline-block;
+  padding: 20px 30px;
+  background-color: rgba(225, 225, 225, 0.166);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 5px;
+}
+.chat .message-box.me p {
+  padding: 20px 30px;
+  background-color: var(--light-blue);
+  font-size: 1.2rem;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 5px;
+}
+.chat .message-box:hover {
+  opacity: 1;
+}
