@@ -277,6 +277,7 @@ ALTER TABLE `friends`
   ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+
 -- Constraints for table `Request_friends`
 --
 ALTER TABLE `Request_friends`
@@ -284,6 +285,7 @@ ALTER TABLE `Request_friends`
   ADD CONSTRAINT `Request_friends_ibfk_2` FOREIGN KEY (`user_receive_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+
 -- Constraints for table `likes`
 --
 ALTER TABLE `likes`

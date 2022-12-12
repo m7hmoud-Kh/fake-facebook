@@ -37,8 +37,6 @@ if (empty($_SESSION)) {
     $all_blocked_users[]=$blocked_user['user_send_request'];
 }
 
-  
-
   if (isset($_POST['add_post'])) {
       $data = $_POST;
       $Files = $_FILES['image']['name'] ?? '';
