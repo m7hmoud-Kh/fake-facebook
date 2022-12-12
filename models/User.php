@@ -191,5 +191,37 @@ class User
             
     }
 
+   
+    // public function fetch_all_users_not_friend ($array){
+    //     $stmt = $this->con->prepare("SELECT * FROM Users WHERE id NOT IN (?,?)");
+    //     $stmt->execute($array);
+    //     return $stmt->fetchALL();
+
+    // }
+
+    public function fetch_all_users (){
+        $stmt = $this->con->prepare("SELECT * FROM Users ");
+        $stmt->execute();
+        return $stmt->fetchALL();
+
+    }
+
+    public function fetch_all_blocked_users (){
+        $stmt = $this->con->prepare("SELECT user_send_request FROM Request_friends WHERE user_receive_request =? AND status=?");
+        $stmt->execute(array($this->id,2));
+        return $stmt->fetchALL();
+
+    }
+
+    public function add_request_friend($recived_user){
+        $stmt = $this->con->prepare('INSERT INTO Request_friends (user_send_request,user_receive_request)
+        Values (?,?)');
+        $stmt->execute(array($this->id,$recived_user));
+
+    }
+
+   
+
+
 
 }

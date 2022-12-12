@@ -7,7 +7,7 @@ if (empty($_SESSION)) {
   include_once './models/Request_friends.php';
   include_once './models/Friends.php';
 
- var_dump($_POST);
+ 
   
   //cuernt user is the Auth user
   $cur_user=new user();

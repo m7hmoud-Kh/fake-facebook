@@ -8,9 +8,36 @@ if (empty($_SESSION)) {
   include_once './models/Comment.php';
   include_once './models/Like.php';
 
+  include_once './models/User.php';
+  include_once './models/Request_friends.php';
+  include_once './models/Friends.php';
+
+
   $post = new Post();
   $postController  = new PostController();
 
+  //Auth user
+  $cur_user=new user();
+  $cur_user->id=$_SESSION['id'];
+
+  //fetch Auth user's frinds id to ignore them
+  $friends_array=$cur_user->fetch_all_frinds();
+
+  foreach($friends_array as $friend ){       
+            $friend_id[]=$friend['friend_id'];
+  }
+
+  //array to have all users 
+  $all_users=$cur_user->fetch_all_users();
+
+
+  //array to fetch blocked user 
+  $all_blocked_users=[];
+  foreach($cur_user->fetch_all_blocked_users() as $blocked_user ){       
+    $all_blocked_users[]=$blocked_user['user_send_request'];
+}
+
+  
 
   if (isset($_POST['add_post'])) {
       $data = $_POST;
