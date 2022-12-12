@@ -564,24 +564,20 @@ body a {
   background-color: var(--dark-blue);
   padding: 20px 5px;
   left: 0;
-  bottom: -80px;
+  bottom: -130px;
   border-radius: 5px;
   z-index: 10;
   display: none !important;
   transition: display var(--transition);
 }
-.main .right .friend-active .friend .action a,
-.main .left .maybe_freinds .friend .action a {
+
+.main .right .friend-active .friend .action button ,
+.main .left .maybe_freinds .friend .action button  {
   margin: 0px 10px 10px;
 }
 .main .right .friend-active .friend:hover .action,
 .main .left .maybe_freinds .friend:hover .action {
   display: flex !important;
-}
-.main .left .maybe_freinds .friend .action {
-  bottom: -130px;
-}
-.main .left .maybe_freinds .friend:hover .action {
   flex-direction: column;
 }
 .main .right .friend-active .friend .image,
@@ -606,17 +602,21 @@ body a {
   border-radius: 50%;
 }
 .main .right .maybe_freinds .friend h5,
-.main .left .friend-active .friend h5 {
-  font-size: 15px;
+.main .left .friend-active .friend h5
+ {
+
+  font-size: 12px;
 }
 @media (max-width: 991px) {
   .main .left .maybe_freinds .friend h5 {
     font-size: 15px;
   }
-  .main .right .friend-active .friend .action a,
-  .main .left .maybe_freinds .friend .action a {
+
+  .main .right .friend-active .friend .action button ,
+  .main .left .maybe_freinds .friend .action button  {
+
     margin: 0px 10px 10px;
-  }
+}
 }
 .main .right a {
   display: block;
