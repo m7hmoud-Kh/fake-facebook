@@ -65,6 +65,7 @@
           <div class=" action d-flex justify-content-around">
             <button class=" btn btn-primary">Add Friend</button>
             <button class=" btn btn-primary">View Profile </button>
+
           </div>
         </div>
         <div class="friend">
@@ -78,6 +79,7 @@
           <div class=" action d-flex justify-content-around">
             <button class=" btn btn-primary">Add Friend</button>
             <button class=" btn btn-primary">View Profile </button>
+
           </div>
         </div>
         <div class="friend">
@@ -91,6 +93,7 @@
           <div class=" action d-flex justify-content-around">
             <button class=" btn btn-primary">Add Friend</button>
             <button class=" btn btn-primary">View Profile </button>
+
           </div>
         </div>
         <div class="friend">
@@ -104,6 +107,7 @@
           <div class=" action d-flex justify-content-around">
             <button class=" btn btn-primary">Add Friend</button>
             <button class=" btn btn-primary">View Profile </button>
+
           </div>
         </div>
         <div class="friend">
@@ -117,21 +121,10 @@
           <div class=" action d-flex justify-content-around">
             <button class=" btn btn-primary">Add Friend</button>
             <button class=" btn btn-primary">View Profile </button>
+
           </div>
         </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                  height: 40px;
-                  margin-right: 10px;
-                  border-radius: 50%; " />
-          </div>
-          <h5>Kenneth Allen</h5>
-          <div class=" action d-flex justify-content-around">
-            <button class=" btn btn-primary">Add Friend</button>
-            <button class=" btn btn-primary">View Profile </button>
-          </div>
-        </div>
+         
 
       </div>
     </div>

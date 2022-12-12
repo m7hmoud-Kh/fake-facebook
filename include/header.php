@@ -144,6 +144,7 @@ $latestMessage = $messageModel->messageNotification();
                     <li>Profile</li>
                 </a>
                 <a href="Friends.php">
+
                     <li>Friend Requests</li>
                 </a>
             </ul>

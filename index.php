@@ -8,6 +8,7 @@ if (empty($_SESSION)) {
   include_once './models/Comment.php';
   include_once './models/Like.php';
 
+
   include_once './models/User.php';
   include_once './models/Request_friends.php';
   include_once './models/Friends.php';
@@ -38,6 +39,7 @@ if (empty($_SESSION)) {
 }
 
   
+
 
   if (isset($_POST['add_post'])) {
       $data = $_POST;

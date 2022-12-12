@@ -148,6 +148,7 @@ class User
         return $stmt->fetch();
     }
 
+
     public function fetch_all_reuestfrinds(){
         $stmt = $this->con->prepare('SELECT * FROM Request_friends WHERE user_receive_request = ?');
         $stmt->execute(array($this->id));
@@ -221,6 +222,7 @@ class User
     }
 
    
+
 
 
 

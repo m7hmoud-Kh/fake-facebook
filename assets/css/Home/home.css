@@ -570,6 +570,7 @@ body a {
   display: none !important;
   transition: display var(--transition);
 }
+
 .main .right .friend-active .friend .action button ,
 .main .left .maybe_freinds .friend .action button  {
   margin: 0px 10px 10px;
@@ -601,17 +602,21 @@ body a {
   border-radius: 50%;
 }
 .main .right .maybe_freinds .friend h5,
-.main .left .friend-active .friend h5 {
+.main .left .friend-active .friend h5
+ {
+
   font-size: 12px;
 }
 @media (max-width: 991px) {
   .main .left .maybe_freinds .friend h5 {
     font-size: 15px;
   }
+
   .main .right .friend-active .friend .action button ,
   .main .left .maybe_freinds .friend .action button  {
+
     margin: 0px 10px 10px;
-  }
+}
 }
 .main .right a {
   display: block;
