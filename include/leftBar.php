@@ -56,106 +56,46 @@
       </h4>
       <div class="freinds has-scrollbar">
        <?php
-         $i=0;
+      
          //show all user in data base 
         foreach($all_users as $user ){
-
+          
+          if(!empty($friend_id)){
         //except the Auth user him self and blocked users and where thay not afriend
          if($user['id']==$cur_user->id || in_array($user['id'],$all_blocked_users) ||  in_array($user['id'],$friend_id)){
           continue;
          }
+         
           
-
+      }
       
        ?>
         <div class="friend">
           <div class="image">
-
-            <img src="./assets/images/users/<?php //echo $user['profile_image']; ?>" alt="" />
+            <img src="./assets/images/users/<?php echo $user['profile_image']; ?>" alt="" style="width: 40px;
+                  height: 40px;
+                  margin-right: 10px;
+                  border-radius: 50%; " />
           </div>
           <h5><?php echo $user['fname']?></h5>
-          <div class="action d-flex justify-content-around">
-            <a class=" btn btn-primary">Add Friend</a>
-            <a class=" btn btn-primary">View Profile </a>
-
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                  height: 40px;
-                  margin-right: 10px;
-                  border-radius: 50%; " />
-          </div>
-          <h5>Kenneth Allen</h5>
+          
           <div class=" action d-flex justify-content-around">
-            <button class=" btn btn-primary">Add Friend</button>
-            <button class=" btn btn-primary">View Profile </button>
-
+          <form action=' <?php $_SERVER["PHP_SELF"] ?>' method='POST' enctype='multipart/form-data'>
+            <button class=" btn btn-primary"  name="AddFriend" type='submit' value=<?php echo $user['id']; ?>>Add Friend</button>
+            <button class=" btn btn-primary"  name="ViewProfile" type='submit' value=<?php echo $user['id']; ?>>View Profile </button>
+          </form>
           </div>
+          
         </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                  height: 40px;
-                  margin-right: 10px;
-                  border-radius: 50%; " />
-          </div>
-          <h5>Kenneth Allen</h5>
-          <div class=" action d-flex justify-content-around">
-            <button class=" btn btn-primary">Add Friend</button>
-            <button class=" btn btn-primary">View Profile </button>
 
-          </div>
-        </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                  height: 40px;
-                  margin-right: 10px;
-                  border-radius: 50%; " />
-          </div>
-          <h5>Kenneth Allen</h5>
-          <div class=" action d-flex justify-content-around">
-            <button class=" btn btn-primary">Add Friend</button>
-            <button class=" btn btn-primary">View Profile </button>
-
-          </div>
-        </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                  height: 40px;
-                  margin-right: 10px;
-                  border-radius: 50%; " />
-          </div>
-          <h5>Kenneth Allen</h5>
-          <div class=" action d-flex justify-content-around">
-            <button class=" btn btn-primary">Add Friend</button>
-            <button class=" btn btn-primary">View Profile </button>
-
-          </div>
-        </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                  height: 40px;
-                  margin-right: 10px;
-                  border-radius: 50%; " />
-          </div>
-          <h5>Kenneth Allen</h5>
-          <div class=" action d-flex justify-content-around">
-            <button class=" btn btn-primary">Add Friend</button>
-            <button class=" btn btn-primary">View Profile </button>
-
-
-          </div>
-        </div>
-         
-
-     <?php
-      $i++;
+        <?php
+     
       
       }
      
      
      ?>
+         
 
       </div>
     </div>

@@ -220,5 +220,19 @@ class User
 
     }
 
+    public function am_he_requested($other_user){
+        $stmt = $this->con->prepare('SELECT *FROM Request_friends WHERE user_send_request = ? AND user_receive_request=?');
+        $stmt->execute(array($this->id, $other_user));
+        $requested_user= $stmt->fetch();
+        if(empty($request_user)){
+            return FALSE;
+        }
+        else{
+            return TRUE;
+        }
+                
+
+    }
+
 
 }

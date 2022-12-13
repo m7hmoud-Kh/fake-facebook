@@ -19,7 +19,7 @@ if (empty($_SESSION)) {
   //Auth user
   $cur_user=new user();
   $cur_user->id=$_SESSION['id'];
-
+ 
   //fetch Auth user's frinds id to ignore them
   $friends_array=$cur_user->fetch_all_frinds();
 
@@ -35,6 +35,18 @@ if (empty($_SESSION)) {
   $all_blocked_users=[];
   foreach($cur_user->fetch_all_blocked_users() as $blocked_user ){       
     $all_blocked_users[]=$blocked_user['user_send_request'];
+}
+
+//add request
+if(!empty($_POST['AddFriend'])){
+  $recived_user_id=(int) $_POST['AddFriend'];
+  $cur_user->add_request_friend($recived_user_id);
+}
+
+//return to his page
+if(!empty($_POST['ViewProfile'])){
+  $recived_user_id=(int) $_POST['ViewProfile'];
+  //skip
 }
 
   if (isset($_POST['add_post'])) {
