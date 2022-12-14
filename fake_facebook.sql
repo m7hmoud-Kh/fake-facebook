@@ -122,7 +122,6 @@ CREATE TABLE `Request_friends` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 -- --------------------------------------------------------
 
 --
@@ -167,7 +166,6 @@ ALTER TABLE `friends`
 
 --
 
-
 -- Indexes for table `friends`
 --
 ALTER TABLE `Request_friends`
@@ -175,7 +173,6 @@ ALTER TABLE `Request_friends`
   
 
 --
-
 
 -- Indexes for table `likes`
 --
