@@ -551,7 +551,6 @@ body a {
 .main .right .friend-active .friend,
 .main .left .maybe_freinds .friend {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   margin: 20px 0;
   position: relative;
@@ -575,6 +574,10 @@ body a {
 .main .left .maybe_freinds .friend .action button  {
   margin: 0px 10px 10px;
 }
+.main .left .maybe_freinds .friend  button  {
+  margin-left: 8px !important; 
+}
+
 .main .right .friend-active .friend:hover .action,
 .main .left .maybe_freinds .friend:hover .action {
   display: flex !important;
@@ -601,21 +604,22 @@ body a {
   background-color: lawngreen;
   border-radius: 50%;
 }
-.main .right .maybe_freinds .friend h5,
+.main .right .maybe_freinds .friend .name,
 .main .left .friend-active .friend h5
  {
-
   font-size: 12px;
 }
 @media (max-width: 991px) {
-  .main .left .maybe_freinds .friend h5 {
+  .main .left .maybe_freinds .friend {
+    flex-wrap: wrap;
+  }
+  .main .left .maybe_freinds .friend .name {
     font-size: 15px;
   }
 
   .main .right .friend-active .friend .action button ,
-  .main .left .maybe_freinds .friend .action button  {
-
-    margin: 0px 10px 10px;
+  .main .left .maybe_freinds .friend  button  {
+    margin: 10px  0px;
 }
 }
 .main .right a {
