@@ -3,7 +3,16 @@ foreach ($comments as $comment) {
 ?>
     <div class="comment mb-4">
         <div class="img">
-            <img src="./assets/images/users/<?=$comment['profile_image']?>" class="img-fluid" alt="" />
+            <?php if(isset($comment['profile_image'])){
+                ?>
+                <img src="./assets/images/users/<?=$comment['profile_image']?>" class="img-fluid" alt="" />
+                <?php
+            } else {
+                ?>
+                    <img src="./assets/images/Home/user.jpg" class="img-fluid" alt="" />
+                <?php
+            }?>
+
         </div>
         <div class="content">
             <h6><?= $postController->fullName($comment['fname'], $comment['lname']) ?></h6>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2022 at 07:48 PM
+-- Generation Time: Dec 14, 2022 at 05:23 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -107,14 +107,13 @@ CREATE TABLE `posts` (
   `update_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Request_friends`
+-- Table structure for table `request_friends`
 --
 
-CREATE TABLE `Request_friends` (
+CREATE TABLE `request_friends` (
   `id` int(11) NOT NULL,
   `user_send_request` int(11) NOT NULL,
   `user_receive_request` int(11) NOT NULL,
@@ -165,15 +164,6 @@ ALTER TABLE `friends`
   ADD KEY `friend_id` (`friend_id`);
 
 --
-
--- Indexes for table `friends`
---
-ALTER TABLE `Request_friends`
-  ADD PRIMARY KEY (`id`)
-  
-
---
-
 -- Indexes for table `likes`
 --
 ALTER TABLE `likes`
@@ -194,8 +184,8 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `to_user_id` (`to_user_id`),
   ADD KEY `from_user_id` (`from_user_id`),
+  ADD KEY `to_user_id` (`to_user_id`),
   ADD KEY `post_id` (`post_id`);
 
 --
@@ -206,86 +196,24 @@ ALTER TABLE `posts`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `request_friends`
+--
+ALTER TABLE `request_friends`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_receive_request` (`user_receive_request`),
+  ADD KEY `user_send_request` (`user_send_request`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `friends`
---
-ALTER TABLE `friends`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `likes`
---
-ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `notifications`
---
-ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `posts`
---
-ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `comments`
---
-ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `friends`
---
-ALTER TABLE `friends`
-  ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
-
--- Constraints for table `Request_friends`
---
-ALTER TABLE `Request_friends`
-  ADD CONSTRAINT `Request_friends_ibfk_1` FOREIGN KEY (`user_send_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Request_friends_ibfk_2` FOREIGN KEY (`user_receive_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
-
 -- Constraints for table `likes`
 --
 ALTER TABLE `likes`
@@ -303,8 +231,8 @@ ALTER TABLE `messages`
 -- Constraints for table `notifications`
 --
 ALTER TABLE `notifications`
-  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`to_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`from_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`from_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`to_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `notifications_ibfk_3` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -312,6 +240,13 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `request_friends`
+--
+ALTER TABLE `request_friends`
+  ADD CONSTRAINT `request_friends_ibfk_1` FOREIGN KEY (`user_receive_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `request_friends_ibfk_2` FOREIGN KEY (`user_send_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

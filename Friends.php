@@ -7,32 +7,32 @@ if (empty($_SESSION)) {
   include_once './models/Request_friends.php';
   include_once './models/Friends.php';
 
- 
-  
+
+
   //cuernt user is the Auth user
   $cur_user=new user();
   $cur_user->id=$_SESSION['id'];
-  
 
-  
 
- 
+
+
+
 
 //Confirm friend request by add him to my friends and delete the request
-  if(!empty($_POST['confirm']) ){ 
+  if(!empty($_POST['confirm']) ){
     $send_user_id=(int) $_POST['confirm'];
     $cur_user->add_friend($cur_user->id,$send_user_id);
     $cur_user->delete_request($send_user_id);
 }
 
- //Delete friend request by change his status to blocked and not show this request 
+ //Delete friend request by change his status to blocked and not show this request
  if(isset($_POST["Delete"])){
   $send_user_id=(int) $_POST["Delete"];
   $deleted_request=new  Request_friends();
   $deleted_request->send_user=$send_user_id;
   $deleted_request->recuest_user= $cur_user->id;
   $deleted_request->update_ststus(2);
-                
+
  }
 
 //unfriend to a friend
@@ -56,9 +56,9 @@ if(!empty($_POST["Message"])){
   //fetch Auth user's frinds  to show them
   $friends_array=$cur_user->fetch_all_frinds();
 
- 
-        
-      
+
+
+
 
   ?>
 
@@ -81,166 +81,7 @@ if(!empty($_POST["Message"])){
 </head>
 
 <body>
-  <header>
-    <div class="logo">Facebook</div>
-    <div class="search-bar">
-      <input type="text" placeholder="search" />
-    </div>
-    <div class="navigation d-lg-flex d-none position-relative">
-      <div class="settings">
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="messenger">
-        <i class="fa-brands fa-facebook-messenger"></i>
-        <div class="unseen"></div>
-      </div>
-      <div class="notification">
-        <i class="fa-solid fa-bell"></i>
-        <div class="unseen"></div>
-      </div>
-      <div class="profile">
-        <i class="fa-solid fa-user"></i>
-      </div>
-      <div class="notifications has-scrollbar">
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="././images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="././images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="././images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="././images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="././images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="notification-box d-flex align-items-center gap-2">
-          <div class="img" style="width: 70px">
-            <img src="././images/profile.jpg" class="img-fluid" alt="" />
-          </div>
-          <div class="details">
-            <p>Mohamed Sayed Reacted to your post</p>
-            <span class="text-muted">2m ago</span>
-          </div>
-        </div>
-        <div class="load-more text-center">
-          <p>Load More .</p>
-        </div>
-      </div>
-      <div class="setting-popup">
-        <ul class="list-unstyled">
-          <a href="#">
-            <li>Settings</li>
-          </a>
-          <a href="#">
-            <li>Log out</li>
-          </a>
-        </ul>
-      </div>
-      <div class="messenger-popup has-scrollbar">
-        <a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="././images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a>
-        <a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="././images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a><a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="././images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a><a href="#">
-          <div class="message-box d-flex align-items-center gap-2">
-            <div class="img" style="width: 120px">
-              <img src="././images/profile.jpg" class="img-fluid" alt="" />
-            </div>
-            <div class="details">
-              <p class="sender-name">Mohamed Sayed</p>
-              <span class="message-preview text-muted">hello mohamed, i sent you the solution for the math
-                homework</span>
-              <br />
-              <span class="text-muted">2m ago</span>
-            </div>
-          </div>
-        </a>
-        <div class="load-more text-center">
-          <p>Load More .</p>
-        </div>
-      </div>
-      <div class="profile-popup">
-        <ul class="list-unstyled">
-          <a href="#">
-            <li>Profile</li>
-          </a>
-          <a href="#">
-            <li>Friend Requests</li>
-          </a>
-        </ul>
-      </div>
-    </div>
-  </header>
+  <?php include_once './include/header.php'; ?>
   <div class="main d-flex">
     <div class="left">
       <div class="bg-color">
@@ -303,21 +144,21 @@ if(!empty($_POST["Message"])){
             $send_user=new user();
             $send_user_image="";
             $send_user_name="";
-          
+
           foreach($requests_array as $request ){
 
             $request_id= $request['id'];
             $send_user_id=$request['user_send_request'];
             $request_status=$request['status'];
-             
+
             if ( $request_status==1){
 
-            
+
             $send_user->id=$send_user_id;
             $send_user_image=$send_user->fetch_image();
             $send_user_name=$send_user->fetch_name();
 
-          
+
           ?>
 
          <div class='swiper-slide'>
@@ -344,8 +185,8 @@ if(!empty($_POST["Message"])){
           <?php
         }
       }
-       
-        ?> 
+
+        ?>
         </div>
         <div class="swiper-button-next swiper-navBtn"></div>
         <div class="swiper-button-prev swiper-navBtn"></div>
@@ -354,24 +195,24 @@ if(!empty($_POST["Message"])){
       <h3 class="text-center friends-word">Friends</h3>
       <div class="friends row row-cols-1 row-cols-sm-2 row-cols-md-4">
 
-        
-      
+
+
       <?php
-        foreach($friends_array as $friend ){       
-    /***********************$friend is a friend record in data base******** */        
+        foreach($friends_array as $friend ){
+    /***********************$friend is a friend record in data base******** */
             $friend_id=$friend['friend_id'];
             $id=$friend['id'];
-           
-   /**********select name and image ffrom my friend to shoe them *************/ 
+
+   /**********select name and image ffrom my friend to shoe them *************/
             $my_friend=new user();
             $my_friend->id=$friend_id;
-  
+
             $my_friend_image=$my_friend->fetch_image();
             $my_friend_name=$my_friend->fetch_name();
 
           $here= $_SERVER["PHP_SELF"];
           echo"
-          
+
         <div class='friend-card'>
         <form action='$here' method='POST' enctype='multipart/form-data'>
           <div class='image-content'>
@@ -389,12 +230,10 @@ if(!empty($_POST["Message"])){
             </form>
             </div>
         </div>
-        
+
         ";
-       
+
         }
-    
-        
         ?>
       </div>
 
@@ -419,71 +258,20 @@ if(!empty($_POST["Message"])){
       </nav>
 
     </div>
-    <div class="right">
-      <div class="friend-active ">
-        <h4 class="text-center">Active Friends</h4>
-        <div class="search-bar">
-          <input type="text" placeholder="search" />
-        </div>
-        <div class="friends has-scrollbar">
-         
-         <?php
-          foreach($friends_array as $friend ){
-            $friend_id=$friend['friend_id'];
-            $id=$friend['id'];
-
-            $friend_opj=new Friends;
-            $friend_opj->id= $id;
-            
-  
-            $my_friend=new user();
-            $my_friend->id=$friend_id;
-  
-            $my_friend_image=$my_friend->fetch_image();
-            $my_friend_name=$my_friend->fetch_name();
-  
-            echo"
-              <div class='friend'>
-                <div class='image'>
-                  <img src='./assets/images/users/$my_friend_image' alt='' />
-                  <span></span>
-                </div>
-                <h5> $my_friend_name</h5>
-                <div class='action d-flex justify-content-around'>
-                  <button class=' btn btn-primary'>Message </button>
-                  <button class=' btn btn-primary'>View Profile </button>
-                </div>
-              </div>";
-        }
-          ?>
-        </div>
-      </div>
-    </div>
+  <?php include_once './include/rightBar.php'; ?>
 
   </div>
-  <nav class="footer-nav d-lg-none d-flex">
-    <div class="home">
-      <a href="./index.php"><i class="fa-solid fa-home"></i></a>
-    </div>
-    <div class="notification"><i class="fa-solid fa-bell"></i></div>
-    <div class="messenger">
-      <a href="ChatList.html"><i class="fa-brands fa-facebook-messenger"></i></a>
-    </div>
-    <div class="porifle">
-      <a href="UserProfile.html"><i class="fa-solid fa-user"></i></a>
-    </div>
-  </nav>
+        <?php include_once './include/nav.php'; ?>
   <script src="./assets/js/swiper-bundle.min.js"></script>
   <script src="./assets/js/Friends/Friends.js"></script>
   <script src="./assets/js/bootstrap.bundle.min.js"></script>
   <script src="./assets/js/all.min.js"></script>
   <script src="./assets/js/main.js"></script>
-   <script src="./assets/js/jquery-3.5.0.min.js"></script>
-    <script>
-    
+  <script src="./assets/js/jquery-3.5.0.min.js"></script>
 </body>
 
 </html>
+
 <?php
 
 }
