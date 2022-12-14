@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2022 at 07:48 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.7
+-- Generation Time: Dec 14, 2022 at 06:12 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -107,21 +107,19 @@ CREATE TABLE `posts` (
   `update_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Request_friends`
+-- Table structure for table `request_friends`
 --
 
-CREATE TABLE `Request_friends` (
+CREATE TABLE `request_friends` (
   `id` int(11) NOT NULL,
   `user_send_request` int(11) NOT NULL,
   `user_receive_request` int(11) NOT NULL,
   `status` enum('1','2') NOT NULL COMMENT '1 => requested\r\n 2 => block',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 
@@ -166,17 +164,6 @@ ALTER TABLE `friends`
   ADD KEY `friend_id` (`friend_id`);
 
 --
-
-
--- Indexes for table `friends`
---
-ALTER TABLE `Request_friends`
-  ADD PRIMARY KEY (`id`)
-  
-
---
-
-
 -- Indexes for table `likes`
 --
 ALTER TABLE `likes`
@@ -207,6 +194,14 @@ ALTER TABLE `notifications`
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `request_friends`
+--
+ALTER TABLE `request_friends`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Request_friends_ibfk_1` (`user_send_request`),
+  ADD KEY `Request_friends_ibfk_2` (`user_receive_request`);
 
 --
 -- Indexes for table `users`
@@ -256,6 +251,12 @@ ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `request_friends`
+--
+ALTER TABLE `request_friends`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -280,15 +281,6 @@ ALTER TABLE `friends`
   ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friend_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
-
--- Constraints for table `Request_friends`
---
-ALTER TABLE `Request_friends`
-  ADD CONSTRAINT `Request_friends_ibfk_1` FOREIGN KEY (`user_send_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Request_friends_ibfk_2` FOREIGN KEY (`user_receive_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
-
 -- Constraints for table `likes`
 --
 ALTER TABLE `likes`
@@ -315,6 +307,13 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `request_friends`
+--
+ALTER TABLE `request_friends`
+  ADD CONSTRAINT `Request_friends_ibfk_1` FOREIGN KEY (`user_send_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Request_friends_ibfk_2` FOREIGN KEY (`user_receive_request`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

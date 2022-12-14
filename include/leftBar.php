@@ -1,7 +1,17 @@
 <div class="left">
   <div class="bg-color">
     <a class="userInfo">
-      <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" alt="" />
+      <?php
+      if (isset($_SESSION['profile_image'])) {
+        ?>
+      <img src="./assets/images/users/<?= $_SESSION['profile_image'] ?>" alt="" />
+      <?php
+      }else {
+        ?>
+      <img src="./assets/images/Home/user.jpg" />
+      <?php
+      }
+      ?>
       <h2><?= $_SESSION['fname'] . ' ' . $_SESSION['lname'] ?></h2>
     </a>
     <div class="menu">
@@ -53,61 +63,60 @@
         People may be know
       </h4>
       <div class="freinds has-scrollbar">
-
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                        height: 40px;
-                        margin-right: 10px;
-                        border-radius: 50%; " />
-          </div>
-          <div class="name">Kenneth Allen</div>
-          <button class=" btn btn-primary">Add Friend</button>
-        </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                        height: 40px;
-                        margin-right: 10px;
-                        border-radius: 50%; " />
-          </div>
-          <div class="name">Kenneth Allen</div>
-          <button class=" btn btn-primary">Add Friend</button>
-        </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                        height: 40px;
-                        margin-right: 10px;
-                        border-radius: 50%; " />
-          </div>
-          <div class="name">Kenneth Allen</div>
-          <button class=" btn btn-primary">Add Friend</button>
-        </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                        height: 40px;
-                        margin-right: 10px;
-                        border-radius: 50%; " />
-          </div>
-          <div class="name">Kenneth Allen</div>
-          <button class=" btn btn-primary">Add Friend</button>
-        </div>
-        <div class="friend">
-          <div class="image">
-            <img src="../assets/images/Home/user.jpg" alt="" style="width: 40px;
-                        height: 40px;
-                        margin-right: 10px;
-                        border-radius: 50%; " />
-          </div>
-          <div class="name">Kenneth Allen</div>
-          <button class=" btn btn-primary">Add Friend</button>
-        </div>
+        <?php
 
 
 
+        //show all user in data base
+        foreach ($all_users as $user) {
+
+          if (
+            $user['id']==$cur_user->id ||
+          in_array($user['id'], $all_blocked_users) ||
+          (!empty($friend_id) && in_array($user['id'], $friend_id))
+          ) {
+            continue;
+          }
+
+
+
+        ?>
+        <div class="friend">
+          <div class="image">
+            <?php
+            if(isset($user['profile_image'])){
+              ?>
+            <img src="./assets/images/users/<?php echo $user['profile_image']; ?>" alt="" style="width: 40px;
+                  height: 40px;
+                  margin-right: 10px;
+                  border-radius: 50%; " />
+            <?php
+            }else{
+              ?>
+            <img src="./assets/images/Home/user.jpg" />
+            <?php
+            }
+            ?>
+
+          </div>
+          <h5><?php echo $user['fname'] . ' ' . $user['lname']; ?></h5>
+
+          <form action=' <?php $_SERVER["PHP_SELF"] ?>' method='POST' enctype='multipart/form-data'>
+            <!--return a user id to do some action-->
+            <button class=" btn btn-primary" name="AddFriend" type='submit' value=<?php echo $user['id']; ?>>Add
+              Friend</button>
+            <!-- <button class=" btn btn-primary" name="ViewProfile" type='submit' value=<?php echo $user['id']; ?>>View
+                Profile </button> -->
+          </form>
+
+
+
+
+          <?php
+        }
+        ?>
+
+        </div>
       </div>
     </div>
   </div>
-</div>

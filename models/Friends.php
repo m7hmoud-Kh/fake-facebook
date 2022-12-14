@@ -5,11 +5,9 @@ include_once(__DIR__.'./condb.php');
 class Friends
 {
     private $con;
-
     public $id;
     public $user_id;
     public $friend_id;
-
 
     public function __construct()
     {
@@ -42,5 +40,4 @@ class Friends
     }
      
    
-
 }
