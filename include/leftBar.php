@@ -4,12 +4,12 @@
       <?php
       if (isset($_SESSION['profile_image'])) {
         ?>
-          <img src="./assets/images/users/<?= $_SESSION['profile_image'] ?>" alt="" />
+      <img src="./assets/images/users/<?= $_SESSION['profile_image'] ?>" alt="" />
       <?php
       }else {
         ?>
-          <img src="./assets/images/Home/user.jpg" />
-        <?php
+      <img src="./assets/images/Home/user.jpg" />
+      <?php
       }
       ?>
       <h2><?= $_SESSION['fname'] . ' ' . $_SESSION['lname'] ?></h2>
@@ -65,6 +65,8 @@
       <div class="freinds has-scrollbar">
         <?php
 
+
+
         //show all user in data base
         foreach ($all_users as $user) {
 
@@ -99,20 +101,22 @@
           </div>
           <h5><?php echo $user['fname'] . ' ' . $user['lname']; ?></h5>
 
-          <div class=" action d-flex justify-content-around">
-            <form action=' <?php $_SERVER["PHP_SELF"] ?>' method='POST' enctype='multipart/form-data'>
-              <!--return a user id to do some action-->
-              <button class=" btn btn-primary" name="AddFriend" type='submit' value=<?php echo $user['id']; ?>>Add
-                Friend</button>
-              <button class=" btn btn-primary" name="ViewProfile" type='submit' value=<?php echo $user['id']; ?>>View
-                Profile </button>
-            </form>
-          </div>
-        </div>
-        <?php
+          <form action=' <?php $_SERVER["PHP_SELF"] ?>' method='POST' enctype='multipart/form-data'>
+            <!--return a user id to do some action-->
+            <button class=" btn btn-primary" name="AddFriend" type='submit' value=<?php echo $user['id']; ?>>Add
+              Friend</button>
+            <!-- <button class=" btn btn-primary" name="ViewProfile" type='submit' value=<?php echo $user['id']; ?>>View
+                Profile </button> -->
+          </form>
+
+
+
+
+          <?php
         }
         ?>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
