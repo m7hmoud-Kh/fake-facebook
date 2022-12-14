@@ -12,7 +12,6 @@ if (empty($_SESSION)) {
   include_once './models/Request_friends.php';
   include_once './models/Friends.php';
 
-
   $post = new Post();
   $postController  = new PostController();
 
@@ -20,23 +19,7 @@ if (empty($_SESSION)) {
   $cur_user=new user();
   $cur_user->id=$_SESSION['id'];
  
-  //fetch Auth user's frinds id to ignore them
-  $friends_array=$cur_user->fetch_all_frinds();
-
-  foreach($friends_array as $friend ){       
-            $friend_id[]=$friend['friend_id'];
-  }
-
-  //array to have all users 
-  $all_users=$cur_user->fetch_all_users();
-
-
-  //array to fetch blocked user 
-  $all_blocked_users=[];
-  foreach($cur_user->fetch_all_blocked_users() as $blocked_user ){       
-    $all_blocked_users[]=$blocked_user['user_send_request'];
-}
-
+  
 //add request
 if(!empty($_POST['AddFriend'])){
   $recived_user_id=(int) $_POST['AddFriend'];
@@ -47,6 +30,23 @@ if(!empty($_POST['AddFriend'])){
 if(!empty($_POST['ViewProfile'])){
   $recived_user_id=(int) $_POST['ViewProfile'];
   //skip
+}
+
+//Confirm friend request by add him to my friends and delete the request
+if(!empty($_POST['confirm']) ){ 
+  $send_user_id=(int) $_POST['confirm'];
+  $cur_user->add_friend($cur_user->id,$send_user_id);
+  $cur_user->delete_request($send_user_id);
+}
+
+//Delete friend request by change his status to blocked and not show this request 
+if(isset($_POST["Delete"])){
+$send_user_id=(int) $_POST["Delete"];
+$deleted_request=new  Request_friends();
+$deleted_request->send_user=$send_user_id;
+$deleted_request->recuest_user= $cur_user->id;
+$deleted_request->update_ststus(2);
+              
 }
 
   if (isset($_POST['add_post'])) {
@@ -80,6 +80,31 @@ if(!empty($_POST['ViewProfile'])){
 
 
   $allPosts = $post->allPosts();
+
+  //fetch Auth user's frinds id to ignore them
+  $friends_array=$cur_user->fetch_all_frinds();
+
+  foreach($friends_array as $friend ){       
+            $friend_id[]=$friend['friend_id'];
+  }
+
+  //array to have all users 
+  $all_users=$cur_user->fetch_all_users();
+
+
+  //array to fetch blocked user 
+  $all_blocked_users=[];
+  foreach($cur_user->fetch_all_blocked_users() as $blocked_user ){       
+    $all_blocked_users[]=$blocked_user['user_send_request'];
+}
+
+//get last request id
+$last_requested_id=$cur_user->get_last_recuest();
+//get this user
+$last_requested_user=$cur_user->fetch_user($last_requested_id);
+
+
+
 
   ?>
 <!DOCTYPE html>

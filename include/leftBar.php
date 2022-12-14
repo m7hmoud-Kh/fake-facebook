@@ -81,6 +81,7 @@
           
           <div class=" action d-flex justify-content-around">
           <form action=' <?php $_SERVER["PHP_SELF"] ?>' method='POST' enctype='multipart/form-data'>
+          <!--return a user id to do some action-->
             <button class=" btn btn-primary"  name="AddFriend" type='submit' value=<?php echo $user['id']; ?>>Add Friend</button>
             <button class=" btn btn-primary"  name="ViewProfile" type='submit' value=<?php echo $user['id']; ?>>View Profile </button>
           </form>

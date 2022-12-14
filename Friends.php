@@ -16,11 +16,7 @@ if (empty($_SESSION)) {
 
   
 
-  //fetch Auth user's reuestfrinds to show them
- $requests_array=$cur_user->fetch_all_reuestfrinds();
-
-  //fetch Auth user's frinds  to show them
-  $friends_array=$cur_user->fetch_all_frinds();
+ 
 
 //Confirm friend request by add him to my friends and delete the request
   if(!empty($_POST['confirm']) ){ 
@@ -53,6 +49,12 @@ if(!empty($_POST["Message"])){
      // header('location: .\chat.php');
 
 }
+
+ //fetch Auth user's reuestfrinds to show them
+ $requests_array=$cur_user->fetch_all_reuestfrinds();
+
+  //fetch Auth user's frinds  to show them
+  $friends_array=$cur_user->fetch_all_frinds();
 
  
         

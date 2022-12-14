@@ -229,8 +229,22 @@ class User
         }
         else{
             return TRUE;
-        }
+        } 
                 
+    }
+
+    public function get_last_recuest(){
+        $stmt = $this->con->prepare('SELECT MAX(user_send_request) FROM Request_friends WHERE user_receive_request=? AND status=?' );
+        $stmt->execute(array($this->id,1));
+        $last_one= $stmt->fetch();
+        return $last_one['MAX(user_send_request)'];
+        
+    }   
+
+    public function fetch_user ($id){
+        $stmt = $this->con->prepare("SELECT * FROM Users WHERE  id=?");
+        $stmt->execute(array($id));
+        return $stmt->fetch();
 
     }
 
