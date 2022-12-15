@@ -24,7 +24,15 @@ $latestMessage = $messageModel->messageNotification();
         </div>
         <div class="messenger">
             <i class="fa-brands fa-facebook-messenger"></i>
-            <div class="unseen"></div>
+            <?php if(isset($latestMessage)){
+                ?>
+                <div class="unseen"></div>
+                <?php
+            }else{
+                ?>
+                <div class="seen"></div>
+                <?php
+            }?>
         </div>
         <div class="notification">
             <i class="fa-solid fa-bell"></i>

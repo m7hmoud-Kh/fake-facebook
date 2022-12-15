@@ -31,13 +31,30 @@ class Friends
 
     }
 
+    public function getAllFriends()
+    {
+        $stmt = $this->con->prepare('SELECT * FROM friends JOIN users ON users.id = friends.friend_id
+        WHERE `user_id` = ?; ');
+        $stmt->execute(array($_SESSION['id']));
+        return $stmt->fetchAll();
+    }
+
+    public function getSixFriendsOnly()
+    {
+        $stmt = $this->con->prepare('SELECT * FROM friends JOIN users ON users.id = friends.friend_id
+        WHERE `user_id` = ?; LIMIT 6');
+        $stmt->execute(array($_SESSION['id']));
+        return $stmt->fetchAll();
+    }
+
 
     function delete_friend($user_id){
         $stmt = $this->con->prepare('DELETE  FROM friends WHERE  friend_id = ? AND user_id=?');
         $stmt->execute(array($this->friend_id, $user_id));
         $stmt->execute(array($user_id, $this->friend_id ));
-       
+
     }
-     
-   
+
+
+
 }

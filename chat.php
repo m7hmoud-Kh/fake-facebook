@@ -5,6 +5,10 @@ if (empty($_SESSION)) {
 } else {
   include_once './models/Friends.php';
   include_once './models/User.php';
+  include_once './models/Request_friends.php';
+
+  $friendRequestModel = new Request_friends();
+  $friendModel = new Friends();
 
 
   if (isset($_GET['chat_with']) && is_numeric($_GET['chat_with'])) {
@@ -18,6 +22,10 @@ if (empty($_SESSION)) {
     } else {
       $userModel = new User();
       $infoFriend = $userModel->getUserById($friendId);
+
+
+    $getPeopleMayBeKnow = $friendRequestModel->getPeopleMayBeKnow();
+    $getAllFriends = $friendModel->getAllFriends();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,8 +60,18 @@ if (empty($_SESSION)) {
               <i class="fa-solid fa-angle-left"></i>
             </div>
             <div class="texter d-flex align-items-center gap-4">
-              <div class="img" style="width: 80px">
-                <img src="./assets/images/users/<?=$infoFriend['profile_image']?>" class="img-fluid" alt="" />
+            <div class="img" style="width: 80px">
+              <?php
+              if(isset($infoFriend['profile_image'])){
+                ?>
+                  <img src="./assets/images/users/<?=$infoFriend['profile_image']?>" class="img-fluid" alt="" />
+                <?php
+              }else{
+                ?>
+                  <img src="./assets/images/Home/user.jpg" class="img-fluid" />
+                <?php
+              }
+              ?>
               </div>
               <div class="name">
                 <h3><?=$infoFriend['fname'] . ' ' . $infoFriend['lname'] ?></h3>
@@ -68,7 +86,7 @@ if (empty($_SESSION)) {
           </div>
         </div>
         <div class="chat-content has-scrollbar chat-box">
-          
+
         </div>
         <form method="POST" class="chat-message-input typing-area">
           <input type="text" required name="message" class="send-messge input-field formVal" placeholder="type your message ..." />

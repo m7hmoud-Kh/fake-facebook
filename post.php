@@ -10,10 +10,20 @@ if (empty($_SESSION)) {
     include_once './models/Post.php';
     include_once './models/Comment.php';
     include_once './models/Like.php';
+    include_once './models/User.php';
+    include_once './models/Request_friends.php';
+    include_once './models/Friends.php';
+
 
     $post = new Post();
     $postController  = new PostController();
     $commentModel = new Comment();
+    $friendRequestModel = new Request_friends();
+    $friendModel = new Friends();
+
+     //Auth user
+    $cur_user = new user();
+    $cur_user->id = $_SESSION['id'];
 
 
 
@@ -29,6 +39,10 @@ if (empty($_SESSION)) {
 
     $post = $post->getAllInfoPostById($postId);
     $comments = $commentModel->getCommentByPostId($postId);
+
+    $getPeopleMayBeKnow = $friendRequestModel->getPeopleMayBeKnow();
+    $getAllFriends = $friendModel->getAllFriends();
+
 
 ?>
 <!DOCTYPE html>
