@@ -25,31 +25,31 @@ class PostController
     private function validateImage($fname)
     {
 
-        $allowextion = array("png","jpg","jpeg","gif");
+        $allowextion = array("png", "jpg", "jpeg", "gif");
         $extion      = explode(".", $fname);
         $extion      = end($extion);
         $extion      = strtolower($extion);
 
         if (!empty($fname) && !in_array($extion, $allowextion)) {
             $arrError['image'] = "Must be upload photo";
-                    return $arrError;
-
+            return $arrError;
         }
-
     }
 
     public function uploadImage($fname, $ftemp)
     {
-        $imageavatr = rand(0, 10000)."_".$fname;
-        $path  =".\\assets\\images\\posts\\";
-        move_uploaded_file($ftemp, $path.$imageavatr);
+        $imageavatr = rand(0, 10000) . "_" . $fname;
+        $path  = ".\\assets\\images\\posts\\";
+        move_uploaded_file($ftemp, $path . $imageavatr);
         return $imageavatr;
     }
 
     public function timeElapsedString($datetime, $full = false)
     {
-        $now = new DateTime;
-        $ago = new DateTime($datetime);
+        date_default_timezone_set('Africa/Cairo');
+        $now = new DateTime();
+        $ago = new DateTime($datetime, new DateTimeZone('Africa/Cairo'));
+
         $diff = $now->diff($ago);
 
         $diff->w = floor($diff->d / 7);
@@ -72,10 +72,12 @@ class PostController
             }
         }
 
-        if (!$full) $string = array_slice($string, 0, 1);
-        return $string ? implode(', ', $string) . ' ago' : 'just now';
-
+        if (!$full) {
+            $string = array_slice($string, 0, 1);
+        }
+        return $string ? implode(',', $string) . ' ago' : 'just now';
     }
+
 
     public function fullName($fname, $lname)
     {
@@ -86,6 +88,4 @@ class PostController
     {
         unlink("./assets/images/posts/$image");
     }
-
-
 }

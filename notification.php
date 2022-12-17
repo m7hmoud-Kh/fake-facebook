@@ -94,14 +94,13 @@ if (empty($_SESSION)) {
                         </div>
                         <div class="content">
                             <div class="image">
-                                <?php if(isset($notifiy['profile_image'])){
+                                <?php if (isset($notifiy['profile_image'])) {
                                     ?>
                                 <img src="./assets/images/users/<?=$notifiy['profile_image']?>" alt="" />
                                 <?php
                                 } else {
                                     ?>
-                                <img src="./assets/images/Home/user.jpg" />
-
+                                <img src="./assets/images/Home/user.jpg"  alt=""/>
                                 <?php
                                 }
                                 ?>

@@ -102,9 +102,8 @@ if (empty($_SESSION)) {
               <?php echo $countFriend['all_friends'] == 1 ? 'Friend' : 'Friends'?>
             </p>
           </div>
-          <a class="btn btn-primary" href="Settings.php">Update Profile
+          <a class="btn btn-primary" href="Settings.php">Update Profile</a>
         </div>
-        </a>
       </div>
       <div class="main-page">
         <div class="row">

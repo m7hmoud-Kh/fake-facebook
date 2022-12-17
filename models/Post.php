@@ -46,9 +46,8 @@ class Post
 
     public function allPosts()
     {
-        $stmt = $this->con->prepare('SELECT  posts.id as post_id, posts.*, users.id as `user_id` ,users.*
-        FROM posts JOIN users on posts.user_id = users.id ORDER BY posts.id DESC');
-        $stmt->execute();
+        $stmt = $this->con->prepare('SELECT posts.id as post_id, posts.*, users.id as `user_id` ,users.* FROM posts JOIN users on posts.user_id = users.id WHERE posts.user_id IN (SELECT friends.friend_id FROM friends WHERE friends.user_id = ?) ORDER BY posts.id DESC; ');
+        $stmt->execute(array($_SESSION['id']));
         return $stmt->fetchAll();
     }
 
