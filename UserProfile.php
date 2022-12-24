@@ -10,10 +10,16 @@ if (empty($_SESSION)) {
   include_once './models/Friends.php';
 
 
+
+
+
   $post = new Post();
   $postController  = new PostController();
   $friends = new Friends();
+
   $countFriend = $friends->getFriendsCount();
+  $sampleFriends = $friends->getSixFriendsOnly();
+
 
 
   if (isset($_POST['add_post'])) {
@@ -93,12 +99,11 @@ if (empty($_SESSION)) {
           <div class="user-details">
             <h2><?=$_SESSION['fname'] . ' ' . $_SESSION['lname']?></h2>
             <p class="friends text-light"><?=$countFriend['all_friends']?>
-                <?php echo $countFriend['all_friends'] == 1 ? 'Friend' : 'Friends'?>
+              <?php echo $countFriend['all_friends'] == 1 ? 'Friend' : 'Friends'?>
             </p>
           </div>
-          <a class="btn btn-primary" href="Settings.php">Update Profile
+          <a class="btn btn-primary" href="Settings.php">Update Profile</a>
         </div>
-        </a>
       </div>
       <div class="main-page">
         <div class="row">
@@ -124,69 +129,39 @@ if (empty($_SESSION)) {
                 <hr class="mb-4 mt-0" />
 
                 <div class="row">
+                  <?php
+                  foreach ($sampleFriends as $friend) {
+                    ?>
                   <div class="col-4 mb-4">
                     <div class="friend-box">
-                      <img src="../images/profile.jpg" class="img-fluid mb-2" style="border-radius: 5px" alt="" />
+                      <?php
+                      if(isset($friend['profile_image'])){
+                        ?>
+                      <img src="./assets/images/users/<?=$friend['profile_image']?>" class="img-fluid mb-2"
+                        style="border-radius: 5px" alt="" />
+                      <?php
+                      }else {
+                        ?>
+                      <img src="./assets/images/Home/user.jpg" class="img-fluid mb-2"
+                        style="border-radius: 5px" alt="" />
+                      <?php
+                      }
+                      ?>
+
                       <a href="#" style="
                             font-size: 14px;
                             text-overflow: ellipsis;
                             word-wrap: none;
-                          ">Mohamed Sayed</a>
+                          "><?=$friend['fname'] . ' '. $friend['lname'] ?>
+                      </a>
                     </div>
                   </div>
-                  <div class="col-4 mb-4">
-                    <div class="friend-box">
-                      <img src="../images/profile.jpg" class="img-fluid mb-2" style="border-radius: 5px" alt="" />
-                      <a href="#" style="
-                            font-size: 14px;
-                            text-overflow: ellipsis;
-                            word-wrap: none;
-                          ">Mohamed Sayed</a>
-                    </div>
-                  </div>
-                  <div class="col-4 mb-4">
-                    <div class="friend-box">
-                      <img src="../images/profile.jpg" class="img-fluid mb-2" style="border-radius: 5px" alt="" />
-                      <a href="#" style="
-                            font-size: 14px;
-                            text-overflow: ellipsis;
-                            word-wrap: none;
-                          ">Mohamed Sayed</a>
-                    </div>
-                  </div>
-                  <div class="col-4 mb-4">
-                    <div class="friend-box">
-                      <img src="../images/profile.jpg" class="img-fluid mb-2" style="border-radius: 5px" alt="" />
-                      <a href="#" style="
-                            font-size: 14px;
-                            text-overflow: ellipsis;
-                            word-wrap: none;
-                          ">Mohamed Sayed</a>
-                    </div>
-                  </div>
-                  <div class="col-4 mb-4">
-                    <div class="friend-box">
-                      <img src="../images/profile.jpg" class="img-fluid mb-2" style="border-radius: 5px" alt="" />
-                      <a href="#" style="
-                            font-size: 14px;
-                            text-overflow: ellipsis;
-                            word-wrap: none;
-                          ">Mohamed Sayed</a>
-                    </div>
-                  </div>
-                  <div class="col-4 mb-4">
-                    <div class="friend-box">
-                      <img src="../images/profile.jpg" class="img-fluid mb-2" style="border-radius: 5px" alt="" />
-                      <a href="#" style="
-                            font-size: 14px;
-                            text-overflow: ellipsis;
-                            word-wrap: none;
-                          ">Mohamed Sayed</a>
-                    </div>
-                  </div>
+                  <?php
+                  }
+                  ?>
                 </div>
                 <div class="text-center">
-                  <div class="btn btn-primary">Show All Friends</div>
+                  <a href="./Friends.php" class="btn btn-primary">Show All Friends</a>
                 </div>
               </div>
             </div>
@@ -239,13 +214,13 @@ if (empty($_SESSION)) {
                     <div class="publisher d-flex gap-3">
                       <?php
                 if (!empty($_SESSION['profile_image'])) {
-                  ?>
+                    ?>
                       <div class="img">
                         <img src="./assets/images/users/<?=$_SESSION['profile_image']?>" class="img-fluid" alt="" />
                       </div>
                       <?php
-                }
-          ?>
+                    }
+                    ?>
                       <div class="info">
                         <h5><?=$postController->fullName($_SESSION['fname'], $_SESSION['lname'])?></h5>
                         <p class="text-muted">

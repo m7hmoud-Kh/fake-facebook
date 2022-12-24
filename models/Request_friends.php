@@ -39,9 +39,24 @@ class Request_friends
         $stmt->execute(array($status, $this->send_user, $this->recuest_user));
     }
 
-    public function delete_request()
+    public function deleteRequest($user_receive_request)
     {
-        $stmt = $this->con->prepare('DELETE  FROM Request_friends WHERE id = ?');
-        $stmt->execute(array($this->id));
+        $stmt = $this->con->prepare('DELETE FROM Request_friends WHERE user_receive_request = ? AND user_send_request = ?');
+        $stmt->execute(array($_SESSION['id'],$user_receive_request));
+    }
+
+    public function getPeopleMayBeKnow()
+    {
+        $stmt = $this->con->prepare("SELECT * FROM users WHERE id NOT IN (select friends.friend_id FROM friends WHERE friends.user_id = ?) AND id NOT IN (SELECT request_friends.user_receive_request FROM request_friends WHERE request_friends.user_send_request = ?) AND id != ?;");
+        $stmt->execute(array($_SESSION['id'],$_SESSION['id'],$_SESSION['id']));
+        return $stmt->fetchAll();
+    }
+
+    public function getAllRequest()
+    {
+        $stmt = $this->con->prepare('SELECT * FROM `request_friends`
+        JOIN users ON users.id = request_friends.user_send_request  WHERE request_friends.user_receive_request  = ? AND request_friends.status = 1');
+        $stmt->execute(array($_SESSION['id']));
+        return $stmt->fetchAll();
     }
 }

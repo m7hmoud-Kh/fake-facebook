@@ -4,6 +4,44 @@ if (empty($_SESSION)) {
     header('location: login.php');
 } else {
 
+    include_once './models/User.php';
+    include_once './models/Request_friends.php';
+    include_once './models/Friends.php';
+
+    $friendRequestModel = new Request_friends();
+    $friendModel = new Friends();
+
+    //Auth user
+    $cur_user = new user();
+    $cur_user->id = $_SESSION['id'];
+
+
+    //fetch Auth user's frinds id to ignore them
+    $friends_array = $cur_user->fetch_all_frinds();
+
+    foreach ($friends_array as $friend) {
+        $friend_id[] = $friend['friend_id'];
+    }
+
+    //array to have all users
+    $all_users = $cur_user->fetch_all_users();
+
+
+    //array to fetch blocked user
+    $all_blocked_users = [];
+    foreach ($cur_user->fetch_all_blocked_users() as $blocked_user) {
+        $all_blocked_users[] = $blocked_user['user_send_request'];
+    }
+
+    //get last request id
+    $last_requested_id = $cur_user->get_last_recuest();
+    //get this user
+    $last_requested_user = $cur_user->fetch_user($last_requested_id);
+
+
+    $getPeopleMayBeKnow = $friendRequestModel->getPeopleMayBeKnow();
+    $getAllFriends = $friendModel->getAllFriends();
+
 
 ?>
 <!DOCTYPE html>
@@ -13,14 +51,18 @@ if (empty($_SESSION)) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/all.min.css" />
+    <!--=============== Swiper ===============-->
+    <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./assets/css/main.css" />
     <link rel="stylesheet" href="./assets/css/all.min.css" />
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./assets/css/main.css" />
     <link rel="stylesheet" href="./assets/css/Home/home.css" />
     <link rel="stylesheet" href="./assets/css/notifcation/notifcation.css" />
-
-    <title>Post</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- CSS -->
+    <title>Notification</title>
 </head>
 
 <body>
@@ -52,7 +94,17 @@ if (empty($_SESSION)) {
                         </div>
                         <div class="content">
                             <div class="image">
+                                <?php if (isset($notifiy['profile_image'])) {
+                                    ?>
                                 <img src="./assets/images/users/<?=$notifiy['profile_image']?>" alt="" />
+                                <?php
+                                } else {
+                                    ?>
+                                <img src="./assets/images/Home/user.jpg"  alt=""/>
+                                <?php
+                                }
+                                ?>
+
                             </div>
                             <div class="text">
                                 <p><?=$notifiy['fname'] . ' ' . $notifiy['lname']?>

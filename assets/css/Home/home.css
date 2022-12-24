@@ -623,10 +623,6 @@ body a {
 }
 }
 .main .right a {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  width: 80%;
   border-radius: 20px;
   text-align: center;
   font-size: 16px;
