@@ -10,6 +10,7 @@
       ?>
         <img src="./assets/images/Home/user.jpg" />
       <?php
+
       }
       ?>
       <h2><?= $_SESSION['fname'] . ' ' . $_SESSION['lname'] ?></h2>
@@ -96,11 +97,13 @@
             </div>
           </div>
         <?php
+
         }
 
         ?>
+
+        </div>
       </div>
 
     </div>
   </div>
-</div>
